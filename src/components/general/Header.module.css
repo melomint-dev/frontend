@@ -21,15 +21,19 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1.25rem;
+  gap: 1rem;
 }
 
-.userImageWithFlow{
+.userImageWithFlow {
   position: relative;
 }
 
-.flowIcon{
+.flowIcon {
   position: absolute;
-  /* top: -0.5rem;
-  left: -0.5rem; */
+  top: -0.5rem;
+  left: -0.5rem;
+}
+
+.userImage {
+  border-radius: 0.85rem;
 }
