@@ -1,5 +1,5 @@
 import "@/styles/globals.css";
-import { MantineProvider } from "@mantine/core";
+import { MantineProvider, ButtonStylesParams } from "@mantine/core";
 import localFont from "next/font/local";
 // import { GoogleOAuthProvider } from "@react-oauth/google";
 import Head from "next/head";
@@ -101,6 +101,15 @@ export default function App({ Component, pageProps }: AppProps) {
               "#888888",
               "#999999",
             ],
+          },
+          components: {
+            Button: {
+              styles: (theme, params: ButtonStylesParams, { variant }) => ({
+                label: {
+                  fontWeight: 500,
+                },
+              }),
+            },
           },
           primaryShade: 5,
           primaryColor: "primary",
