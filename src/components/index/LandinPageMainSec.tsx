@@ -1,17 +1,101 @@
 import React from "react";
 import { Button, Title, Text } from "@mantine/core";
+import ImageStackComponent from "@/components/index/helpers/ImageStackComponent";
 
 import Logo from "@/assets/general/Logo.svg";
 import LogoFlow from "@/assets/general/LogoFlow.svg";
 import HeroCover from "@/assets/home/HeroCover.svg";
 import FeatureImg1 from "@/assets/home/FeatureImg1.svg";
 import FeatureImg2 from "@/assets/home/FeatureImg2.svg";
+import Linkedin from "@/assets/home/footer/icons/Linkedin.svg";
+import Facebook from "@/assets/home/footer/icons/Facebook.svg";
+import Instagram from "@/assets/home/footer/icons/Instagram.svg";
+import LinkedinH from "@/assets/home/footer/icons/LinkedinH.svg";
+import FacebookH from "@/assets/home/footer/icons/FacebookH.svg";
+import InstagramH from "@/assets/home/footer/icons/InstagramH.svg";
+import arrorwImg from "@/assets/home/footer/arrow.svg";
 
 import styles from "./LandinPageMainSec.module.css";
 import Image from "next/image";
 import Link from "next/link";
 
+export const CONTACT_LINKS = {
+  Facebook: "https://www.facebook.com/",
+  Linkedin: "https://www.linkedin.com/",
+  Instagram: "https://www.instagram.com/",
+};
+
+const images = {
+  Linkedin,
+  Facebook,
+  Instagram,
+  LinkedinH,
+  FacebookH,
+  InstagramH,
+};
+
+const Company = ["Who We Are", "Careers", "Team", "Report Fraud"];
+const CompanyRoutes = ["", "", "", ""];
+const Legal = [
+  "Terms & Conditions",
+  "Refund & Cancellation",
+  "Privacy Policy",
+  "Cookie Policy",
+  "Offer Terms",
+];
+const LegalRoutes = ["", "", "", "", ""];
+const Support = ["help@melomint.abc", "(+91) 1234567890", "(+91) 1234567891"];
+const SupportHrefs = [
+  "mailto:help@abc.xyz",
+  "tel:+911234567890",
+  "tel:+911234567891",
+];
+const SocialMediaIcons = ["Linkedin", "Facebook", "Instagram"];
+
+const CompanyList = Company.map((General, index) => {
+  return (
+    <li key={index}>
+      <Link href={`${CompanyRoutes[index]}`}>{General}</Link>
+    </li>
+  );
+});
+const LegalList = Legal.map((Browse, index) => {
+  return (
+    <li key={index}>
+      <Link href={`${LegalRoutes[index]}`}>{Browse}</Link>
+    </li>
+  );
+});
+const SupportList = Support.map((Support, index) => {
+  return (
+    <li key={index}>
+      <a href={`${SupportHrefs[index]}`}>{Support}</a>
+    </li>
+  );
+});
+const SocialMediaIconsList = SocialMediaIcons.map(
+  (socialMediaIconName, index) => {
+    return (
+      <ImageStackComponent
+        key={index}
+        link={CONTACT_LINKS[socialMediaIconName as keyof typeof CONTACT_LINKS]}
+        normalDisplay={images[socialMediaIconName as keyof typeof images]}
+        hoverDisplay={
+          images[(socialMediaIconName + "H") as keyof typeof images]
+        }
+        iconsClass={styles.Icons}
+        iconsWrapperClass={styles.IconsSubWrapper}
+        StackImageStyle={{}}
+      />
+    );
+  }
+);
+
 function LandinPageMainSec() {
+  const footerCompanyLinksRef = React.useRef(12);
+  const footerLegalLinksRef = React.useRef(123);
+  const footerSupportLinksRef = React.useRef(1234);
+
   return (
     <div className={styles.container}>
       <div className={styles.hero}>
@@ -109,6 +193,51 @@ function LandinPageMainSec() {
           </div>
         </div>
       </div>
+      <footer className={styles.Wrapper}>
+        <div className={styles.UpperContainer}>
+          <div className={styles.Links}>
+            <div ref={footerCompanyLinksRef as any}>
+              <span>
+                Company{" "}
+                <Image src={arrorwImg} className={styles.Arrow} alt="arrow" />
+              </span>
+              <ul>{CompanyList}</ul>
+            </div>
+            <div ref={footerCompanyLinksRef as any}>
+              <span>
+                Legal{" "}
+                <Image src={arrorwImg} className={styles.Arrow} alt="arrow" />
+              </span>
+              <ul>{LegalList}</ul>
+            </div>
+            <div ref={footerCompanyLinksRef as any}>
+              <span>
+                Support{" "}
+                <Image src={arrorwImg} className={styles.Arrow} alt="" />
+              </span>
+              <ul>{SupportList}</ul>
+            </div>
+          </div>
+        </div>
+
+        <div className={styles.LowerContainer}>
+          <div className={styles.CompanyLogoWrapper}>
+            <Link target="_blank" rel="noopener noreferrer" href="/">
+              <Image src={Logo} alt="Logo" />
+            </Link>
+            <div className={styles.Copyright}>Copyright (c) 2021</div>
+          </div>
+          <div className={styles.IconsWrapper}>
+            <div
+              style={{
+                display: "flex",
+              }}
+            >
+              {SocialMediaIconsList}
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
