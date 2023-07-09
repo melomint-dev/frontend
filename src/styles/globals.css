@@ -1,27 +1,93 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* This file should contain any global CSS rules. Any component specific CSS should be in the component's .module.css file. */
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: Gilroy, Inter, -apple-system, BlinkMacSystemFont, Segoe UI,
+    Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
+    sans-serif;
+  font-variant-ligatures: all !important;
+}
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  /* Color styles */
+  /* --primary-color: #1c9a96; */
+  /* --secondary-color: #05716d; */
+  --primary-color: #0f89f9;
+  --secondary-color: #0c2d36;
+  --ternary-color: #ff9900;
+  --black: #0a2942;
+  --gray---default: #636b78;
+  --gray---light: #a1a6ad;
+  --gray---lighter: #d1d4d6;
+  --dark-bg: #111827;
+  --cyan---default: #c0e8f6;
+  --grey-bg: #f3f3f3;
+  --dark-bg---secondary: #000000cc;
+  --yellow---default: #f8c455;
+  --light-bg: #fffcf633;
+  --background-fade: #f8f8f8;
+
+  /* Text-size styles */
+  /* base size: body (16px) */
+  --h1: 2.6rem;
+  --h2: 2.4rem;
+  --h3: 2.25rem;
+  --h4: 1.25rem;
+  --h5: 1.125rem;
+  --c1: 1rem;
+  --c2: 0.88rem;
+  --general-box-border-radius: 1rem;
+  --header-height: 4.625rem;
+  --max-width: 76.25rem;
+
+  /* Effect styles */
+  --general-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+  --general-box-border: 0.5px solid #108cff;
+  --general-seperator: 0.5px solid #eeeeee;
+
+  /* Spacing styles */
+  --general-box-margins: 1.5rem 1.4rem;
+  --general-box-paddings: 1.5rem 1.4rem;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+  html {
+    color-scheme: dark;
+  }
+  body {
+    color: white;
+    background: black;
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+/* General Classes */
+
+.heroBackground {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: -1;
 }
+
+/* 
+h1,
+h2 {
+  letter-spacing: -0.045em;
+}
+
+h3,
+h4 {
+  letter-spacing: -0.045em;
+} */

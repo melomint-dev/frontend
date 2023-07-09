@@ -34,7 +34,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>Shrtnr.tech</title>
+        <title>Melomint</title>
         <meta
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width"
@@ -54,41 +54,41 @@ export default function App({ Component, pageProps }: AppProps) {
           colorScheme: "light",
           colors: {
             primary: [
-              "#E5F4FF",
-              "#A8D9FF",
-              "#72C2FF",
-              "#43ADFF",
-              "#1E9AFF",
-              "#0F89F9",
-              "#0078F4",
-              "#0069DA",
-              "#005BBD",
-              "#004FA5",
+              "#E1E7EC",
+              "#9BB0C3",
+              "#6487A4",
+              "#496780",
+              "#364E62",
+              "#283B4B",
+              "#1C2832",
+              "#131B22",
+              "#0D1217",
+              "#090D0F",
             ],
             secondary: [
-              "#EDEEF6",
-              "#5F6EBB",
-              "#29377C",
-              "#131C4E",
-              "#070E32",
-              "#010620",
-              "#00010A",
-              "#000003",
-              "#000001",
-              "#000107",
+              "#F1F3F5",
+              "#CED8E0",
+              "#A9BFD4",
+              "#80AAD1",
+              "#4F98DC",
+              "#0F89F9",
+              "#2676BF",
+              "#356692",
+              "#3B5873",
+              "#3A4C5D",
             ],
-            ternary: [
-              "#EDEBE9",
-              "#D6D1C9",
-              "#C8BBA8",
-              "#C5AA80",
-              "#D49E4C",
-              "#FF9900",
-              "#B37C2B",
-              "#84683D",
-              "#675841",
-              "#534B3F",
-            ],
+            // ternary: [
+            //   "#EDEBE9",
+            //   "#D6D1C9",
+            //   "#C8BBA8",
+            //   "#C5AA80",
+            //   "#D49E4C",
+            //   "#FF9900",
+            //   "#B37C2B",
+            //   "#84683D",
+            //   "#675841",
+            //   "#534B3F",
+            // ],
             black: [
               "#000000",
               "#111111",
@@ -128,6 +128,7 @@ export default function App({ Component, pageProps }: AppProps) {
         }}
       >
         <RouterTransition />
+        <h1></h1>
         <Component {...pageProps} />
       </MantineProvider>
       {/* </GoogleOAuthProvider> */}
