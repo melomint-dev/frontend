@@ -14,9 +14,10 @@ body {
   /* Color styles */
   /* --primary-color: #1c9a96; */
   /* --secondary-color: #05716d; */
-  --primary-color: #0f89f9;
-  --primary-color---light: #ecf6ff;
-  --secondary-color: #0c2d36;
+  --primary-color: #283b4b;
+  --primary-color---light: rgba(40, 59, 75, 0.7);
+  --secondary-color: #108cff;
+  --secondary-color---light: #ecf6ff;
   --ternary-color: #ff9900;
   --black: #0a2942;
   --gray---default: #636b78;
@@ -82,13 +83,12 @@ a {
   z-index: -1;
 }
 
-/* 
 h1,
 h2 {
-  letter-spacing: -0.045em;
+  letter-spacing: -0.04em;
 }
 
 h3,
 h4 {
-  letter-spacing: -0.045em;
-} */
+  letter-spacing: -0.02em;
+}
