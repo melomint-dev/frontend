@@ -1,0 +1,47 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  position: relative;
+}
+
+.authorProfileImageWrapper {
+  width: 100%;
+  aspect-ratio: 60/22;
+  position: relative;
+}
+
+.authorProfileImageScrim {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.02) 49.79%,
+    rgba(255, 255, 255, 0.76) 75.83%,
+    #fff 100%
+  );
+}
+
+.authorProfileImage {
+  object-fit: cover;
+}
+
+.authorProfileInfo {
+  position: absolute;
+  bottom: 1rem;
+  left: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.authorProfileInfoNFT {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  align-items: center;
+}
