@@ -1,0 +1,36 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  position: relative;
+  padding: 0 2.25rem 5rem;
+}
+
+.authorProfileInfo {
+  bottom: 1rem;
+  left: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.authorProfileInfoNFT {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  align-items: center;
+}
+
+.songs {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  max-width: 50rem;
+}
+
+.songsList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
