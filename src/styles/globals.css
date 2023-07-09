@@ -1,4 +1,7 @@
 /* This file should contain any global CSS rules. Any component specific CSS should be in the component's .module.css file. */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 html,
 body {
@@ -35,7 +38,7 @@ body {
   --h1: 2.6rem;
   --h2: 2.4rem;
   --h3: 2.25rem;
-  --h4: 1.25rem;
+  --h4: 1.5rem;
   --h5: 1.125rem;
   --c1: 1rem;
   --c2: 0.88rem;
