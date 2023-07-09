@@ -3,25 +3,40 @@ import Image, { StaticImageData } from "next/image";
 import { Text } from "@mantine/core";
 
 const MusicComponent = ({
-  music: { name, image, artist },
+  song,
+  showFull = false,
 }: {
-  music: {
+  song: {
+    _id: string;
     name: string;
-    image: StaticImageData | string;
     artist: string;
+    image: string;
+    duration: number;
   };
+  showFull?: boolean;
 }) => {
   return (
     <div className={styles.container}>
-      <Image src={image} alt="" className={styles.musicImage} />
+      <Image
+        src={song.image}
+        height={56}
+        width={56}
+        alt=""
+        className={styles.musicImage}
+      />
       <div>
         <Text weight={700} color="primary">
-          {name}
+          {song.name}
         </Text>
         <Text size="sm" weight={400} color="primary.3">
-          {artist}
+          {song.artist}
         </Text>
       </div>
+      {showFull && (
+        <Text size="sm" weight={400} color="primary.3">
+          {new Date(song.duration * 1000).toISOString().substr(14, 5)}
+        </Text>
+      )}
     </div>
   );
 };
