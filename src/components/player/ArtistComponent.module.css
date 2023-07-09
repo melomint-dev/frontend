@@ -1,0 +1,24 @@
+.container {
+  display: flex;
+  width: 6.25rem;
+  height: 9.75rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.artistImage {
+  width: 6.25rem;
+  height: 6.25rem;
+  flex-shrink: 0;
+  border-radius: 3.125rem;
+  box-shadow: 8px 8px 15px -8px rgba(0, 0, 0, 0.25) inset,
+    -3px 3px 20px 0px rgba(62, 78, 111, 0.15);
+}
+
+.artistName {
+  width: 100%;
+  line-height: normal;
+  letter-spacing: -0.02rem;
+}

@@ -1,15 +1,26 @@
 import styles from "./MusicComponent.module.css";
-import Image from "next/image";
-import { user } from "@/assets/player";
+import Image, { StaticImageData } from "next/image";
 import { Text } from "@mantine/core";
 
-const MusicComponent = () => {
+const MusicComponent = ({
+  music: { name, image, artist },
+}: {
+  music: {
+    name: string;
+    image: StaticImageData | string;
+    artist: string;
+  };
+}) => {
   return (
     <div className={styles.container}>
-      <Image src={user} alt="" className={styles.musicImage} />
+      <Image src={image} alt="" className={styles.musicImage} />
       <div>
-        <Text weight={700} color="primary"> Tempore eos ipsam</Text>
-        <Text size="sm" weight={400} color="primary.3">Lonnie Krajcik</Text>
+        <Text weight={700} color="primary">
+          {name}
+        </Text>
+        <Text size="sm" weight={400} color="primary.3">
+          {artist}
+        </Text>
       </div>
     </div>
   );

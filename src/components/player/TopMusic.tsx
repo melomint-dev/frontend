@@ -1,5 +1,5 @@
 import { Text, Title } from "@mantine/core";
-
+import { user } from "@/assets/player";
 import MusicComponent from "./MusicComponent";
 import styles from "./TopMusic.module.css";
 
@@ -15,10 +15,48 @@ const TopMusic = () => {
         </Text>
       </div>
       <div className={styles.container}>
-        <MusicComponent />
-        <MusicComponent />
-        <MusicComponent />
-        <MusicComponent />
+        <MusicComponent
+          music={{
+            name: "Blinding Lights",
+            image: user,
+            artist: "The Weeknd",
+          }}
+        />
+        <MusicComponent
+          music={{
+            name: "Blinding Lights",
+            image: user,
+            artist: "The Weeknd",
+          }}
+        />
+        <MusicComponent
+          music={{
+            name: "Blinding Lights",
+            image: user,
+            artist: "The Weeknd",
+          }}
+        />
+        <MusicComponent
+          music={{
+            name: "Blinding Lights",
+            image: user,
+            artist: "The Weeknd",
+          }}
+        />
+        <MusicComponent
+          music={{
+            name: "Blinding Lights",
+            image: user,
+            artist: "The Weeknd",
+          }}
+        />
+        <MusicComponent
+          music={{
+            name: "Blinding Lights",
+            image: user,
+            artist: "The Weeknd",
+          }}
+        />
       </div>
     </div>
   );

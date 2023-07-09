@@ -6,3 +6,9 @@
   gap: 1.5rem;
   flex-wrap: wrap;
 }
+
+.artists {
+  display: flex;
+  align-items: flex-start;
+  gap: 2.25rem;
+}

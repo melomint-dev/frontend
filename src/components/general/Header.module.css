@@ -1,3 +1,35 @@
 .container {
   background-color: white;
+  z-index: 40;
+  width: 100%;
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+  padding-left: 2.25rem;
+  padding-right: 2.25rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.search {
+  background-color: #108cff0d;
+  border: none;
+  min-width: 400px;
+  border-radius: 0.875rem;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+}
+
+.userImageWithFlow{
+  position: relative;
+}
+
+.flowIcon{
+  position: absolute;
+  /* top: -0.5rem;
+  left: -0.5rem; */
 }
