@@ -30,7 +30,7 @@ function AuthorProfile({
         <div className={styles.authorProfileImageScrim} />
       </div>
       <div className={styles.authorProfileInfo}>
-        <Title order={2} weight={"800"}>
+        <Title order={1} weight={"800"}>
           {artist.name}
         </Title>
         <div className={styles.authorProfileInfoNFT}>
