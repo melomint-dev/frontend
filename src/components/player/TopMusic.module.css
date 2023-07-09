@@ -1,3 +1,9 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
 .songs {
   display: grid;
   max-width: 51.5rem;

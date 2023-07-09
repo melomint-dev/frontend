@@ -14,10 +14,10 @@ const TEMP_SONGS_DATA = new Array(6).fill({}).map((_, i) => ({
 const TopMusic = () => {
   const songs = TEMP_SONGS_DATA;
   return (
-    <div className="space-y-[2.06rem]">
+    <div className={styles.container}>
       <div>
         <Title order={4} weight={800}>
-          Hello, Jerry
+          Hello, Jerry 👋
         </Title>
         <Text weight={500} color="primary.2" className="-tracking-[0.04rem]">
           Music to get you started

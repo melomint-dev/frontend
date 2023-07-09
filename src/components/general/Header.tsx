@@ -5,16 +5,6 @@ import { flowicon, user, search } from "@/assets/player";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
-const userImageStyle = {
-  borderRadius: "14px",
-};
-
-const flowiconStyle = {
-  position: "absolute",
-  top: "-0.5rem",
-  left: "-0.5rem",
-};
-
 function Header() {
   const router = useRouter();
 
@@ -61,7 +51,7 @@ function Header() {
             alt=""
             height={42}
             width={42}
-            style={userImageStyle}
+            className={styles.userImage}
           />
         </div>
       </div>
