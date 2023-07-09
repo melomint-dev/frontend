@@ -3,7 +3,16 @@ import { user } from "@/assets/player";
 import MusicComponent from "./MusicComponent";
 import styles from "./TopMusic.module.css";
 
+const TEMP_SONGS_DATA = new Array(10).fill({}).map((_, i) => ({
+  _id: i.toString(),
+  name: "Song Name",
+  artist: "Jigardan Gadhvi",
+  image: "https://picsum.photos/300/300?random=" + i,
+  duration: 150,
+}));
+
 const TopMusic = () => {
+  const songs = TEMP_SONGS_DATA;
   return (
     <div className="space-y-[2.06rem]">
       <div>
@@ -14,49 +23,10 @@ const TopMusic = () => {
           Music to get you started
         </Text>
       </div>
-      <div className={styles.container}>
-        <MusicComponent
-          music={{
-            name: "Blinding Lights",
-            image: user,
-            artist: "The Weeknd",
-          }}
-        />
-        <MusicComponent
-          music={{
-            name: "Blinding Lights",
-            image: user,
-            artist: "The Weeknd",
-          }}
-        />
-        <MusicComponent
-          music={{
-            name: "Blinding Lights",
-            image: user,
-            artist: "The Weeknd",
-          }}
-        />
-        <MusicComponent
-          music={{
-            name: "Blinding Lights",
-            image: user,
-            artist: "The Weeknd",
-          }}
-        />
-        <MusicComponent
-          music={{
-            name: "Blinding Lights",
-            image: user,
-            artist: "The Weeknd",
-          }}
-        />
-        <MusicComponent
-          music={{
-            name: "Blinding Lights",
-            image: user,
-            artist: "The Weeknd",
-          }}
-        />
+      <div className={styles.songs}>
+        {songs.map((song) => (
+          <MusicComponent song={song} key={song._id} />
+        ))}
       </div>
     </div>
   );

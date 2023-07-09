@@ -1,10 +1,8 @@
-.container {
-  display: flex;
-  width: 51.5rem;
-  align-items: flex-start;
-  align-content: flex-start;
+.songs {
+  display: grid;
+  max-width: 51.5rem;
   gap: 1.5rem;
-  flex-wrap: wrap;
+  grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
 }
 
 .artists {
