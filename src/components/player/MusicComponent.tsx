@@ -3,14 +3,41 @@ import Image from "next/image";
 import { user } from "@/assets/player";
 import { Text } from "@mantine/core";
 
-const MusicComponent = () => {
+const MusicComponent = ({
+  song,
+  showFull = false,
+}: {
+  song: {
+    _id: string;
+    name: string;
+    artist: string;
+    image: string;
+    duration: number;
+  };
+  showFull?: boolean;
+}) => {
   return (
     <div className={styles.container}>
-      <Image src={user} alt="" className={styles.musicImage} />
+      <Image
+        src={song.image}
+        height={56}
+        width={56}
+        alt=""
+        className={styles.musicImage}
+      />
       <div>
-        <Text weight={700} color="primary"> Tempore eos ipsam</Text>
-        <Text size="sm" weight={400} color="primary.3">Lonnie Krajcik</Text>
+        <Text weight={700} color="primary">
+          {song.name}
+        </Text>
+        <Text size="sm" weight={400} color="primary.3">
+          {song.artist}
+        </Text>
       </div>
+      {showFull && (
+        <Text size="sm" weight={400} color="primary.3">
+          {new Date(song.duration * 1000).toISOString().substr(14, 5)}
+        </Text>
+      )}
     </div>
   );
 };
