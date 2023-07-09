@@ -1,0 +1,19 @@
+.container {
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  background-color: var(--primary-color---light);
+}
+
+.topContainer {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.25rem;
+  min-height: 80vh;
+}
+
+.rightContainer {
+  display: flex;
+  flex-direction: column;
+  background: white;
+}

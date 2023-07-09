@@ -128,7 +128,6 @@ export default function App({ Component, pageProps }: AppProps) {
         }}
       >
         <RouterTransition />
-        <h1></h1>
         <Component {...pageProps} />
       </MantineProvider>
       {/* </GoogleOAuthProvider> */}
