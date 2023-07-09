@@ -4,13 +4,13 @@ import TopMusic from "@/components/player/TopMusic";
 import TopArtist from "@/components/player/TopArtist";
 import NewReleases from "@/components/player/NewReleases";
 
-import { Button } from "@mantine/core";
+import styles from "@/styles/player/PlayerPage.module.css";
 
 function Player() {
   return (
     <Layout
       childern={
-        <div className="p-[2.25rem] space-y-[2.06rem]">
+        <div className={styles.container}>
           <TopMusic />
           <TopArtist />
           <NewReleases />
