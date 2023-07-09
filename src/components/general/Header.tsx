@@ -3,16 +3,6 @@ import styles from "./Header.module.css";
 import { TextInput, Text } from "@mantine/core";
 import { flowicon, user, search } from "@/assets/player";
 
-const userImageStyle = {
-  borderRadius: "14px",
-};
-
-const flowiconStyle = {
-  position: "absolute",
-  top: "-0.5rem",
-  left: "-0.5rem",
-};
-
 function Header() {
   return (
     <header className={styles.container}>
@@ -28,7 +18,6 @@ function Header() {
           Raj Varsani
         </Text>
         <div className={styles.userImageWithFlow}>
-          .
           <div className={styles.flowIcon}>
             <Image
               src={flowicon}
@@ -43,7 +32,7 @@ function Header() {
             alt=""
             height={42}
             width={42}
-            style={userImageStyle}
+            className={styles.userImage}
           />
         </div>
       </div>
