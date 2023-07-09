@@ -1,12 +1,9 @@
-import Image from "next/image";
-import { Button, Text } from "@mantine/core";
+import LandinPageMainSec from "@/components/index/LandinPageMainSec";
 
 export default function Home() {
   return (
     <main>
-      <Button variant="subtle" size="md" radius={"xl"}>
-        <Text weight="500">Login</Text>
-      </Button>
+      <LandinPageMainSec />
     </main>
   );
 }
