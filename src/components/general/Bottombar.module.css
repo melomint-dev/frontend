@@ -2,6 +2,6 @@
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  height: 3.3rem;
+  height: 4rem;
   background-color: var(--primary-color---light);
 }
