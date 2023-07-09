@@ -3,7 +3,7 @@ import { user } from "@/assets/player";
 import MusicComponent from "./MusicComponent";
 import styles from "./TopMusic.module.css";
 
-const TEMP_SONGS_DATA = new Array(10).fill({}).map((_, i) => ({
+const TEMP_SONGS_DATA = new Array(6).fill({}).map((_, i) => ({
   _id: i.toString(),
   name: "Song Name",
   artist: "Jigardan Gadhvi",

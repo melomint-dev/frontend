@@ -6,6 +6,7 @@ const ArtistComponent = ({
   song: { name, image },
 }: {
   song: {
+    _id: string;
     name: string;
     image: StaticImageData | string;
   };
