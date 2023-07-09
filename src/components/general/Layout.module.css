@@ -2,7 +2,7 @@
   height: 100vh;
   display: grid;
   grid-template-rows: 1fr auto;
-  background-color: var(--primary-color---light);
+  background-color: var(--secondary-color---light);
 }
 
 .topContainer {
@@ -16,4 +16,5 @@
   display: flex;
   flex-direction: column;
   background: white;
+  overflow-y: auto;
 }

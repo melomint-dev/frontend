@@ -1,8 +1,3 @@
-/* This file should contain any global CSS rules. Any component specific CSS should be in the component's .module.css file. */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 html,
 body {
   padding: 0;
@@ -74,16 +69,6 @@ a {
     color: white;
     background: black;
   }
-}
-
-/* General Classes */
-
-.heroBackground {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  z-index: -1;
 }
 
 h1,
