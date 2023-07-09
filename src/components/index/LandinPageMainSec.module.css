@@ -61,3 +61,34 @@
 .heroCover {
   margin: auto auto 0;
 }
+
+.features {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5.5rem;
+  padding: 7rem max(1.5rem, calc(50vw - 28rem));
+}
+
+.featuresTitle {
+  letter-spacing: -0.02em;
+}
+
+.featureCards {
+  display: flex;
+  flex-direction: column;
+  gap: 7.25rem;
+}
+
+.feature {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 3.2rem;
+}
+
+.featureText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-top: 4.5rem;
+}

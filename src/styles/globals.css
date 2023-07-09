@@ -33,9 +33,9 @@ body {
 
   /* Text-size styles */
   /* base size: body (16px) */
-  --h1: 2.6rem;
+  --h1: 3rem;
   --h2: 2.4rem;
-  --h3: 2.25rem;
+  --h3: 2rem;
   --h4: 1.25rem;
   --h5: 1.125rem;
   --c1: 1rem;
