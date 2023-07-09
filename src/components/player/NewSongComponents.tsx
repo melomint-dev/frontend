@@ -7,6 +7,7 @@ const NewSongComponents = ({
   song: { name, image, artist },
 }: {
   song: {
+    _id: string;
     name: string;
     image: StaticImageData | string;
     artist: string;
