@@ -3,55 +3,63 @@
   justify-content: space-between;
   align-items: baseline;
   padding: 0.75rem 2.25rem;
-  height: 4rem;
+  height: 5rem;
   align-items: center;
   background-color: var(--secondary-color---light);
 }
 
-.musicName{
+.musicName {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
 
-.musicFont{
+.musicFont {
   display: flex;
   flex-direction: column;
 }
 
-.playBar{
+.playBar {
   display: flex;
+  width: 100%;
+  max-width: 22rem;
   flex-direction: column;
   align-items: center;
-  /* gap: 0.5rem; */
+  gap: 0.5rem;
 }
 
-.timeLine{
-  display: flex;
+.timeLine {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  width: 100%;
   align-items: center;
   gap: 0.75rem;
 }
 
-.bar{
+.bar {
   display: flex;
   align-items: center;
+  gap: 1.75rem;
 }
 
-.button{
+.button {
   background-color: var(--secondary-color---light);
   border: 0;
 }
 
-.rightBar{
+.rightBar {
   display: flex;
   align-items: flex-start;
   gap: 1.25rem;
+  width: 100%;
+  max-width: 10rem;
 }
 
-.volumeBar{
-  display: flex;
+.volumeBar {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  width: 100%;
+  max-width: 10rem;
   align-items: center;
   gap: 0.6875rem;
 }
-
-
