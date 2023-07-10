@@ -11,9 +11,7 @@ function Layout({ childern }: { childern: React.ReactNode }) {
     <div className={styles.container}>
       <div className={styles.topContainer}>
         <Sidebar />
-        <div className={styles.rightContainer}>
-          {childern}
-        </div>
+        <div className={styles.rightContainer}>{childern}</div>
       </div>
     </div>
   );
