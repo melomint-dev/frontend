@@ -1,8 +1,10 @@
 import Layout from "@/components/artist/Layout";
-import styles from "./Artist.module.css";
-import { Title, Text } from "@mantine/core";
+import styles from "@/styles/artist/Artist.module.css";
+import { Title, Text, TextInput, Button } from "@mantine/core";
 import { flowicon } from "@/assets/player";
 import Image from "next/image";
+
+import SongResult from "@/components/artist/SongResult";
 
 const ARTIST_DATA = {
   name: "Jigardan Gadhvi",
@@ -53,10 +55,47 @@ const Artist = () => {
           </div>
 
           <div className={styles.membership}>
-
+            <Title order={3} weight={800} color="primary">
+              Membership(NFT) Info
+            </Title>
+            <div className={styles.membershipInfo}>
+              <Image
+                src={ARTIST_DATA.image}
+                alt=""
+                height={150}
+                width={120}
+                style={ArtistImageStyles}
+              />
+              <div className={styles.membershipInput}>
+                <TextInput
+                  classNames={{ input: styles.search }}
+                  variant="disabled"
+                  placeholder="Search"
+                  size="md"
+                  color="primary.3"
+                  icon={<Image src={flowicon} alt="" height={20} width={20} />}
+                />
+                <Button
+                  color="secondary"
+                  variant="filled"
+                  size="md"
+                  radius={"xl"}
+                >
+                  Save
+                </Button>
+              </div>
+            </div>
           </div>
-
-
+          <SongResult
+            song={{
+              name: "Song Name",
+              artist: "Artist Name",
+              date: "2 Months Ago",
+              published: false,
+              similarSongs: [],
+            }}
+          />
+          
         </div>
       }
     />
