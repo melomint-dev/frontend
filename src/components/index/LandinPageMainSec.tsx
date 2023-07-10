@@ -104,10 +104,27 @@ function LandinPageMainSec() {
             <Image src={Logo} alt="Melomint" width={129} height={30} />
           </Link>
           <div className={styles.rightSec}>
-            <Button variant="subtle" size="md">
+            <Button
+              variant="subtle"
+              size="md"
+              component={Link}
+              href={{
+                pathname: "/",
+                query: { authModal: "register" },
+              }}
+            >
               Register as Artist
             </Button>
-            <Button color="secondary" size="md" radius={"xl"}>
+            <Button
+              color="secondary"
+              size="md"
+              radius={"xl"}
+              component={Link}
+              href={{
+                pathname: "/",
+                query: { authModal: "login" },
+              }}
+            >
               Login
             </Button>
           </div>
@@ -136,7 +153,16 @@ function LandinPageMainSec() {
             </Text>
           </div>
           <div>
-            <Button size="lg">{"Get Started ->"}</Button>
+            <Button
+              size="lg"
+              component={Link}
+              href={{
+                pathname: "/",
+                query: { authModal: "register" },
+              }}
+            >
+              {"Get Started ->"}
+            </Button>
           </div>
         </div>
         <Image

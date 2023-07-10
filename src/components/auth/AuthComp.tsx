@@ -14,7 +14,7 @@ function AuthComp({ type = "login" }: { type?: "login" | "register" }) {
     initialValues: {
       firstName: "",
       lastName: "",
-      userType: "",
+      userType: "user",
     },
 
     validate: {
