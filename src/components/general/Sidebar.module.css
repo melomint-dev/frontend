@@ -1,4 +1,68 @@
 .container {
   width: 19rem;
   background-color: white;
+  height: 100%;
+}
+
+.logoText{
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5625rem;
+  padding: 2rem;
+}
+
+.gold{
+  border-radius: 2rem;
+  background-color: var(--yellow---default);
+  padding: 0.3125rem 0.75rem;
+}
+
+.menu{
+  display: flex;
+  width: 17.75rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+
+.menuText{
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding-left: 2rem;
+}
+
+.menuList{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  align-self: stretch;
+}
+
+.text{
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-left: 2rem;
+  height: 2.8125rem;
+  width: 18.5rem;
+}
+
+.textActive{
+  flex-shrink: 0;
+  border-radius: 0rem 0.5625rem 0.5625rem 0rem;
+  background-color: var(--secondary-color---light);
+}
+
+
+.albumCover{
+  margin: 9rem auto 1rem auto;
+  width: fit-content;
+}
+
+.photo{
+  border-radius: 1.4375rem;
+  box-shadow: 0px 8.356807708740234px 25.07042121887207px 0px var(--general-box-shadow);
 }
