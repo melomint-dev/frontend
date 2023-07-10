@@ -1,0 +1,13 @@
+.container {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.3rem;
+  min-height: 100vh;
+}
+
+.rightContainer {
+  display: flex;
+  flex-direction: column;
+  background: white;
+  overflow-y: auto;
+}
