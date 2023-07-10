@@ -1,4 +1,4 @@
-import styles from "./Profile.module.css";
+import styles from "@/styles/player/Profile.module.css";
 import Layout from "@/components/general/Layout";
 import TopSection from "@/components/profile/TopSection";
 import ManageSubscription from "@/components/profile/ManageSubscription";
