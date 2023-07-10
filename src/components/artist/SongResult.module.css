@@ -1,0 +1,80 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.25rem;
+  width: 100%;
+}
+
+.title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-self: stretch;
+}
+
+.songContainer {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.625rem;
+}
+
+.song {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  width: 100%;
+  align-items: center;
+  gap: 0.6875rem;
+}
+
+.songInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.125rem;
+  flex: 1 0 0;
+}
+
+.processing {
+  display: flex;
+  padding: 0.1875rem 0.75rem;
+  align-items: flex-start;
+  gap: 0.625rem;
+  border-radius: 1.5rem;
+  border: 1px solid #ff9c59;
+}
+
+.published {
+  display: flex;
+  padding: 0.1875rem 0.75rem;
+  align-items: flex-start;
+  gap: 0.625rem;
+  border-radius: 1.5rem;
+  border: 1px solid #04b500;
+}
+
+.similarSongs {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.625rem;
+}
+
+.similarSongList {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 0.625rem;
+  padding-left: 5rem;
+}
+
+.similarSong {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  width: 100%;
+  align-items: center;
+  gap: 0.625rem;
+}
