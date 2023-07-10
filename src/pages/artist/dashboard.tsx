@@ -4,6 +4,7 @@ import ViewsChart from "@/components/artist/dashboard/ViewsChart";
 
 import styles from "@/styles/artist/Dashboard.module.css";
 import QuickStats from "@/components/artist/dashboard/QuickStats";
+import RedeemRevenue from "@/components/artist/dashboard/RedeemRevenue";
 
 const Artist = () => {
   return (
@@ -15,6 +16,7 @@ const Artist = () => {
           </Title>
           <ViewsChart />
           <QuickStats />
+          <RedeemRevenue />
         </div>
       }
     />
