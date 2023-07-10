@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Image from "next/image";
-import { Title, Text, Slider } from "@mantine/core";
+import { Text, Slider } from "@mantine/core";
 import {
   backbutton,
   fastforardbutton,
