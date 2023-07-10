@@ -8,7 +8,7 @@ const TEMP_SONGS_DATA = new Array(10).fill({}).map((_, i) => ({
   artist: "Jigardan Gadhvi",
   image: "https://picsum.photos/300/300?random=" + i,
   duration: 150,
-}));
+}));  
 
 function ArtistProfile() {
   const songs = TEMP_SONGS_DATA;
