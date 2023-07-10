@@ -3,19 +3,24 @@ import Image, { StaticImageData } from "next/image";
 import { Text } from "@mantine/core";
 
 const ArtistComponent = ({
-  song: { name, image },
+  artist,
 }: {
-  song: {
+  artist: {
     _id: string;
     name: string;
-    image: StaticImageData | string;
+    image: string;
   };
 }) => {
   return (
     <div className={styles.container}>
-      <Image src={image} alt="" className={styles.artistImage} />
-      <Text weight={700} align="center" color="primary" className={styles.artistName}>
-        {name}
+      <Image src={artist.image} alt="" height={625} width={625} className={styles.artistImage} />
+      <Text
+        weight={700}
+        align="center"
+        color="primary"
+        className={styles.artistName}
+      >
+        {artist.name}
       </Text>
     </div>
   );

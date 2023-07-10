@@ -16,7 +16,7 @@ function Header() {
       {
         query: { search: searchValue },
       },
-      `/search?=${searchValue}`
+      `/player/search?=${searchValue}`
     );
   };
 
