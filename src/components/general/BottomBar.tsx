@@ -13,6 +13,14 @@ import {
 
 import styles from "./Bottombar.module.css";
 
+function MusicControllor({ image }: { image: string }) {
+  return (
+    <button className={styles.button}>
+      <Image src={image} alt="" />
+    </button>
+  );
+}
+
 function BottomBar() {
   const [value, setValue] = useState(0);
   return (
@@ -35,32 +43,17 @@ function BottomBar() {
           <Text color="primary.1" weight={500} size="xs">
             1.21
           </Text>
-          <Slider
-            color="primary"
-            size="sm"
-            value={value}
-            onChange={setValue}
-          />
+          <Slider color="primary" size="sm" value={value} onChange={setValue} />
           <Text color="primary.1" weight={500} size="xs">
             2.36
           </Text>
         </div>
         <div className={styles.bar}>
-          <button className={styles.button}>
-            <Image src={backbutton} alt="" />
-          </button>
-          <button className={styles.button}>
-            <Image src={prevbutton} alt="" />
-          </button>
-          <button className={styles.button}>
-            <Image src={playbutton} alt="" />
-          </button>
-          <button className={styles.button}>
-            <Image src={nextbutton} alt="" />
-          </button>
-          <button className={styles.button}>
-            <Image src={fastforardbutton} alt="" />
-          </button>
+          <MusicControllor image={backbutton} />
+          <MusicControllor image={prevbutton} />
+          <MusicControllor image={playbutton} />
+          <MusicControllor image={nextbutton} />
+          <MusicControllor image={fastforardbutton} />
         </div>
       </div>
 
