@@ -1,4 +1,7 @@
-import React from "react";
+import * as fcl from "@onflow/fcl";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+
 import Link from "next/link";
 import { Title, Radio, Text, TextInput, Button } from "@mantine/core";
 import { useForm } from "@mantine/form";
@@ -8,8 +11,17 @@ import GoogleIcon from "@/assets/auth/GoogleIcon.svg";
 
 import styles from "./AuthComp.module.css";
 import Image from "next/image";
+import { redirect } from "next/dist/server/api-utils";
+
+fcl.config({
+  "accessNode.api": "https://access-testnet.onflow.org",
+  "discovery.wallet": "https://fcl-discovery.onflow.org/testnet/authn",
+});
 
 function AuthComp({ type = "login" }: { type?: "login" | "register" }) {
+
+  const router = useRouter();
+
   const form = useForm({
     initialValues: {
       firstName: "",
@@ -24,6 +36,22 @@ function AuthComp({ type = "login" }: { type?: "login" | "register" }) {
         type == "login" || ["user", "artist"].includes(value),
     },
   });
+
+  const [user, setUser] = useState<string>("");
+
+  const login = async () => {
+    try {
+      const user = await fcl.authenticate();
+      setUser(user.addr);
+      router.push("/player");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
 
   return (
     <div className={styles.container}>
@@ -95,6 +123,7 @@ function AuthComp({ type = "login" }: { type?: "login" | "register" }) {
               classNames={{
                 root: styles.defaultRadius,
               }}
+              onClick={login}
             >
               Connect Wallet
             </Button>
