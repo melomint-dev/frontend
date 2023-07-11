@@ -33,9 +33,15 @@ export default function FclContextProvider({
 }) {
   const [currentUser, setCurrentUser] = useState<null>(null);
 
-  const connect = useCallback(() => {
-    fcl.authenticate();
-  }, []);
+  const connect = async () => {
+    try {
+      // const user = await fcl.authenticate();
+      const user = await fcl.signUp();
+      setCurrentUser(user.addr);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const logout = useCallback(async () => {
     await fcl.unauthenticate();

@@ -6,6 +6,8 @@ import Link from "next/link";
 import { Title, Radio, Text, TextInput, Button } from "@mantine/core";
 import { useForm } from "@mantine/form";
 
+import { useFclContext } from "@/context/FCLContext";
+
 import FlowIcon from "@/assets/auth/FlowIcon.svg";
 import GoogleIcon from "@/assets/auth/GoogleIcon.svg";
 
@@ -19,6 +21,8 @@ fcl.config({
 });
 
 function AuthComp({ type = "login" }: { type?: "login" | "register" }) {
+  const { connect, logout, currentUser } = useFclContext();
+
   const router = useRouter();
 
   const form = useForm({
@@ -41,9 +45,12 @@ function AuthComp({ type = "login" }: { type?: "login" | "register" }) {
   const login = async () => {
     try {
       // const user = await fcl.authenticate();
-      const user = await fcl.signUp();
-      setUser(user.addr);
+      // const user = await fcl.signUp();
+      // setUser(user.addr);
+      connect();
       router.push("/player");
+      console.log("user", currentUser);
+
     } catch (error) {
       console.log(error);
     }
