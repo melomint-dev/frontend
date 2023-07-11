@@ -15,6 +15,9 @@
   border: none;
   min-width: 400px;
   border-radius: 0.875rem;
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
+  height: fit-content;
 }
 
 .user {
