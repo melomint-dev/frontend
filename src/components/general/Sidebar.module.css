@@ -2,67 +2,96 @@
   width: 19rem;
   background-color: white;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: flex-start;
+  justify-content: flex-start;
+  box-sizing: border-box;
 }
 
-.logoText{
+.logoText {
   display: inline-flex;
   align-items: center;
   gap: 0.5625rem;
   padding: 2rem;
 }
 
-.gold{
+.gold {
   border-radius: 2rem;
   background-color: var(--yellow---default);
   padding: 0.3125rem 0.75rem;
 }
 
-.menu{
+.menu {
   display: flex;
-  width: 17.75rem;
   flex-direction: column;
   align-items: flex-start;
-  gap: 1.5rem;
-  margin-top: 2.5rem;
+  gap: 1rem;
+  width: 100%;
 }
 
-.menuText{
+.menuText {
   display: flex;
   align-items: center;
   gap: 0.625rem;
   padding-left: 2rem;
 }
 
-.menuList{
+.menuList {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 0.5rem;
+  gap: 0.2rem;
   align-self: stretch;
+  width: 100%;
+  padding-right: 0.6rem;
 }
 
-.text{
+.navLink {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding-left: 2rem;
-  height: 2.8125rem;
-  width: 18.5rem;
+  width: 100%;
+  padding: 0.6rem 0.6rem 0.6rem 2rem;
+  cursor: pointer;
+  border-radius: 0rem 0.6rem 0.6rem 0rem;
+  transition: background-color 0.15s ease-in-out;
+  background-color: white;
 }
 
-.textActive{
-  flex-shrink: 0;
-  border-radius: 0rem 0.5625rem 0.5625rem 0rem;
+.navLink * {
+  opacity: 0.7;
+}
+
+.navLink:hover {
   background-color: var(--secondary-color---light);
 }
 
-
-.albumCover{
-  margin: 9rem auto 1rem auto;
-  width: fit-content;
+.navLink:hover * {
+  opacity: 0.8;
 }
 
-.photo{
-  border-radius: 1.4375rem;
-  box-shadow: 0px 8.356807708740234px 25.07042121887207px 0px var(--general-box-shadow);
+.navLinkWarn:hover {
+  background-color: rgba(255, 60, 0, 0.1);
+}
+
+.navLinkActive {
+  background-color: var(--secondary-color---light);
+}
+
+.navLinkActive * {
+  opacity: 1;
+}
+
+.albumCover {
+  margin: auto auto 2rem auto;
+  box-shadow: 0px 8.356807708740234px 25.07042121887207px 0px
+    rgba(0, 0, 0, 0.15);
+  width: calc(100% - 4rem);
+  height: auto;
+  aspect-ratio: 1;
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.3rem;
 }

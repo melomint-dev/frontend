@@ -1,10 +1,8 @@
-import { useRouter } from 'next/router'
+import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
-import { Title, Text } from "@mantine/core";
-import {
-  logo, home, heart, user, logout
-} from "@/assets/general";
+import { Title, Text, Button } from "@mantine/core";
+import { logo, home, heart, user, logout } from "@/assets/general";
 
 import styles from "./Sidebar.module.css";
 
@@ -17,7 +15,12 @@ function Sidebar() {
         <Title order={5} color="primary" weight={600}>
           MeloMint
         </Title>
-        <Text weight={500} size="sm" color="var(--ternary-color)" className={styles.gold}>
+        <Text
+          weight={500}
+          size="sm"
+          color="var(--ternary-color)"
+          className={styles.gold}
+        >
           Gold
         </Text>
       </div>
@@ -29,38 +32,58 @@ function Sidebar() {
           </Text>
         </div>
         <div className={styles.menuList}>
-          <div className={styles.text + " " + (router.pathname==="/player" ? styles.textActive : "")}>
+          <Link
+            className={
+              styles.navLink +
+              " " +
+              (router.pathname === "/player" ? styles.navLinkActive : "")
+            }
+            href="/player"
+          >
             <Image src={home} alt="" />
-            <Link href="/player" color="primary">
-              Home
-            </Link>
-          </div>
-          <div className={styles.text + " " + (router.pathname==="/player/favourites" ? styles.textActive : "")}>
+            <Text weight={600}>Home</Text>
+          </Link>
+          <Link
+            className={
+              styles.navLink +
+              " " +
+              (router.pathname === "/player/favourites"
+                ? styles.navLinkActive
+                : "")
+            }
+            href="/player/favourites"
+          >
             <Image src={heart} alt="" />
-            <Link href="/player/favourites" color="primary">
-              Favourites
-            </Link>
-          </div>
-          <div className={styles.text + " " + (router.pathname==="/player/profile" ? styles.textActive : "")}>
+            <Text weight={600}>Favourites</Text>
+          </Link>
+          <Link
+            className={
+              styles.navLink +
+              " " +
+              (router.pathname === "/player/profile"
+                ? styles.navLinkActive
+                : "")
+            }
+            href="/player/profile"
+          >
             <Image src={user} alt="" />
-            <Link href="/player/profile" color="primary">
-              Profile
-            </Link>
-          </div>
-          <div className={styles.text}>
+            <Text weight={600}>Profile</Text>
+          </Link>
+          <div className={styles.navLink + " " + styles.navLinkWarn}>
             <Image src={logout} alt="" />
-            <Link href="" color="primary">
-              Log Out
-            </Link>
+            <Text weight={600}>Log Out</Text>
           </div>
         </div>
       </div>
 
       <div className={styles.albumCover}>
-        <Image src="https://picsum.photos/200/200" alt="" height={200} width={200} className={styles.photo}>
-        </Image>
+        <Image
+          src="https://picsum.photos/200/200"
+          alt=""
+          fill
+          className={styles.photo}
+        ></Image>
       </div>
-
     </div>
   );
 }
