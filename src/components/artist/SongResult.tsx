@@ -50,19 +50,21 @@ const SimilarSong = ({
   };
 }) => {
   return (
-    <div className={styles.similarSong}>
-      <Image src={user} alt="" height={28} width={28} style={songStyle} />
-      <Text weight={700} color="primary">
-        {song.name}
-      </Text>
-      <Text size="sm" weight={400} color="primary.3">
-        {song.time}
-      </Text>
+    <div className={styles.similarSongList}>
+      <div className={styles.similarSong}>
+        <Image src={user} alt="" height={28} width={28} style={songStyle} />
+        <Text weight={700} color="primary">
+          {song.name}
+        </Text>
+        <Text size="sm" weight={400} color="primary.3">
+          {song.time}
+        </Text>
+      </div>
     </div>
   );
 };
 
-const SongResult = ({
+const SimilarSongs = ({
   song,
 }: {
   song: {
@@ -77,6 +79,50 @@ const SongResult = ({
   };
 }) => {
   return (
+    <>
+      <div className={styles.song}>
+        <Image src={user} alt="" height={56} width={56} style={songStyle} />
+        <div>
+          <Text weight={700} color="primary">
+            {song.name}
+          </Text>
+          <Text size="sm" weight={400} color="primary.3">
+            {song.artist}
+          </Text>
+        </div>
+        <Text size="sm" weight={400} color="primary.3">
+          {song.date}
+        </Text>
+      </div>
+      {song.published ? (
+        <>
+          <div className={styles.published}>
+            <Text size="sm" color="#04B500" weight={500}>
+              Published
+            </Text>
+          </div>
+          <div className={styles.similarSongs}>
+            <Text weight={800} color="primary">
+              Similarities Found:
+            </Text>
+            {song.similarSongs.map((song) => (
+              <SimilarSong song={song} />
+            ))}
+          </div>
+        </>
+      ) : (
+        <div className={styles.processing}>
+          <Text size="sm" color="#FF9C59" weight={500}>
+            Processing
+          </Text>
+        </div>
+      )}
+    </>
+  );
+};
+
+const SongResult = () => {
+  return (
     <div className={styles.container}>
       <div className={styles.title}>
         <Title order={5} color="primary" weight={700}>
@@ -87,45 +133,9 @@ const SongResult = ({
         </Button>
       </div>
       <div className={styles.songContainer}>
-        <div className={styles.song}>
-          <Image src={user} alt="" height={56} width={56} style={songStyle} />
-          <div>
-            <Text weight={700} color="primary">
-              {song.name}
-            </Text>
-            <Text size="sm" weight={400} color="primary.3">
-              {song.artist}
-            </Text>
-          </div>
-          <Text size="sm" weight={400} color="primary.3">
-            {song.date}
-          </Text>
-        </div>
-        {song.published ? (
-          <>
-            <div className={styles.published}>
-              <Text size="sm" color="#04B500" weight={500}>
-                Published
-              </Text>
-            </div>
-            <div className={styles.similarSongs}>
-              <Text weight={800} color="primary">
-                Similarities Found:
-              </Text>
-              <div className={styles.similarSongList}>
-                {song.similarSongs.map((song) => (
-                  <SimilarSong key={song.name} song={song} />
-                ))}
-              </div>
-            </div>
-          </>
-        ) : (
-          <div className={styles.processing}>
-            <Text size="sm" color="#FF9C59" weight={500}>
-              Processing
-            </Text>
-          </div>
-        )}
+        {TEMP_SIMILAR_SONGS.map((song) => (
+          <SimilarSongs song={song} />
+        ))}
       </div>
     </div>
   );
