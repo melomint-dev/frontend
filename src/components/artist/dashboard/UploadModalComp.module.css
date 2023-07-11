@@ -1,0 +1,34 @@
+.container {
+  padding: 2.3rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.defaultRadius {
+  border-radius: 0.8rem;
+}
+
+.methodSelections {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.methodContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}

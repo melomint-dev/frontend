@@ -105,8 +105,8 @@ const SimilarSongs = ({
             <Text weight={800} color="primary">
               Similarities Found:
             </Text>
-            {song.similarSongs.map((song) => (
-              <SimilarSong song={song} />
+            {song.similarSongs.map((song, index) => (
+              <SimilarSong song={song} key={index} />
             ))}
           </div>
         </>
@@ -121,20 +121,26 @@ const SimilarSongs = ({
   );
 };
 
-const SongResult = () => {
+const SongResult = ({ openUploadModal }: { openUploadModal: () => void }) => {
   return (
     <div className={styles.container}>
       <div className={styles.title}>
         <Title order={5} color="primary" weight={700}>
           Songs
         </Title>
-        <Button color="secondary" variant="filled" size="md" radius={"xl"}>
+        <Button
+          color="secondary"
+          variant="filled"
+          size="md"
+          radius={"xl"}
+          onClick={openUploadModal}
+        >
           Upload
         </Button>
       </div>
       <div className={styles.songContainer}>
-        {TEMP_SIMILAR_SONGS.map((song) => (
-          <SimilarSongs song={song} />
+        {TEMP_SIMILAR_SONGS.map((song, index) => (
+          <SimilarSongs song={song} key={index} />
         ))}
       </div>
     </div>

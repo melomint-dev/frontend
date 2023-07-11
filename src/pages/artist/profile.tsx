@@ -1,8 +1,10 @@
 import Layout from "@/components/artist/Layout";
 import styles from "@/styles/artist/Artist.module.css";
-import { Title, Text, TextInput, Button } from "@mantine/core";
+import { Title, Text, TextInput, Button, Modal } from "@mantine/core";
 import { flowicon } from "@/assets/player";
 import Image from "next/image";
+import { useDisclosure } from "@mantine/hooks";
+import UploadModalComp from "@/components/artist/dashboard/UploadModalComp";
 
 import SongResult from "@/components/artist/SongResult";
 
@@ -83,20 +85,35 @@ const TopSection = () => {
 };
 
 const Artist = () => {
-  return (
-    <Layout
-      childern={
-        <div className={styles.container}>
-          <Title order={1} weight={800} color="primary">
-            Profile
-          </Title>
+  const [opened, { open, close }] = useDisclosure(true);
 
-          <TopSection />
-          <MembershipSection />
-          <SongResult />
-        </div>
-      }
-    />
+  return (
+    <>
+      <Layout
+        childern={
+          <div className={styles.container}>
+            <Title order={1} weight={800} color="primary">
+              Profile
+            </Title>
+            <TopSection />
+            <MembershipSection />
+            <SongResult openUploadModal={open} />
+          </div>
+        }
+      />
+      <Modal
+        opened={opened}
+        onClose={close}
+        withCloseButton={false}
+        styles={{
+          body: {
+            padding: 0,
+          },
+        }}
+      >
+        <UploadModalComp />
+      </Modal>
+    </>
   );
 };
 
