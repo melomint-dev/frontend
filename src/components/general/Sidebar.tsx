@@ -12,9 +12,6 @@ function Sidebar() {
     <div className={styles.container}>
       <Link href={"/"} className={styles.logoText}>
         <Image src={logo} alt="" />
-        <Title order={5} color="primary" weight={600}>
-          MeloMint
-        </Title>
         <Text
           weight={500}
           size="sm"
