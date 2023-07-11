@@ -40,7 +40,8 @@ function AuthComp({ type = "login" }: { type?: "login" | "register" }) {
 
   const login = async () => {
     try {
-      const user = await fcl.authenticate();
+      // const user = await fcl.authenticate();
+      const user = await fcl.signUp();
       setUser(user.addr);
       router.push("/player");
     } catch (error) {
