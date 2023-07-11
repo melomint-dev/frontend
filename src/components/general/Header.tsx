@@ -10,19 +10,17 @@ function Header() {
 
   const [searchValue, setSearchValue] = useState("");
 
-  const handleSearchClick = (e: any) => {
+  const handleSearch = (e: any) => {
     e.preventDefault();
-    router.push(
-      {
-        query: { search: searchValue },
-      },
-      `/player/search?=${searchValue}`
-    );
+    router.push({
+      pathname: "/player",
+      query: { search: searchValue },
+    });
   };
 
   return (
     <header className={styles.container}>
-      <form onSubmit={handleSearchClick}>
+      <form onSubmit={handleSearch}>
         <TextInput
           classNames={{ input: styles.search }}
           variant="filled"
