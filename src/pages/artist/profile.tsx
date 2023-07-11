@@ -94,7 +94,6 @@ const Artist = () => {
           <TopSection />
           <MembershipSection />
           <SongResult />
-          
         </div>
       }
     />
