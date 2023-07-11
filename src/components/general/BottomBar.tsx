@@ -22,7 +22,7 @@ function MusicControllor({ image }: { image: string }) {
 }
 
 function BottomBar() {
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState(25);
   return (
     <div className={styles.container}>
       <div className={styles.musicName}>

@@ -9,6 +9,8 @@ import { AppProps } from "next/app";
 // import { useCookies } from "react-cookie";
 import { Manrope } from "next/font/google";
 
+import FclContext from "@/context/FCLContext";
+
 const manropeFont = Manrope({ subsets: ["latin"] });
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -46,6 +48,7 @@ export default function App({ Component, pageProps }: AppProps) {
         }
       `}</style>
       {/* <GoogleOAuthProvider clientId={config.GOOGLE_CLIENT_ID}> */}
+
       <MantineProvider
         withGlobalStyles
         withNormalizeCSS
@@ -77,18 +80,6 @@ export default function App({ Component, pageProps }: AppProps) {
               "#3B5873",
               "#3A4C5D",
             ],
-            // ternary: [
-            //   "#EDEBE9",
-            //   "#D6D1C9",
-            //   "#C8BBA8",
-            //   "#C5AA80",
-            //   "#D49E4C",
-            //   "#FF9900",
-            //   "#B37C2B",
-            //   "#84683D",
-            //   "#675841",
-            //   "#534B3F",
-            // ],
             black: [
               "#000000",
               "#111111",
@@ -136,8 +127,10 @@ export default function App({ Component, pageProps }: AppProps) {
           },
         }}
       >
-        <RouterTransition />
-        <Component {...pageProps} />
+        <FclContext>
+          <RouterTransition />
+          <Component {...pageProps} />
+        </FclContext>
       </MantineProvider>
       {/* </GoogleOAuthProvider> */}
     </>
