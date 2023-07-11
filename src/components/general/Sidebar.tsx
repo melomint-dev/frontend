@@ -10,7 +10,7 @@ function Sidebar() {
   const router = useRouter();
   return (
     <div className={styles.container}>
-      <div className={styles.logoText}>
+      <Link href={"/"} className={styles.logoText}>
         <Image src={logo} alt="" />
         <Title order={5} color="primary" weight={600}>
           MeloMint
@@ -23,7 +23,7 @@ function Sidebar() {
         >
           Gold
         </Text>
-      </div>
+      </Link>
 
       <div className={styles.menu}>
         <div className={styles.menuText}>

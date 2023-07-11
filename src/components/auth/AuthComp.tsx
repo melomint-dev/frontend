@@ -19,7 +19,6 @@ fcl.config({
 });
 
 function AuthComp({ type = "login" }: { type?: "login" | "register" }) {
-
   const router = useRouter();
 
   const form = useForm({
@@ -109,7 +108,7 @@ function AuthComp({ type = "login" }: { type?: "login" | "register" }) {
               />
               <TextInput
                 placeholder="Last Name"
-                {...form.getInputProps("firstName")}
+                {...form.getInputProps("lastName")}
                 classNames={{
                   input: styles.defaultRadius,
                 }}
