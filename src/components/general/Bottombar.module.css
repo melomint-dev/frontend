@@ -1,6 +1,7 @@
 .container {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 3fr 4fr 3fr;
+  width: 100%;
   align-items: baseline;
   padding: 0.75rem 2.25rem;
   height: 5rem;
@@ -22,8 +23,9 @@
 .playBar {
   display: flex;
   width: 100%;
-  max-width: 22rem;
+  max-width: 28rem;
   flex-direction: column;
+  margin: 0 auto;
   align-items: center;
   gap: 0.5rem;
 }
@@ -53,6 +55,7 @@
   gap: 1.25rem;
   width: 100%;
   max-width: 10rem;
+  margin-left: auto;
 }
 
 .volumeBar {
