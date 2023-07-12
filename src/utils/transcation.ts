@@ -16,7 +16,7 @@ export const singleUserTransaction = async (transaction: Transaction) => {
         fcl.authorizations([fcl.currentUser]),
         fcl.payer(fcl.currentUser),
         fcl.limit(50)
-    ])
+    ]).then(fcl.decode);
     const transactionStatus = await fcl.tx(transactionId).onceSealed();
     console.log(transactionStatus);
     return transactionStatus;

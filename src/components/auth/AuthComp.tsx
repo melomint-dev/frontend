@@ -1,13 +1,9 @@
-import * as fcl from "@onflow/fcl";
-import * as t from "@onflow/types";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
 import Link from "next/link";
 import { Title, Radio, Text, TextInput, Button } from "@mantine/core";
 import { useForm } from "@mantine/form";
-
-import { useFclContext } from "@/context/FCLContext";
 
 import FlowIcon from "@/assets/auth/FlowIcon.svg";
 import GoogleIcon from "@/assets/auth/GoogleIcon.svg";
@@ -16,19 +12,10 @@ import styles from "./AuthComp.module.css";
 import Image from "next/image";
 import { redirect } from "next/dist/server/api-utils";
 
-import { addUserTransaction } from "@/cadence/transactions/addUser";
-import { singleUserTransaction } from "@/utils/transcation";
-
-fcl.config({
-  "accessNode.api": "https://access-testnet.onflow.org",
-  "discovery.wallet": "https://fcl-discovery.onflow.org/testnet/authn",
-});
+import transactionService from "@/services/transaction.service";
 
 function AuthComp({ type = "login" }: { type?: "login" | "register" }) {
-  const { connect, logout, currentUser } = useFclContext();
-
   const router = useRouter();
-
   const form = useForm({
     initialValues: {
       firstName: "",
@@ -46,26 +33,14 @@ function AuthComp({ type = "login" }: { type?: "login" | "register" }) {
 
   const [user, setUser] = useState<string>("");
 
-  const login = async () => {
-    try {
-      // const user = await fcl.authenticate();
-      // const user = await fcl.signUp();
-      // setUser(user.addr);
-      // connect();
-      // router.push("/player");
-      // console.log("user", currentUser);
-      console.log(form.values);
-      singleUserTransaction({
-        code: addUserTransaction,
-        args: [
-          fcl.arg(form.values.firstName, t.String),
-          fcl.arg(form.values.lastName, t.String),
-          fcl.arg(form.values.userType, t.String),
-        ],
-      });
-    } catch (error) {
-      console.log(error);
-    }
+  const connetWallet = async () => {
+    const { firstName, lastName, userType } = form.values;
+    const data = await transactionService.createUser({
+      firstName,
+      lastName,
+      userType,
+    });
+    console.log(data);
   };
 
   useEffect(() => {
@@ -142,7 +117,7 @@ function AuthComp({ type = "login" }: { type?: "login" | "register" }) {
               classNames={{
                 root: styles.defaultRadius,
               }}
-              onClick={login}
+              onClick={connetWallet}
             >
               Connect Wallet
             </Button>
