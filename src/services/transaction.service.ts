@@ -67,7 +67,7 @@ class TransactionService {
       const user = await fcl.logIn();
       console.log(user.addr);
       const userAddress = await fcl.currentUser().snapshot();
-      console.log(userAddress); 
+      console.log(userAddress);
       return true;
     } catch (error) {
       console.log(error);
@@ -75,6 +75,24 @@ class TransactionService {
     }
   };
 
+  getUserName = async ({ address }: { address: string }) => {
+    try {
+      return "Raj Varsani";
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  };
+
+  getUserAddress = async () => {
+    try {
+      const userAddress = await fcl.currentUser().snapshot();
+      return userAddress.addr;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  };
 }
 
 export default new TransactionService();
