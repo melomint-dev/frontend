@@ -1,4 +1,4 @@
-import MeloMint from 0xMeloMint
+export const addUserTransaction = `import MeloMint from 0xMeloMint
 
 transaction(name: String, email: String, type: String) {
   prepare(signer: AuthAccount) {
@@ -10,3 +10,4 @@ transaction(name: String, email: String, type: String) {
     log(MeloMint.getUsers())
   }
 }
+`;

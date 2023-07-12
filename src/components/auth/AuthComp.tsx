@@ -1,4 +1,5 @@
 import * as fcl from "@onflow/fcl";
+import * as t from "@onflow/types";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
@@ -14,6 +15,9 @@ import GoogleIcon from "@/assets/auth/GoogleIcon.svg";
 import styles from "./AuthComp.module.css";
 import Image from "next/image";
 import { redirect } from "next/dist/server/api-utils";
+
+import { addUserTransaction } from "@/cadence/transactions/addUser";
+import { singleUserTransaction } from "@/utils/transcation";
 
 fcl.config({
   "accessNode.api": "https://access-testnet.onflow.org",
@@ -47,10 +51,18 @@ function AuthComp({ type = "login" }: { type?: "login" | "register" }) {
       // const user = await fcl.authenticate();
       // const user = await fcl.signUp();
       // setUser(user.addr);
-      connect();
-      router.push("/player");
-      console.log("user", currentUser);
-
+      // connect();
+      // router.push("/player");
+      // console.log("user", currentUser);
+      console.log(form.values);
+      singleUserTransaction({
+        code: addUserTransaction,
+        args: [
+          fcl.arg(form.values.firstName, t.String),
+          fcl.arg(form.values.lastName, t.String),
+          fcl.arg(form.values.userType, t.String),
+        ],
+      });
     } catch (error) {
       console.log(error);
     }
@@ -174,7 +186,6 @@ function AuthComp({ type = "login" }: { type?: "login" | "register" }) {
           </Link>
         </Text>
       </div>
-      <p>{user && user.addr ?  user.addr : 'nope'}</p>
     </div>
   );
 }
