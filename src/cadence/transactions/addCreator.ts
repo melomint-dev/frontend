@@ -1,9 +1,9 @@
 export const addCreatorTransaction = 
 `import MeloMint from 0xMeloMint
 
-transaction(name: String, price: UInt, img: String) {
+transaction(name: String, email: String, type: String) {
   prepare(signer: AuthAccount) {
-    MeloMint.CreateCreator(name: name, price: price, img: img, creatorAdress: signer.address)
+    MeloMint.CreateCreator(name: name, email: email, type: type, creatorAdress: signer.address)
     log(MeloMint.getCreatorIdByAddress(addr: signer.address))
   }
 
