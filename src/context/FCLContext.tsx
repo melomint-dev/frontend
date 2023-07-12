@@ -47,6 +47,9 @@ export default function FclContextProvider({
     await fcl.unauthenticate();
   }, []);
 
+  
+
+
   const providerProps = useMemo(
     () => ({
       connect,
