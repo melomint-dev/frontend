@@ -3,8 +3,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { Title, Text, Button } from "@mantine/core";
 import { logo, home, heart, user, logout } from "@/assets/general";
-
+import { flowicon } from "@/assets/player";
 import styles from "./Sidebar.module.css";
+
+const ARTIST_DATA = {
+  name: "Jigardan Gadhvi",
+  image: "https://picsum.photos/300/300?random=1",
+  loginMethod: "flow",
+  address: "0x12345678",
+};
 
 function Sidebar() {
   const router = useRouter();
@@ -73,14 +80,43 @@ function Sidebar() {
         </div>
       </div>
 
-      <div className={styles.albumCover}>
-        <Image
-          src="https://picsum.photos/200/200"
-          alt=""
-          fill
-          className={styles.photo}
-        ></Image>
-      </div>
+      {router.pathname === "/artist" ||
+      router.pathname === "/artist/dashboard" ? (
+        <div className={styles.artistInfo}>
+          <Image
+            src="https://picsum.photos/200/200"
+            alt=""
+            width={40}
+            height={40}
+            className={styles.artistPhoto}
+          />
+          <div className={styles.artistInfoText}>
+            <div className={styles.info}>
+              <Text color="primary.3" weight={500}>
+                Login Method
+              </Text>
+              <Image src={flowicon} alt="" />
+            </div>
+            <div className={styles.info}>
+              <Text color="primary.3" weight={500}>
+                Wallet Address:
+              </Text>
+              <Text color="primary" weight={700}>
+                {ARTIST_DATA.address}
+              </Text>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div className={styles.albumCover}>
+          <Image
+            src="https://picsum.photos/200/200"
+            alt=""
+            fill
+            className={styles.photo}
+          ></Image>
+        </div>
+      )}
     </div>
   );
 }

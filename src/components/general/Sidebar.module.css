@@ -95,3 +95,23 @@
   overflow: hidden;
   border-radius: 1.3rem;
 }
+
+.artistInfo {
+  display: inline-flex;
+  margin: auto auto 2rem auto;
+  width: calc(100% - 4rem);
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.artistPhoto {
+  border-radius: 1.5rem;
+}
+
+.info {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.25rem;
+}

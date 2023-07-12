@@ -20,6 +20,9 @@ const ArtistImageStyles = {
 };
 
 const MembershipSection = () => {
+
+  const artistData = ARTIST_DATA;
+
   return (
     <div className={styles.membership}>
       <Title order={3} weight={800} color="primary">
@@ -27,7 +30,7 @@ const MembershipSection = () => {
       </Title>
       <div className={styles.membershipInfo}>
         <Image
-          src={ARTIST_DATA.image}
+          src={artistData.image}
           alt=""
           height={150}
           width={120}
