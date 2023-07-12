@@ -1,4 +1,5 @@
-import MeloMint from 0xMeloMint
+export const addCreatorTransaction = 
+`import MeloMint from 0xMeloMint
 
 transaction(name: String, price: UInt, img: String) {
   prepare(signer: AuthAccount) {
@@ -9,4 +10,4 @@ transaction(name: String, price: UInt, img: String) {
   execute {
     log(MeloMint.getCreators())
   }
-}
+}`
