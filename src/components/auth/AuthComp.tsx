@@ -174,6 +174,7 @@ function AuthComp({ type = "login" }: { type?: "login" | "register" }) {
           </Link>
         </Text>
       </div>
+      <p>{user && user.addr ?  user.addr : 'nope'}</p>
     </div>
   );
 }

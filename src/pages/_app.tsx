@@ -13,6 +13,16 @@ import FclContext from "@/context/FCLContext";
 
 const manropeFont = Manrope({ subsets: ["latin"] });
 
+import * as fcl from "@onflow/fcl";
+
+fcl.config({
+  "flow.network": "testnet",
+  "accessNode.api": "https://access-testnet.onflow.org",
+  "discovery.wallet": "https://fcl-discovery.onflow.org/testnet/authn",
+  "app.detail.title": "MeloMint",
+  "0xMeloMint": "0xdf939a7ccc83cb72"
+});
+
 export default function App({ Component, pageProps }: AppProps) {
   // const [cookies, setCookies] = useCookies();
   // const [user, setUserData] = useState(null);
