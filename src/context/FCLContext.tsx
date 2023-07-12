@@ -5,7 +5,6 @@ import {
   useState,
   useCallback,
   useMemo,
-  useEffect,
 } from "react";
 
 import type { ReactNode } from "react";
@@ -43,10 +42,6 @@ export default function FclContextProvider({
       console.log(error);
     }
   };
-
-  useEffect(() => {
-    console.log("currentUser", currentUser);
-  }, [currentUser]);
 
   const logout = useCallback(async () => {
     await fcl.unauthenticate();
