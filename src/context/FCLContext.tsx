@@ -36,7 +36,7 @@ export default function FclContextProvider({
   const connect = async () => {
     try {
       // const user = await fcl.authenticate();
-      const user = await fcl.signUp();
+      const user = await fcl.logIn();
       setCurrentUser(user.addr);
     } catch (error) {
       console.log(error);

@@ -19,13 +19,13 @@ function AuthComp({ type = "login" }: { type?: "login" | "register" }) {
   const form = useForm({
     initialValues: {
       firstName: "",
-      lastName: "",
+      email: "",
       userType: "user",
     },
 
     validate: {
       firstName: (value: string) => type == "login" || value.trim().length > 0,
-      lastName: (value: string) => type == "login" || value.trim().length > 0,
+      email: (value: string) => type == "login" || value.trim().length > 0,
       userType: (value: string) =>
         type == "login" || ["user", "artist"].includes(value),
     },
@@ -33,14 +33,39 @@ function AuthComp({ type = "login" }: { type?: "login" | "register" }) {
 
   const [user, setUser] = useState<string>("");
 
+  const signUp = async () => {
+    const { firstName, email, userType } = form.values;
+
+    if (userType === "user") {
+      const data = await transactionService.createUser({
+        firstName,
+        email,
+        userType,
+      });
+      if (data) {
+        router.push("/player");
+      }
+    }
+
+    if (userType === "artist") {
+      const data = await transactionService.createCreator({
+        firstName,
+        email,
+        userType,
+      });
+      if (data) {
+        router.push("/player");
+      }
+    }
+  };
+
   const connetWallet = async () => {
-    const { firstName, lastName, userType } = form.values;
-    const data = await transactionService.createUser({
-      firstName,
-      lastName,
-      userType,
-    });
-    console.log(data);
+    try {
+      await transactionService.connetWallet();
+      router.push("/player");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -92,24 +117,26 @@ function AuthComp({ type = "login" }: { type?: "login" | "register" }) {
               Connect your existing Ethereum wallet to access all features and
               securely manage your assets
             </Text>
-            <div className={styles.inputs}>
-              <TextInput
-                placeholder="First Name"
-                {...form.getInputProps("firstName")}
-                classNames={{
-                  input: styles.defaultRadius,
-                }}
-                size="md"
-              />
-              <TextInput
-                placeholder="Last Name"
-                {...form.getInputProps("lastName")}
-                classNames={{
-                  input: styles.defaultRadius,
-                }}
-                size="md"
-              />
-            </div>
+            {type !== "login" && (
+              <div className={styles.inputs}>
+                <TextInput
+                  placeholder="First Name"
+                  {...form.getInputProps("firstName")}
+                  classNames={{
+                    input: styles.defaultRadius,
+                  }}
+                  size="md"
+                />
+                <TextInput
+                  placeholder="Email Address"
+                  {...form.getInputProps("email")}
+                  classNames={{
+                    input: styles.defaultRadius,
+                  }}
+                  size="md"
+                />
+              </div>
+            )}
             <Button
               fullWidth
               rightIcon={<Image src={FlowIcon} alt="Flow Icon" />}
@@ -117,17 +144,17 @@ function AuthComp({ type = "login" }: { type?: "login" | "register" }) {
               classNames={{
                 root: styles.defaultRadius,
               }}
-              onClick={connetWallet}
+              onClick={type === "login" ? connetWallet : signUp}
             >
               Connect Wallet
             </Button>
           </div>
           <div className={styles.methodContainer}>
             <Text color="primary.3" weight={"500"}>
-              Experience{" "}
+              Experience
               <Text inherit fw={700} span>
                 MeloMint
-              </Text>{" "}
+              </Text>
               without a wallet with Walletless onboarding through Google
             </Text>
             <Button
