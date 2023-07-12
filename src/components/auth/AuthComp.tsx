@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { Title, Radio, Text, TextInput, Button } from "@mantine/core";
 import { useForm } from "@mantine/form";
+import * as fcl from "@onflow/fcl";
 
 import FlowIcon from "@/assets/auth/FlowIcon.svg";
 import GoogleIcon from "@/assets/auth/GoogleIcon.svg";
@@ -10,6 +11,7 @@ import styles from "./AuthComp.module.css";
 import Image from "next/image";
 
 function AuthComp({ type = "login" }: { type?: "login" | "register" }) {
+  const [user, setUser] = useState();
   const form = useForm({
     initialValues: {
       firstName: "",
@@ -24,6 +26,11 @@ function AuthComp({ type = "login" }: { type?: "login" | "register" }) {
         type == "login" || ["user", "artist"].includes(value),
     },
   });
+
+  const logIn = async () => {
+    await fcl.authenticate();
+    fcl.currentUser().subscribe(setUser);
+  }
 
   return (
     <div className={styles.container}>
@@ -95,6 +102,7 @@ function AuthComp({ type = "login" }: { type?: "login" | "register" }) {
               classNames={{
                 root: styles.defaultRadius,
               }}
+              onClick={logIn}
             >
               Connect Wallet
             </Button>
@@ -138,6 +146,7 @@ function AuthComp({ type = "login" }: { type?: "login" | "register" }) {
           </Link>
         </Text>
       </div>
+      <p>{user && user.addr ?  user.addr : 'nope'}</p>
     </div>
   );
 }
