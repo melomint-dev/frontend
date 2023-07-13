@@ -28,7 +28,7 @@ const TopArtist = ({
       </div>
       <div className={styles.artists}>
         {TEMP_ARTIST_DATA.map((artist) => (
-          <ArtistComponent artist={artist} />
+          <ArtistComponent key={artist._id} artist={artist} />
         ))}
       </div>
     </div>

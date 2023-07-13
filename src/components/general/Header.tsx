@@ -3,7 +3,9 @@ import styles from "./Header.module.css";
 import { TextInput, Text } from "@mantine/core";
 import { flowicon, user, search } from "@/assets/player";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+import transactionService from "@/services/transaction.service";
 
 function Header() {
   const router = useRouter();
@@ -17,6 +19,22 @@ function Header() {
       query: { search: searchValue },
     });
   };
+
+  const [userName, setUserName] = useState<string>("");
+
+  const address = "0x123456";
+
+  useEffect(() => {
+    const getUser = async () => {
+      const userAddress = await transactionService.getUserAddress();
+      const data = await transactionService.getUserName({ address });
+      if (data) {
+        setUserName(data);
+      }
+      // console.log(userAddress);
+    };
+    getUser();
+  }, []);
 
   return (
     <header className={styles.container}>

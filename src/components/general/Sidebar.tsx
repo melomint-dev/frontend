@@ -13,6 +13,10 @@ const ARTIST_DATA = {
   address: "0x12345678",
 };
 
+const artistPhotoStyle = {
+  borderRadius: "0.75rem",
+}
+
 function Sidebar() {
   const router = useRouter();
   return (
@@ -88,7 +92,7 @@ function Sidebar() {
             alt=""
             width={40}
             height={40}
-            className={styles.artistPhoto}
+            style={artistPhotoStyle}
           />
           <div className={styles.artistInfoText}>
             <div className={styles.info}>
@@ -114,7 +118,7 @@ function Sidebar() {
             alt=""
             fill
             className={styles.photo}
-          ></Image>
+          />
         </div>
       )}
     </div>
