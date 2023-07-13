@@ -9,7 +9,7 @@ import { AppProps } from "next/app";
 // import { useCookies } from "react-cookie";
 import { Manrope } from "next/font/google";
 
-import FclContext from "@/context/FCLContext";
+import FclContext from "@/context/MusicContext";
 
 const manropeFont = Manrope({ subsets: ["latin"] });
 
