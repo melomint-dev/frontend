@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { Text, Slider } from "@mantine/core";
 import {
@@ -13,16 +13,102 @@ import {
 
 import styles from "./Bottombar.module.css";
 
-function MusicControllor({ image }: { image: string }) {
+function MusicControllor({ image, func }: { image: string; func:()=> void }) {
   return (
-    <button className={styles.button}>
+    <button className={styles.button} onClick={func}>
       <Image src={image} alt="" />
     </button>
   );
-}
+};
 
-function BottomBar() {
+const BottomBar = ({ audioUrl }: {audioUrl: string}) => {
   const [value, setValue] = useState(25);
+
+  const [audio, setAudio] = useState<HTMLAudioElement>();
+  const [currentTime, setCurrentTime] = useState(0);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [duration, setDuration] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
+  useEffect(() => {
+    const fetchAudio = async () => {
+      const response = await fetch(audioUrl);
+      const audioBlob = await response.blob();
+      const audioObjectURL = URL.createObjectURL(audioBlob);
+      //const audioRef = useRef(new Audio(audioObjectURL));
+      setAudio(new Audio(audioObjectURL));
+    };
+
+    fetchAudio();
+
+    return () => {
+      if (audio) {
+        audio.pause();
+        URL.revokeObjectURL(audio.src);
+      }
+    };
+  }, [audioUrl]);
+
+  useEffect(() => {
+    const handleTimeUpdate = () => {
+      if(audio){
+        setCurrentTime(audio.currentTime);
+      }
+    };
+
+    const handleLoadedData = () => {
+      setIsLoaded(true);
+      if(audio){
+        setDuration(audio.duration);
+      }
+    };
+
+    const handlePlay = () => {
+      setIsPlaying(true);
+    };
+
+    const handlePause = () => {
+      setIsPlaying(false);
+    };
+
+    if (audio) {
+      audio.addEventListener("timeupdate", handleTimeUpdate);
+      audio.addEventListener("loadeddata", handleLoadedData);
+      audio.addEventListener("play", handlePlay);
+      audio.addEventListener("pause", handlePause);
+    }
+
+    return () => {
+      if (audio) {
+        audio.removeEventListener("timeupdate", handleTimeUpdate);
+        audio.removeEventListener("loadeddata", handleLoadedData);
+        audio.removeEventListener("play", handlePlay);
+        audio.removeEventListener("pause", handlePause);
+      }
+    };
+  }, [audio]);
+
+  const handleSliderChange = ({event}:{event: Event}) => {
+    const seekTime = (event.target as HTMLButtonElement).value;
+    if(audio){
+      audio.currentTime = Number(seekTime);
+    }
+  };
+
+  const handlePlayPause = () => {
+    if (isPlaying && audio) {
+      audio.pause();
+    } else if(audio) {
+      audio.play();
+    }
+  };
+
+  // const formatTime = ({timeInSeconds}:{timeInSeconds: number}) => {
+  //   const minutes = Math.floor(timeInSeconds / 60);
+  //   const seconds = Math.floor(timeInSeconds % 60);
+  //   const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds;
+  //   return `${minutes}:${formattedSeconds}`;
+  // };
+
   return (
     <div className={styles.container}>
       <div className={styles.musicName}>
@@ -49,11 +135,11 @@ function BottomBar() {
           </Text>
         </div>
         <div className={styles.bar}>
-          <MusicControllor image={backbutton} />
-          <MusicControllor image={prevbutton} />
-          <MusicControllor image={playbutton} />
-          <MusicControllor image={nextbutton} />
-          <MusicControllor image={fastforardbutton} />
+          <MusicControllor image={backbutton} func={handlePlayPause}/>
+          <MusicControllor image={prevbutton} func={handlePlayPause}/>
+          <MusicControllor image={playbutton} func={handlePlayPause}/>
+          <MusicControllor image={nextbutton} func={handlePlayPause}/>
+          <MusicControllor image={fastforardbutton} func={handlePlayPause}/>
         </div>
       </div>
 
@@ -66,6 +152,6 @@ function BottomBar() {
       </div>
     </div>
   );
-}
+};
 
 export default BottomBar;
