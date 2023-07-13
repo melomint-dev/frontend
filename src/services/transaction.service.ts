@@ -3,6 +3,7 @@ import * as fcl from "@onflow/fcl";
 import {
   addUserTransaction,
   addCreatorTransaction,
+  addSongTransaction,
 } from "@/cadence/transactions";
 import { singleUserTransaction } from "@/utils/transcation";
 
@@ -92,6 +93,32 @@ class TransactionService {
       console.log(error);
       return false;
     }
+  };
+
+  uploadSong = async ({
+    songName,
+    songCoverUrl,
+    songUrl,
+  }: {
+    songName: string;
+    songCoverUrl: string;
+    songUrl: string;
+  }) => {
+    try {
+      singleUserTransaction({
+        code: addSongTransaction,
+        args: [
+          fcl.arg(songName, fcl.t.String),
+          fcl.arg(songCoverUrl, fcl.t.String),
+          fcl.arg(songUrl, fcl.t.String),
+        ],
+      });
+      return true;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+    
   };
 }
 

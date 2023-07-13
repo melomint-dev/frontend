@@ -28,6 +28,9 @@ export default function MusicContextProvider({
   children: ReactNode;
   network?: string;
 }) {
+
+  const [state, setState] = useState({});
+
   const helli = () => {
     console.log("helli");
   };

@@ -4,7 +4,7 @@ import MeloMint from 0xMeloMint
 transaction(name: String, img: String, url: String) {
   prepare(signer: AuthAccount) {
     let creatorId = MeloMint.getCreatorIdByAddress(addr: signer.address)
-    MeloMint.createSong(name: name, creator: signer.address, img: img, url: url, creatorId: creatorId)
+    MeloMint.createSong(name: name, creator: signer.address, img: img, url: url, creatorId: creatorId!)
   }
 
   execute {
@@ -13,4 +13,4 @@ transaction(name: String, img: String, url: String) {
   }
 }
 
-`
+`;

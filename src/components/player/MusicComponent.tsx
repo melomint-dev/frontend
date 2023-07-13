@@ -1,5 +1,5 @@
 import styles from "./MusicComponent.module.css";
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 import { Text } from "@mantine/core";
 
 const MusicComponent = ({

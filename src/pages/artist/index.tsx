@@ -1,12 +1,15 @@
+import { useState, useEffect } from "react";
 import Layout from "@/components/artist/Layout";
 import styles from "@/styles/artist/Artist.module.css";
-import { Title, Text, TextInput, Button, Modal } from "@mantine/core";
+import { Title, Text, TextInput, Button, Modal, NumberInput } from "@mantine/core";
 import { flowicon } from "@/assets/player";
 import Image from "next/image";
 import { useDisclosure } from "@mantine/hooks";
 import UploadModalComp from "@/components/artist/dashboard/UploadModalComp";
-
 import SongResult from "@/components/artist/SongResult";
+
+import scriptService from "@/services/script.service";
+import transactionService from "@/services/transaction.service";
 
 const ARTIST_DATA = {
   name: "Jigardan Gadhvi",
@@ -19,9 +22,16 @@ const ArtistImageStyles = {
   borderRadius: "1.5rem",
 };
 
-const MembershipSection = () => {
-
+const MembershipSection = ({price} : {
+  price: number
+}) => {
   const artistData = ARTIST_DATA;
+
+  const [nftPrice, setNftPrice] = useState<number>(price);
+
+  const priceUpdate = async () => {
+    console.log(nftPrice);
+  }
 
   return (
     <div className={styles.membership}>
@@ -37,15 +47,20 @@ const MembershipSection = () => {
           style={ArtistImageStyles}
         />
         <div className={styles.membershipInput}>
-          <TextInput
+          <NumberInput
             classNames={{ input: styles.search }}
             variant="disabled"
             placeholder="Search"
             size="md"
             color="primary.3"
             icon={<Image src={flowicon} alt="" height={20} width={20} />}
+            value={nftPrice}
+            step={0.1}
+            precision={1}
+            min={0}
+            onChange={(value) => setNftPrice(value as number)}
           />
-          <Button color="secondary" variant="filled" size="md" radius={"xl"}>
+          <Button color="secondary" variant="filled" size="md" radius={"xl"} onClick={priceUpdate}>
             Save
           </Button>
         </div>
@@ -54,7 +69,10 @@ const MembershipSection = () => {
   );
 };
 
-const TopSection = () => {
+const TopSection = ({name, address} : {
+  name: string,
+  address: string
+}) => {
   return (
     <div className={styles.artist}>
       <Image
@@ -66,7 +84,7 @@ const TopSection = () => {
       />
       <div className={styles.artistInfo}>
         <Title color="primary" order={1} weight={800}>
-          {ARTIST_DATA.name}
+          {name}
         </Title>
         <div className={styles.info}>
           <Text color="primary.3" weight={500}>
@@ -79,7 +97,7 @@ const TopSection = () => {
             Wallet Address:
           </Text>
           <Text color="primary" weight={700}>
-            {ARTIST_DATA.address}
+            {address}
           </Text>
         </div>
       </div>
@@ -90,6 +108,28 @@ const TopSection = () => {
 const Artist = () => {
   const [opened, { open, close }] = useDisclosure(false);
 
+  const [userInfo, setUserInfo] = useState<any>({
+    name: "",
+    address: "",
+    nftPrice: 0,
+  });
+
+  useEffect(() => {
+    (async () => {
+      const address = await transactionService.getUserAddress();
+      const data = await scriptService._getCreator({ address });
+      if (data) {
+        setUserInfo(
+          Object.assign({}, userInfo, {
+            name: data.name,
+            address: data.creatorAddress,
+            nftPrice: data.price,
+          })
+        );
+      }
+    })();
+  }, []);
+
   return (
     <>
       <Layout
@@ -98,8 +138,13 @@ const Artist = () => {
             <Title order={1} weight={800} color="primary">
               Profile
             </Title>
-            <TopSection />
-            <MembershipSection />
+            <TopSection 
+              name={userInfo.name}
+              address={userInfo.address}
+            />
+            <MembershipSection
+              price={userInfo.nftPrice}
+            />
             <SongResult openUploadModal={open} />
           </div>
         }

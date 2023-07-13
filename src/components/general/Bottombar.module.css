@@ -47,6 +47,7 @@
 .button {
   background-color: var(--secondary-color---light);
   border: 0;
+  cursor: pointer;
 }
 
 .rightBar {
