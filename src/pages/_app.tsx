@@ -20,7 +20,7 @@ fcl.config({
   "accessNode.api": "https://access-testnet.onflow.org",
   "discovery.wallet": "https://fcl-discovery.onflow.org/testnet/authn",
   "app.detail.title": "MeloMint",
-  "0xMeloMint": "0xdf939a7ccc83cb72"
+  "0xMeloMint": "0xd4701e0b1a6cb1e2"
 });
 
 export default function App({ Component, pageProps }: AppProps) {

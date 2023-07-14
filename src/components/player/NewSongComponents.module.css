@@ -4,6 +4,14 @@
   align-items: flex-start;
   gap: 0.625rem;
   width: 8rem;
+  cursor: pointer;
+  transition: ease-in-out 0.2s;
+}
+
+.container:hover {
+  background-color: var(--color-primary, #eeeeee);
+  color: var(--color-secondary, #ffffff);
+  border-radius: 0.75rem;
 }
 
 .songImage {

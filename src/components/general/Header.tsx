@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 import transactionService from "@/services/transaction.service";
+import scriptService from "@/services/script.service";
 
 function Header() {
   const router = useRouter();
@@ -22,18 +23,16 @@ function Header() {
 
   const [userName, setUserName] = useState<string>("");
 
-  const address = "0x123456";
-
   useEffect(() => {
-    const getUser = async () => {
-      const userAddress = await transactionService.getUserAddress();
-      const data = await transactionService.getUserName({ address });
+    (async () => {
+      const address = await transactionService.getUserAddress();
+      console.log(address);
+      const data = await scriptService._getUserNameByAddress({ address });
+      console.log(data);
       if (data) {
         setUserName(data);
       }
-      // console.log(userAddress);
-    };
-    getUser();
+    })();
   }, []);
 
   return (
@@ -50,7 +49,7 @@ function Header() {
       </form>
       <div className={styles.user}>
         <Text size="lg" weight="700">
-          Raj Varsani
+          {userName}
         </Text>
         <div className={styles.userImageWithFlow}>
           <div className={styles.flowIcon}>

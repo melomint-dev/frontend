@@ -10,6 +10,8 @@ import UploadFileIcon from "@/assets/artist/UploadFileIcon.svg";
 import styles from "./UploadModalComp.module.css";
 import Image from "next/image";
 
+import transactionService from "@/services/transaction.service";
+
 function UploadModalComp() {
   const router = useRouter();
 
@@ -26,6 +28,23 @@ function UploadModalComp() {
       cover: (value: File | null) => value !== null,
     },
   });
+
+  const uploadSong = async () => {
+    const { name, song, cover } = form.values;
+
+    const songName = name;
+    const songCoverUrl = "0x11";
+    const songUrl = "0x22";
+
+    await transactionService.uploadSong({
+      songName,
+      songCoverUrl,
+      songUrl,
+    });
+
+    console.log("Song Uploaded");
+
+  };
 
   return (
     <div className={styles.container}>
@@ -94,6 +113,7 @@ function UploadModalComp() {
               classNames={{
                 root: styles.defaultRadius,
               }}
+              onClick={uploadSong}
             >
               Publish
             </Button>
