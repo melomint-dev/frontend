@@ -1,4 +1,4 @@
-export const buyNFT = `
+export const buyNFTTransaction = `
 import MeloMint from 0xMeloMint
 import FungibleToken from 0x9a0766d93b6608b7
 import FlowToken from 0x7e60df042a9c0868
@@ -30,4 +30,4 @@ transaction(amount: UInt64, to: Address) {
         receiverRef.deposit(from: <-self.sentVault)
     }
 }
-`
+`;

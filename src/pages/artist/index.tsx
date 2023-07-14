@@ -10,6 +10,7 @@ import SongResult from "@/components/artist/SongResult";
 
 import scriptService from "@/services/script.service";
 import transactionService from "@/services/transaction.service";
+import { type } from "os";
 
 const ARTIST_DATA = {
   name: "Jigardan Gadhvi",
@@ -27,10 +28,15 @@ const MembershipSection = ({price} : {
 }) => {
   const artistData = ARTIST_DATA;
 
-  const [nftPrice, setNftPrice] = useState<number>(price);
-
+  const [nftPrice, setNftPrice] = useState<number>(parseFloat(price.toString()));
+  
+  useEffect(() => {
+    setNftPrice(parseFloat(price.toString()));
+  }, [price]);
+  
   const priceUpdate = async () => {
-    console.log(nftPrice);
+    const data = await transactionService.updateNFTPrice({ price: nftPrice });
+    console.log(data);
   }
 
   return (
@@ -55,8 +61,6 @@ const MembershipSection = ({price} : {
             color="primary.3"
             icon={<Image src={flowicon} alt="" height={20} width={20} />}
             value={nftPrice}
-            step={0.1}
-            precision={1}
             min={0}
             onChange={(value) => setNftPrice(value as number)}
           />
@@ -127,6 +131,7 @@ const Artist = () => {
           })
         );
       }
+      console.log(userInfo);
     })();
   }, []);
 

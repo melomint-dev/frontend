@@ -4,13 +4,11 @@ import {
   addUserTransaction,
   addCreatorTransaction,
   addSongTransaction,
+  updateNFTPriceTransaction,
+  buyNFTTransaction,
 } from "@/cadence/transactions";
 import { singleUserTransaction } from "@/utils/transcation";
-
-fcl.config({
-  "accessNode.api": "https://access-testnet.onflow.org",
-  "discovery.wallet": "https://fcl-discovery.onflow.org/testnet/authn",
-});
+import { parse } from "path";
 
 class TransactionService {
   createUser = async ({
@@ -23,7 +21,7 @@ class TransactionService {
     userType: string;
   }) => {
     try {
-      singleUserTransaction({
+      await singleUserTransaction({
         code: addUserTransaction,
         args: [
           fcl.arg(firstName, fcl.t.String),
@@ -48,7 +46,7 @@ class TransactionService {
     userType: string;
   }) => {
     try {
-      singleUserTransaction({
+      await singleUserTransaction({
         code: addCreatorTransaction,
         args: [
           fcl.arg(firstName, fcl.t.String),
@@ -105,7 +103,7 @@ class TransactionService {
     songUrl: string;
   }) => {
     try {
-      singleUserTransaction({
+      await singleUserTransaction({
         code: addSongTransaction,
         args: [
           fcl.arg(songName, fcl.t.String),
@@ -118,8 +116,35 @@ class TransactionService {
       console.log(error);
       return false;
     }
-    
   };
+
+  updateNFTPrice = async ({ price }: { price: number }) => {
+    try {
+      
+      await singleUserTransaction({
+        code: updateNFTPriceTransaction,
+        args: [fcl.arg(price.toString(), fcl.t.UInt)],
+      });
+      return true;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  }
+
+  buyNFT = async ({ price }: { price: number }) => {
+    try {
+      await singleUserTransaction({
+        code: buyNFTTransaction,
+        args: [fcl.arg(price, fcl.t.UInt64)],
+      });
+      return true;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  }
+  
 }
 
 export default new TransactionService();

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useContext } from "react";
 import Image from "next/image";
 import { Text, Slider } from "@mantine/core";
 import {
@@ -11,6 +11,8 @@ import {
   volume,
   pausebutton,
 } from "@/assets/general";
+
+import { MusicContext } from "@/context/MusicContext";
 
 import styles from "./Bottombar.module.css";
 
@@ -26,6 +28,10 @@ const BottomBar = ({ audioUrl }: {audioUrl: string}) => {
   interface TimeObject {
     [key: string]: number;
   }
+
+  const { helli } = useContext(MusicContext);
+
+  helli();
 
   const [audio, setAudio] = useState<HTMLAudioElement>();
   const [currentTime, setCurrentTime] = useState(0);
