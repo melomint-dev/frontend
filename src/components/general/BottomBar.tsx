@@ -9,6 +9,7 @@ import {
   playbutton,
   prevbutton,
   volume,
+  pausebutton,
 } from "@/assets/general";
 
 import styles from "./Bottombar.module.css";
@@ -22,19 +23,36 @@ function MusicControllor({ image, func }: { image: string; func:()=> void }) {
 };
 
 const BottomBar = ({ audioUrl }: {audioUrl: string}) => {
-  const [value, setValue] = useState(25);
+  interface TimeObject {
+    [key: string]: number;
+  }
 
   const [audio, setAudio] = useState<HTMLAudioElement>();
   const [currentTime, setCurrentTime] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
   const [duration, setDuration] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [volumeValue, setVolume] = useState(100);
+  const [seekTime, setSeekTime] = useState(0);
+
+  useEffect(() => {
+    if(audio){
+      audio!.volume = volumeValue / 100;
+    }
+  }, [volumeValue]);
+
+  useEffect(() => {
+    if(audio){
+      audio.currentTime = seekTime;
+      setCurrentTime(seekTime);
+    }
+  }, [seekTime]);
+
   useEffect(() => {
     const fetchAudio = async () => {
       const response = await fetch(audioUrl);
       const audioBlob = await response.blob();
       const audioObjectURL = URL.createObjectURL(audioBlob);
-      //const audioRef = useRef(new Audio(audioObjectURL));
       setAudio(new Audio(audioObjectURL));
     };
 
@@ -47,7 +65,7 @@ const BottomBar = ({ audioUrl }: {audioUrl: string}) => {
       }
     };
   }, [audioUrl]);
-
+  
   useEffect(() => {
     const handleTimeUpdate = () => {
       if(audio){
@@ -87,13 +105,6 @@ const BottomBar = ({ audioUrl }: {audioUrl: string}) => {
     };
   }, [audio]);
 
-  const handleSliderChange = ({event}:{event: Event}) => {
-    const seekTime = (event.target as HTMLButtonElement).value;
-    if(audio){
-      audio.currentTime = Number(seekTime);
-    }
-  };
-
   const handlePlayPause = () => {
     if (isPlaying && audio) {
       audio.pause();
@@ -102,12 +113,13 @@ const BottomBar = ({ audioUrl }: {audioUrl: string}) => {
     }
   };
 
-  // const formatTime = ({timeInSeconds}:{timeInSeconds: number}) => {
-  //   const minutes = Math.floor(timeInSeconds / 60);
-  //   const seconds = Math.floor(timeInSeconds % 60);
-  //   const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds;
-  //   return `${minutes}:${formattedSeconds}`;
-  // };
+  const formatTime = (timeObject: TimeObject): string => {
+    const { timeInSeconds } = timeObject;
+    const minutes = Math.floor(timeInSeconds / 60);
+    const seconds = Math.floor(timeInSeconds % 60);
+    const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds;
+    return `${minutes}:${formattedSeconds}`;
+  };
 
   return (
     <div className={styles.container}>
@@ -126,18 +138,18 @@ const BottomBar = ({ audioUrl }: {audioUrl: string}) => {
       </div>
       <div className={styles.playBar}>
         <div className={styles.timeLine}>
-          <Text color="primary.1" weight={500} size="xs">
-            1.21
+          <Text color="primary.1" weight={500} fz="xs" className={styles.timeText}>
+            {formatTime({timeInSeconds: currentTime})}
           </Text>
-          <Slider color="primary" size="sm" value={value} onChange={setValue} />
-          <Text color="primary.1" weight={500} size="xs">
-            2.36
+          <Slider color="primary" size="sm" value={currentTime} onChange={setSeekTime} min={0} max={duration} label={null}/>
+          <Text color="primary.1" weight={500} fz="xs" className={styles.timeText}>
+            {formatTime({timeInSeconds: duration})}
           </Text>
         </div>
         <div className={styles.bar}>
           <MusicControllor image={backbutton} func={handlePlayPause}/>
           <MusicControllor image={prevbutton} func={handlePlayPause}/>
-          <MusicControllor image={playbutton} func={handlePlayPause}/>
+          {isPlaying ? <MusicControllor image={pausebutton} func={handlePlayPause}/> : <MusicControllor image={playbutton} func={handlePlayPause}/>}
           <MusicControllor image={nextbutton} func={handlePlayPause}/>
           <MusicControllor image={fastforardbutton} func={handlePlayPause}/>
         </div>
@@ -147,7 +159,7 @@ const BottomBar = ({ audioUrl }: {audioUrl: string}) => {
         <Image src={heart} alt="" className="" />
         <div className={styles.volumeBar}>
           <Image src={volume} alt="" className="" />
-          <Slider color="primary" size="sm" />
+          <Slider color="primary" size="sm" value={volumeValue} min={0} max={100} onChange={setVolume}/>
         </div>
       </div>
     </div>
