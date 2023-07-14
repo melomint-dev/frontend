@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import Image from "next/image";
 import { Text, Slider } from "@mantine/core";
 import {

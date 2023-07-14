@@ -1,4 +1,6 @@
-import { getUserNameByAddress } from "./getUserNameByAddress";
 import { getCreator } from "./getCreator";
+import { getSongById } from "./getSongById";
+import { getUser } from "./getUser";
+import { getUserNameByAddress } from "./getUserNameByAddress";
 
-export { getUserNameByAddress, getCreator };
+export { getUser, getCreator, getSongById, getUserNameByAddress };
