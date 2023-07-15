@@ -68,7 +68,7 @@ export default function App({ Component, pageProps }: AppProps) {
           colorScheme: "light",
           colors: {
             primary: [
-              "#E1E7EC",
+              "#ebf6ff",
               "#9BB0C3",
               "#6487A4",
               "#283b4bb3",
