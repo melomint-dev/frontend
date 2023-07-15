@@ -5,6 +5,7 @@ import { Title, Text, Button } from "@mantine/core";
 import { logo, home, heart, user, logout } from "@/assets/general";
 import { flowicon } from "@/assets/player";
 import styles from "./Sidebar.module.css";
+import * as fcl from "@onflow/fcl";
 
 const ARTIST_DATA = {
   name: "Jigardan Gadhvi",
@@ -15,10 +16,16 @@ const ARTIST_DATA = {
 
 const artistPhotoStyle = {
   borderRadius: "0.75rem",
-}
+};
 
 function Sidebar() {
   const router = useRouter();
+
+  const logOut = () => {
+    fcl.unauthenticate();
+    router.push("/");
+  };
+
   return (
     <div className={styles.container}>
       <Link href={"/"} className={styles.logoText}>
@@ -77,7 +84,10 @@ function Sidebar() {
             <Image src={user} alt="" />
             <Text weight={600}>Profile</Text>
           </Link>
-          <div className={styles.navLink + " " + styles.navLinkWarn}>
+          <div
+            className={styles.navLink + " " + styles.navLinkWarn}
+            onClick={logOut}
+          >
             <Image src={logout} alt="" />
             <Text weight={600}>Log Out</Text>
           </div>
