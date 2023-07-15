@@ -11,7 +11,6 @@ import scriptService from "@/services/script.service";
 import transactionService from "@/services/transaction.service";
 import { shortenAddress } from "@/utils/shortenAddress";
 
-
 const ARTIST_DATA = {
   name: "Jigardan Gadhvi",
   image: "https://picsum.photos/300/300?random=1",
@@ -84,6 +83,8 @@ function Sidebar() {
     router.push("/");
   };
 
+  const forArtist = router.pathname.startsWith("/artist");
+
   return (
     <div className={styles.container}>
       <Link href={"/"} className={styles.logoText}>
@@ -105,43 +106,74 @@ function Sidebar() {
           </Text>
         </div>
         <div className={styles.menuList}>
-          <Link
-            className={
-              styles.navLink +
-              " " +
-              (router.pathname === "/player" ? styles.navLinkActive : "")
-            }
-            href="/player"
-          >
-            <Image src={home} alt="" />
-            <Text weight={600}>Home</Text>
-          </Link>
-          <Link
-            className={
-              styles.navLink +
-              " " +
-              (router.pathname === "/player/favourites"
-                ? styles.navLinkActive
-                : "")
-            }
-            href="/player/favourites"
-          >
-            <Image src={heart} alt="" />
-            <Text weight={600}>Favourites</Text>
-          </Link>
-          <Link
-            className={
-              styles.navLink +
-              " " +
-              (router.pathname === "/player/profile"
-                ? styles.navLinkActive
-                : "")
-            }
-            href="/player/profile"
-          >
-            <Image src={user} alt="" />
-            <Text weight={600}>Profile</Text>
-          </Link>
+          {forArtist ? (
+            <>
+              <Link
+                className={
+                  styles.navLink +
+                  " " +
+                  (router.pathname === "/artist/dashboard"
+                    ? styles.navLinkActive
+                    : "")
+                }
+                href="/artist/dashboard"
+              >
+                <Image src={home} alt="" />
+                <Text weight={600}>Dashboard</Text>
+              </Link>
+              <Link
+                className={
+                  styles.navLink +
+                  " " +
+                  (router.pathname === "/artist" ? styles.navLinkActive : "")
+                }
+                href="/artist"
+              >
+                <Image src={user} alt="" />
+                <Text weight={600}>Profile</Text>
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link
+                className={
+                  styles.navLink +
+                  " " +
+                  (router.pathname === "/player" ? styles.navLinkActive : "")
+                }
+                href="/player"
+              >
+                <Image src={home} alt="" />
+                <Text weight={600}>Home</Text>
+              </Link>
+              <Link
+                className={
+                  styles.navLink +
+                  " " +
+                  (router.pathname === "/player/favourites"
+                    ? styles.navLinkActive
+                    : "")
+                }
+                href="/player/favourites"
+              >
+                <Image src={heart} alt="" />
+                <Text weight={600}>Favourites</Text>
+              </Link>
+              <Link
+                className={
+                  styles.navLink +
+                  " " +
+                  (router.pathname === "/player/profile"
+                    ? styles.navLinkActive
+                    : "")
+                }
+                href="/player/profile"
+              >
+                <Image src={user} alt="" />
+                <Text weight={600}>Profile</Text>
+              </Link>
+            </>
+          )}
           <div
             className={styles.navLink + " " + styles.navLinkWarn}
             onClick={logOut}
@@ -152,8 +184,7 @@ function Sidebar() {
         </div>
       </div>
 
-      {router.pathname === "/artist" ||
-      router.pathname === "/artist/dashboard" ? (
+      {forArtist ? (
         <ArtistInfo />
       ) : (
         <div className={styles.albumCover}>
