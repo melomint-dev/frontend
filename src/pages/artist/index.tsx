@@ -131,7 +131,6 @@ const Artist = () => {
           })
         );
       }
-      console.log(userInfo);
     })();
   }, []);
 

@@ -74,6 +74,17 @@ class TransactionService {
     }
   };
 
+  disconnectWallet = async () => {
+    try {
+      const logout = await fcl.unauthenticate();
+      console.log(logout);
+      return true;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  };
+
   getUserName = async ({ address }: { address: string }) => {
     try {
       return "Raj Varsani";

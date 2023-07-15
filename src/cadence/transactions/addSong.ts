@@ -1,5 +1,4 @@
-export const addSongTransaction = `
-import MeloMint from 0xMeloMint
+export const addSongTransaction = `import MeloMint from 0xMeloMint
 
 transaction(name: String, img: String, url: String) {
   prepare(signer: AuthAccount) {

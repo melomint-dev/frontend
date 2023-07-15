@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
-import Link from "next/link";
 import { Title, Text, TextInput, Button, FileInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 
@@ -32,24 +31,33 @@ function UploadModalComp() {
   const uploadSong = async () => {
     const { name, song, cover } = form.values;
 
+    const uploadSong = {
+      name: name,
+      song: song,
+      cover: cover,
+    };
+
     const songName = name;
     const songCoverUrl = "0x11";
     const songUrl = "0x22";
 
-    await transactionService.uploadSong({
-      songName,
-      songCoverUrl,
-      songUrl,
-    });
+    try {
+      await transactionService.uploadSong({
+        songName,
+        songCoverUrl,
+        songUrl,
+      });
+    } catch (error) {
+      console.log(error);
+    }
 
     console.log("Song Uploaded");
-
   };
 
   return (
     <div className={styles.container}>
       <Title order={4} weight={"700"}>
-        Upload Song{" "}
+        Upload Song
       </Title>
       <form
         className={styles.form}
