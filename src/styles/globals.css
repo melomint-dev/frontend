@@ -1,4 +1,4 @@
-  html,
+html,
 body {
   padding: 0;
   margin: 0;
@@ -38,7 +38,7 @@ body {
   --h5: 1.25rem;
   --c1: 1rem;
   --c2: 0.88rem;
-  --general-box-border-radius: 1rem;
+  --general-box-border-radius: 0.75rem;
   --header-height: 4.625rem;
   --max-width: 76.25rem;
 
