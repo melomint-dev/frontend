@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
@@ -6,6 +7,10 @@ import { logo, home, heart, user, logout } from "@/assets/general";
 import { flowicon } from "@/assets/player";
 import styles from "./Sidebar.module.css";
 import * as fcl from "@onflow/fcl";
+import scriptService from "@/services/script.service";
+import transactionService from "@/services/transaction.service";
+import { shortenAddress } from "@/utils/shortenAddress";
+
 
 const ARTIST_DATA = {
   name: "Jigardan Gadhvi",
@@ -16,6 +21,59 @@ const ARTIST_DATA = {
 
 const artistPhotoStyle = {
   borderRadius: "0.75rem",
+};
+
+const ArtistInfo = () => {
+  const [artistInfo, setArtistInfo] = useState<any>({
+    name: "",
+    address: "",
+  });
+
+  useEffect(() => {
+    (async () => {
+      const address = await transactionService.getUserAddress();
+      const data = await scriptService._getCreator({ address });
+      if (data) {
+        setArtistInfo(
+          Object.assign({}, artistInfo, {
+            name: data.name,
+            address: data.creatorAddress,
+          })
+        );
+      }
+    })();
+  }, []);
+
+  return (
+    <div className={styles.artistInfo}>
+      <Image
+        src="https://picsum.photos/200/200"
+        alt=""
+        width={40}
+        height={40}
+        style={artistPhotoStyle}
+      />
+      <div className={styles.artistInfoText}>
+        <Title order={4} weight={800} color="primary">
+          {artistInfo.name}
+        </Title>
+        <div className={styles.info}>
+          <Text color="primary.3" weight={500}>
+            Login Method
+          </Text>
+          <Image src={flowicon} alt="" />
+        </div>
+        <div className={styles.info}>
+          <Text color="primary.3" weight={500}>
+            Wallet Address:
+          </Text>
+          <Text color="primary" weight={700}>
+            {shortenAddress(artistInfo.address)}
+          </Text>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 function Sidebar() {
@@ -96,31 +154,7 @@ function Sidebar() {
 
       {router.pathname === "/artist" ||
       router.pathname === "/artist/dashboard" ? (
-        <div className={styles.artistInfo}>
-          <Image
-            src="https://picsum.photos/200/200"
-            alt=""
-            width={40}
-            height={40}
-            style={artistPhotoStyle}
-          />
-          <div className={styles.artistInfoText}>
-            <div className={styles.info}>
-              <Text color="primary.3" weight={500}>
-                Login Method
-              </Text>
-              <Image src={flowicon} alt="" />
-            </div>
-            <div className={styles.info}>
-              <Text color="primary.3" weight={500}>
-                Wallet Address:
-              </Text>
-              <Text color="primary" weight={700}>
-                {ARTIST_DATA.address}
-              </Text>
-            </div>
-          </div>
-        </div>
+        <ArtistInfo />
       ) : (
         <div className={styles.albumCover}>
           <Image
