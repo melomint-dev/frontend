@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { AppProps } from "next/app";
 // import { useCookies } from "react-cookie";
 import { Manrope } from "next/font/google";
+import { Notifications } from "@mantine/notifications";
 
 import FclContext from "@/context/MusicContext";
 
@@ -137,6 +138,7 @@ export default function App({ Component, pageProps }: AppProps) {
           },
         }}
       >
+        <Notifications />
         <FclContext>
           <RouterTransition />
           <Component {...pageProps} />
