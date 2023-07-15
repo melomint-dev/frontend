@@ -10,7 +10,7 @@ import SongResult from "@/components/artist/SongResult";
 
 import scriptService from "@/services/script.service";
 import transactionService from "@/services/transaction.service";
-import { type } from "os";
+import { shortenAddress } from "@/utils/shortenAddress";
 
 const ARTIST_DATA = {
   name: "Jigardan Gadhvi",
@@ -101,7 +101,7 @@ const TopSection = ({name, address} : {
             Wallet Address:
           </Text>
           <Text color="primary" weight={700}>
-            {address}
+            {shortenAddress(address)}
           </Text>
         </div>
       </div>
