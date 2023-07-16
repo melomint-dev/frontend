@@ -1,6 +1,4 @@
-import { getCreator } from "./getCreator";
-import { getSongById } from "./getSongById";
-import { getUser } from "./getUser";
-import { getUserNameByAddress } from "./getUserNameByAddress";
+import { getCreatoryByAddressScript } from "./getCreatorByAddress";
+import { getSongByIdScript } from "./getSongById";
 
-export { getUser, getCreator, getSongById, getUserNameByAddress };
+export { getCreatoryByAddressScript, getSongByIdScript };

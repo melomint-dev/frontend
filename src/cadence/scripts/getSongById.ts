@@ -1,8 +1,6 @@
-export const getSongById = 
-`
+export const getSongByIdScript = `
 import MeloMint from 0xMeloMint
 
-pub fun main(songId: UInt64): MeloMint.Song? {
-  return MeloMint.getSongById(songId: songId)
-}
-`
+pub fun main(songId: String): MeloMint.Song {
+    return MeloMint.getSongById(songId: songId)
+}`;
