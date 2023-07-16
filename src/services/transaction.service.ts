@@ -1,8 +1,6 @@
 import * as fcl from "@onflow/fcl";
 
 import {
-  addUserTransaction,
-  addCreatorTransaction,
   addSongTransaction,
   updateNFTPriceTransaction,
   buyNFTTransaction,
@@ -11,56 +9,6 @@ import { singleUserTransaction } from "@/utils/transcation";
 import { parse } from "path";
 
 class TransactionService {
-  createUser = async ({
-    firstName,
-    email,
-    userType,
-  }: {
-    firstName: string;
-    email: string;
-    userType: string;
-  }) => {
-    try {
-      await singleUserTransaction({
-        code: addUserTransaction,
-        args: [
-          fcl.arg(firstName, fcl.t.String),
-          fcl.arg(email, fcl.t.String),
-          fcl.arg(userType, fcl.t.String),
-        ],
-      });
-      return true;
-    } catch (error) {
-      console.log(error);
-      return false;
-    }
-  };
-
-  createCreator = async ({
-    firstName,
-    email,
-    userType,
-  }: {
-    firstName: string;
-    email: string;
-    userType: string;
-  }) => {
-    try {
-      await singleUserTransaction({
-        code: addCreatorTransaction,
-        args: [
-          fcl.arg(firstName, fcl.t.String),
-          fcl.arg(email, fcl.t.String),
-          fcl.arg(userType, fcl.t.String),
-        ],
-      });
-      return true;
-    } catch (error) {
-      console.log(error);
-      return false;
-    }
-  };
-
   connetWallet = async () => {
     try {
       const user = await fcl.logIn();
@@ -131,7 +79,6 @@ class TransactionService {
 
   updateNFTPrice = async ({ price }: { price: number }) => {
     try {
-      
       await singleUserTransaction({
         code: updateNFTPriceTransaction,
         args: [fcl.arg(price.toString(), fcl.t.UInt)],
@@ -141,7 +88,7 @@ class TransactionService {
       console.log(error);
       return false;
     }
-  }
+  };
 
   buyNFT = async ({ price }: { price: number }) => {
     try {
@@ -154,8 +101,7 @@ class TransactionService {
       console.log(error);
       return false;
     }
-  }
-  
+  };
 }
 
 export default new TransactionService();

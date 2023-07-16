@@ -1,7 +1,6 @@
 import { addPersonTransaction } from "./addPerson";
 import { addSongTransaction } from "./addSong";
 import { buyNFTTransaction } from "./buyNFT";
-import { updateNFTPriceTransaction } from "./updateNFTPrice";
 import { updatePersonImgTransaction } from "./updatePersonImg";
 import { updatePersonLikedSongTransaction } from "./updatePersonLikedSong";
 import { updatePersonNFTPriceTransaction } from "./updatePersonNFTPrice";
@@ -13,7 +12,6 @@ export {
   addPersonTransaction,
   addSongTransaction,
   buyNFTTransaction,
-  updateNFTPriceTransaction,
   updatePersonImgTransaction,
   updatePersonLikedSongTransaction,
   updatePersonNFTPriceTransaction,

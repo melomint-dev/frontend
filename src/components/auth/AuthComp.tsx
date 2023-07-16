@@ -23,6 +23,8 @@ import {
   showSuccessNotification,
   showErrorNotification,
 } from "@/utils/notifications.helper";
+import SWR_CONSTANTS from "@/utils/swrConstants";
+import { mutate } from "swr";
 
 function AuthComp({ type = "login" }: { type?: "login" | "register" }) {
   const router = useRouter();
@@ -44,7 +46,7 @@ function AuthComp({ type = "login" }: { type?: "login" | "register" }) {
   const [user, setUser] = useState<string>("");
 
   const { trigger: authenticate, isMutating } = useSWRMutation(
-    "authenticate",
+    SWR_CONSTANTS.AUTHENTICATE_USER,
     authenticationFetcher
   );
 
@@ -55,7 +57,12 @@ function AuthComp({ type = "login" }: { type?: "login" | "register" }) {
         data: form.values,
       });
       console.log("AUTHENTICATE -- SUCCESS", data);
-      router.push(form.values.userType === "artist" ? "/artist" : "/player");
+      const userData = await mutate(SWR_CONSTANTS.GET_USER);
+      console.log("AUTHENTICATE -- USER", userData);
+      if (!userData || !userData.id) {
+        return showErrorNotification("Failed to Login", "User not found");
+      }
+      router.push(userData.type === "1" ? "/artist" : "/player");
       showSuccessNotification(
         "Login Success",
         "You Have logged in Successfully, Continue to explote MeloMint"

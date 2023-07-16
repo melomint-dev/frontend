@@ -1,47 +1,23 @@
-import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
-import { Title, Text, Button } from "@mantine/core";
+import { Title, Text, Skeleton } from "@mantine/core";
 import { logo, home, heart, user, logout } from "@/assets/general";
 import { flowicon } from "@/assets/player";
 import styles from "./Sidebar.module.css";
 import * as fcl from "@onflow/fcl";
-import scriptService from "@/services/script.service";
-import transactionService from "@/services/transaction.service";
 import { shortenAddress } from "@/utils/shortenAddress";
 
-const ARTIST_DATA = {
-  name: "Jigardan Gadhvi",
-  image: "https://picsum.photos/300/300?random=1",
-  loginMethod: "flow",
-  address: "0x12345678",
-};
+import { useUser, upadtePriceFetcher } from "@/hooks/person.swr";
+import SWR_CONSTANTS from "@/utils/swrConstants";
+import useSWRMutation from "swr/mutation";
 
 const artistPhotoStyle = {
   borderRadius: "0.75rem",
 };
 
 const ArtistInfo = () => {
-  const [artistInfo, setArtistInfo] = useState<any>({
-    name: "",
-    address: "",
-  });
-
-  useEffect(() => {
-    (async () => {
-      const address = await transactionService.getUserAddress();
-      const data = await scriptService._getCreator({ address });
-      if (data) {
-        setArtistInfo(
-          Object.assign({}, artistInfo, {
-            name: data.name,
-            address: data.creatorAddress,
-          })
-        );
-      }
-    })();
-  }, []);
+  const { userData, isUserDataLoading, errorFetchingUserData } = useUser();
 
   return (
     <div className={styles.artistInfo}>
@@ -53,9 +29,13 @@ const ArtistInfo = () => {
         style={artistPhotoStyle}
       />
       <div className={styles.artistInfoText}>
-        <Title order={4} weight={800} color="primary">
-          {artistInfo.name}
-        </Title>
+        {!isUserDataLoading && !errorFetchingUserData ? (
+          <Title order={4} weight={800} color="primary">
+            {userData?.firstName + " " + userData?.lastName}
+          </Title>
+        ) : (
+          <Skeleton width={200} height={30} />
+        )}
         <div className={styles.info}>
           <Text color="primary.3" weight={500}>
             Login Method
@@ -66,9 +46,12 @@ const ArtistInfo = () => {
           <Text color="primary.3" weight={500}>
             Wallet Address:
           </Text>
+          {!isUserDataLoading && !errorFetchingUserData ? (
           <Text color="primary" weight={700}>
-            {shortenAddress(artistInfo.address)}
-          </Text>
+            {shortenAddress(userData.id)}
+          </Text> ) : (
+            <Skeleton width={200} height={20} />
+          )}
         </div>
       </div>
     </div>

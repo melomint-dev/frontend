@@ -11,8 +11,10 @@ import { Manrope } from "next/font/google";
 import { Notifications } from "@mantine/notifications";
 
 import FclContext from "@/context/MusicContext";
+import { useUser } from "@/hooks/person.swr";
 
 const manropeFont = Manrope({ subsets: ["latin"] });
+
 
 import * as fcl from "@onflow/fcl";
 
@@ -21,7 +23,7 @@ fcl.config({
   "accessNode.api": "https://access-testnet.onflow.org",
   "discovery.wallet": "https://fcl-discovery.onflow.org/testnet/authn",
   "app.detail.title": "MeloMint",
-  "0xMeloMint": "0xee6ad931dcde1708",
+  "0xMeloMint": "0x62cfd688a83bc89c",
 });
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -43,7 +45,7 @@ export default function App({ Component, pageProps }: AppProps) {
   //     console.log(err);
   //   }
   // };
-
+  const { userData, isUserDataLoading, errorFetchingUserData } = useUser();
   return (
     <>
       <Head>

@@ -1,12 +1,10 @@
 import Image from "next/image";
 import styles from "./Header.module.css";
-import { TextInput, Text } from "@mantine/core";
+import { TextInput, Text, Skeleton } from "@mantine/core";
 import { flowicon, user, search } from "@/assets/player";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-
-import transactionService from "@/services/transaction.service";
-import scriptService from "@/services/script.service";
+import { useState } from "react";
+import { useUser } from "@/hooks/person.swr";
 
 function Header() {
   const router = useRouter();
@@ -21,19 +19,9 @@ function Header() {
     });
   };
 
-  const [userName, setUserName] = useState<string>("");
+  const { userData, isUserDataLoading, errorFetchingUserData } = useUser();
 
-  useEffect(() => {
-    (async () => {
-      const address = await transactionService.getUserAddress();
-      console.log(address);
-      const data = await scriptService._getUserNameByAddress({ address });
-      console.log(data);
-      if (data) {
-        setUserName(data);
-      }
-    })();
-  }, []);
+  // return <></>;
 
   return (
     <header className={styles.container}>
@@ -47,29 +35,33 @@ function Header() {
           onChange={(event) => setSearchValue(event.currentTarget.value)}
         />
       </form>
-      <div className={styles.user}>
-        <Text size="lg" weight="700">
-          {userName}
-        </Text>
-        <div className={styles.userImageWithFlow}>
-          <div className={styles.flowIcon}>
+      {!isUserDataLoading && !errorFetchingUserData && userData ? (
+        <div className={styles.user}>
+          <Text size="lg" weight="700">
+            {userData.firstName + " " + userData.lastName}
+          </Text>
+          <div className={styles.userImageWithFlow}>
+            <div className={styles.flowIcon}>
+              <Image
+                src={flowicon}
+                alt=""
+                height={20}
+                width={20}
+                // style={flowiconStyle}
+              />
+            </div>
             <Image
-              src={flowicon}
+              src={user}
               alt=""
-              height={20}
-              width={20}
-              // style={flowiconStyle}
+              height={42}
+              width={42}
+              className={styles.userImage}
             />
           </div>
-          <Image
-            src={user}
-            alt=""
-            height={42}
-            width={42}
-            className={styles.userImage}
-          />
         </div>
-      </div>
+      ) : (
+        <Skeleton height={42} width={180} />
+      )}
     </header>
   );
 }

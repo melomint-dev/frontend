@@ -1,5 +1,4 @@
-export const updatePersonNFTPriceTransaction = `
-import MeloMint from 0xMeloMint
+export const updatePersonNFTPriceTransaction = `import MeloMint from 0xMeloMint
 
 transaction(price: Int) {
     prepare(signer: AuthAccount) {
