@@ -12,6 +12,7 @@ class PersonService {
         code: getCreatoryByAddressScript,
         args: [fcl.arg(address, fcl.t.Address)],
       });
+      console.log("udata", data);
       return data;
     } catch (error) {
       console.log(error);
@@ -21,11 +22,14 @@ class PersonService {
 
   getPerson = async () => {
     try {
-      const userAddress = await fcl.currentUser().snapshot();
-      return await this.getPersonByAddress(userAddress.addr);
+      const userAcc = await fcl.currentUser().snapshot();
+      if (!userAcc.addr) {
+        throw new Error("User not logged in");
+      }
+      return await this.getPersonByAddress(userAcc.addr);
     } catch (error) {
       console.log(error);
-      return false;
+      throw error;
     }
   };
 
@@ -41,7 +45,6 @@ class PersonService {
       return false;
     }
   };
-
 }
 
 const personService = new PersonService();
