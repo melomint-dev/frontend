@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Layout from "@/components/artist/Layout";
 import styles from "@/styles/artist/Artist.module.css";
 import {
@@ -8,12 +8,16 @@ import {
   Modal,
   NumberInput,
   Skeleton,
+  FileButton,
 } from "@mantine/core";
 import { flowicon } from "@/assets/player";
 import Image from "next/image";
 import { useDisclosure } from "@mantine/hooks";
 import UploadModalComp from "@/components/artist/dashboard/UploadModalComp";
 import SongResult from "@/components/artist/SongResult";
+
+import DefaultNFTImage from "@/assets/artist/DefaultNFTImage.svg";
+import DefaultCoverImage from "@/assets/artist/DefaultCoverImage.svg";
 
 import transactionService from "@/services/transaction.service";
 import { shortenAddress } from "@/utils/shortenAddress";
@@ -33,20 +37,44 @@ const ARTIST_DATA = {
   address: "0x12345678",
 };
 
-const ArtistImageStyles = {
-  borderRadius: "1.5rem",
-};
-
-const MembershipSection = ({ price }: { price: number }) => {
-  const artistData = ARTIST_DATA;
-
+const MembershipSection = ({
+  price,
+  isLoading,
+  nftImage,
+}: {
+  price: number;
+  isLoading: boolean;
+  nftImage: string;
+}) => {
   const [nftPrice, setNftPrice] = useState<number>(
-    parseFloat(price?.toString())
+    parseFloat((price ?? 0).toString())
   );
+  const [file, setFile] = useState<File | null>(null);
+  const [nftImageSrc, setNftImageSrc] = useState<string>(nftImage);
+  const resetRef = useRef<() => void>(null);
+
+  const clearFile = () => {
+    setFile(null);
+    resetRef.current?.();
+  };
 
   useEffect(() => {
-    setNftPrice(parseFloat(price?.toString()));
+    setNftPrice(parseFloat((price ?? 0).toString()));
   }, [price]);
+
+  useEffect(() => {
+    setNftImageSrc(nftImage);
+  }, [nftImage]);
+
+  useEffect(() => {
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setNftImageSrc(reader.result as string);
+      };
+      reader.readAsDataURL(file as File);
+    }
+  }, [file]);
 
   const { trigger: priceUpdate, isMutating } = useSWRMutation(
     SWR_CONSTANTS.AUTHENTICATE_USER,
@@ -64,8 +92,6 @@ const MembershipSection = ({ price }: { price: number }) => {
       console.log("UPDATE-PRICE -- FAILED", error);
       showErrorNotification("Price update failed", "Please try again!");
     }
-    // const data = await transactionService.updateNFTPrice({ price: nftPrice });
-    // console.log(data);
   };
 
   return (
@@ -74,13 +100,25 @@ const MembershipSection = ({ price }: { price: number }) => {
         Membership(NFT) Info
       </Title>
       <div className={styles.membershipInfo}>
-        <Image
-          src={artistData.image}
-          alt=""
-          height={150}
-          width={120}
-          style={ArtistImageStyles}
-        />
+        <FileButton
+          resetRef={resetRef}
+          onChange={setFile}
+          accept="image/png,image/jpeg"
+        >
+          {(props) => (
+            <Image
+              src={nftImageSrc ? nftImageSrc : DefaultNFTImage}
+              alt="NFT Preview"
+              height={150}
+              width={120}
+              placeholder="empty"
+              className={styles.imgSelector}
+              priority
+              {...props}
+            />
+          )}
+        </FileButton>
+
         <div className={styles.membershipInput}>
           <NumberInput
             classNames={{ input: styles.search }}
@@ -91,6 +129,8 @@ const MembershipSection = ({ price }: { price: number }) => {
             icon={<Image src={flowicon} alt="" height={20} width={20} />}
             value={nftPrice}
             min={0}
+            disabled={isLoading || isMutating}
+            type="number"
             onChange={(value) => setNftPrice(value as number)}
           />
           <Button
@@ -99,6 +139,8 @@ const MembershipSection = ({ price }: { price: number }) => {
             size="md"
             radius={"xl"}
             onClick={updatePrice}
+            disabled={isLoading}
+            loading={isMutating}
           >
             Save
           </Button>
@@ -112,20 +154,55 @@ const TopSection = ({
   name,
   address,
   isUserDataLoading,
+  coverImage,
 }: {
-  name: String;
-  address: String;
+  name: string;
+  address: string;
   isUserDataLoading: boolean;
+  coverImage: string;
 }) => {
+  const [file, setFile] = useState<File | null>(null);
+  const [coverImageSrc, setCoverImageSrc] = useState<string>(coverImage);
+  const resetRef = useRef<() => void>(null);
+
+  const clearFile = () => {
+    setFile(null);
+    resetRef.current?.();
+  };
+
+  useEffect(() => {
+    setCoverImageSrc(coverImage);
+  }, [coverImage]);
+
+  useEffect(() => {
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setCoverImageSrc(reader.result as string);
+      };
+      reader.readAsDataURL(file as File);
+    }
+  }, [file]);
+
   return (
     <div className={styles.artist}>
-      <Image
-        src={ARTIST_DATA.image}
-        alt=""
-        height={150}
-        width={400}
-        style={ArtistImageStyles}
-      />
+      <FileButton
+        resetRef={resetRef}
+        onChange={setFile}
+        accept="image/png,image/jpeg"
+      >
+        {(props) => (
+          <Image
+            src={coverImageSrc ? coverImageSrc : DefaultCoverImage}
+            alt=""
+            height={150}
+            width={400}
+            className={styles.imgSelector}
+            priority
+            {...props}
+          />
+        )}
+      </FileButton>
       <div className={styles.artistInfo}>
         {!isUserDataLoading ? (
           <Title color="primary" order={1} weight={800}>
@@ -174,8 +251,13 @@ const Artist = () => {
               name={userData?.firstName + " " + userData?.lastName}
               address={userData?.id}
               isUserDataLoading={isUserDataLoading || errorFetchingUserData}
+              coverImage={userData?.img}
             />
-            <MembershipSection price={userData?.NFTprice} />
+            <MembershipSection
+              price={userData?.NFTprice}
+              isLoading={isUserDataLoading}
+              nftImage={userData?.img}
+            />
             <SongResult openUploadModal={open} />
           </div>
         }

@@ -4,15 +4,15 @@ import personService from "@/services/person.service";
 
 interface IUser {
   NFTprice: number;
-  firstName: String;
-  id: String;
-  img: String;
-  lastName: String;
+  firstName: string;
+  id: string;
+  img: string;
+  lastName: string;
   likedSongs: {
     [key: string]: boolean;
   };
-  recentlyHeard: String[];
-  revenue: String;
+  recentlyHeard: string[];
+  revenue: string;
   songsPublished: {
     [key: string]: boolean;
   };
@@ -22,8 +22,8 @@ interface IUser {
   subscribers: {
     [key: string]: boolean;
   };
-  subscriptionTill: String;
-  type: String;
+  subscriptionTill: string;
+  type: string;
 }
 
 export function useUser() {

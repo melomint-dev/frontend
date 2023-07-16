@@ -52,3 +52,9 @@
   border-radius: 0.875rem;
   border: 2px solid #e5e5e5;
 }
+
+.imgSelector {
+  border-radius: 1.5rem;
+  object-fit: cover;
+  cursor: pointer;
+}
