@@ -1,4 +1,4 @@
-export const updatePersonType = `
+export const updatePersonTypeTransaction = `
 import MeloMint from 0xMeloMint
 
 transaction (newType: Int) {

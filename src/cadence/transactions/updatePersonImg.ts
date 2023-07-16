@@ -1,4 +1,4 @@
-export const updatePersonImg = `
+export const updatePersonImgTransaction = `
 import MeloMint from 0xMeloMint
 
 transaction(img: String) {

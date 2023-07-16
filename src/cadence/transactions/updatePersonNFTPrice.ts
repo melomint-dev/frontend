@@ -1,4 +1,4 @@
-export const updatePersonNFTPrice = `
+export const updatePersonNFTPriceTransaction = `
 import MeloMint from 0xMeloMint
 
 transaction(price: Int) {

@@ -1,4 +1,4 @@
-export const updatePersonLikedSong = `
+export const updatePersonLikedSongTransaction = `
 import MeloMint from 0xMeloMint
 
 transaction(songId: String) {

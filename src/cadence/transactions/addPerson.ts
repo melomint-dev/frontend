@@ -1,4 +1,4 @@
-export const addPerson = `
+export const addPersonTransaction = `
 import MeloMint from 0xMeloMint
 
 // type -> 0 User
