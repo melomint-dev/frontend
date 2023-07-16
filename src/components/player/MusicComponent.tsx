@@ -28,7 +28,7 @@ const MusicComponent = ({
         <Text weight={700} color="primary">
           {song.name}
         </Text>
-        <Text size="sm" weight={400} color="primary.3">
+        <Text size="sm" weight={500} color="primary.3">
           {song.artist}
         </Text>
       </div>

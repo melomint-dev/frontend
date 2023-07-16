@@ -1,8 +1,14 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-
 import Link from "next/link";
-import { Title, Radio, Text, TextInput, Button } from "@mantine/core";
+import {
+  Title,
+  Radio,
+  Text,
+  TextInput,
+  Button,
+  LoadingOverlay,
+} from "@mantine/core";
 import { useForm } from "@mantine/form";
 
 import FlowIcon from "@/assets/auth/FlowIcon.svg";
@@ -10,22 +16,26 @@ import GoogleIcon from "@/assets/auth/GoogleIcon.svg";
 
 import styles from "./AuthComp.module.css";
 import Image from "next/image";
-import { redirect } from "next/dist/server/api-utils";
+import useSWRMutation from "swr/mutation";
 
-import transactionService from "@/services/transaction.service";
+import { authenticationFetcher } from "@/hooks/auth.swr";
+import {
+  showSuccessNotification,
+  showErrorNotification,
+} from "@/utils/notifications.helper";
 
 function AuthComp({ type = "login" }: { type?: "login" | "register" }) {
   const router = useRouter();
   const form = useForm({
     initialValues: {
       firstName: "",
-      email: "",
+      lastName: "",
       userType: "user",
     },
 
     validate: {
       firstName: (value: string) => type == "login" || value.trim().length > 0,
-      email: (value: string) => type == "login" || value.trim().length > 0,
+      lastName: (value: string) => type == "login" || value.trim().length > 0,
       userType: (value: string) =>
         type == "login" || ["user", "artist"].includes(value),
     },
@@ -33,38 +43,26 @@ function AuthComp({ type = "login" }: { type?: "login" | "register" }) {
 
   const [user, setUser] = useState<string>("");
 
-  const signUp = async () => {
-    const { firstName, email, userType } = form.values;
+  const { trigger: authenticate, isMutating } = useSWRMutation(
+    "authenticate",
+    authenticationFetcher
+  );
 
-    if (userType === "user") {
-      const data = await transactionService.createUser({
-        firstName,
-        email,
-        userType,
-      });
-      if (data) {
-        router.push("/player");
-      }
-    }
-
-    if (userType === "artist") {
-      const data = await transactionService.createCreator({
-        firstName,
-        email,
-        userType,
-      });
-      if (data) {
-        router.push("/player");
-      }
-    }
-  };
-
-  const connetWallet = async () => {
+  const authenticateUser = async () => {
     try {
-      await transactionService.connetWallet();
-      router.push("/player");
-    } catch (error) {
-      console.log(error);
+      const data = await authenticate({
+        authType: type,
+        data: form.values,
+      });
+      console.log("AUTHENTICATE -- SUCCESS", data);
+      router.push(form.values.userType === "artist" ? "/artist" : "/player");
+      showSuccessNotification(
+        "Login Success",
+        "You Have logged in Successfully, Continue to explote MeloMint"
+      );
+    } catch (error: any) {
+      console.log("AUTHENTICATE -- ERROR", error);
+      showErrorNotification("Failed to Login", error?.message);
     }
   };
 
@@ -74,6 +72,14 @@ function AuthComp({ type = "login" }: { type?: "login" | "register" }) {
 
   return (
     <div className={styles.container}>
+      <LoadingOverlay
+        loaderProps={{
+          variant: "bars",
+        }}
+        visible={isMutating}
+        overlayBlur={2}
+      />
+
       <Title order={4} weight={"700"}>
         {type === "login" ? "Login" : "Sign Up"}
       </Title>
@@ -128,8 +134,8 @@ function AuthComp({ type = "login" }: { type?: "login" | "register" }) {
                   size="md"
                 />
                 <TextInput
-                  placeholder="Email Address"
-                  {...form.getInputProps("email")}
+                  placeholder="Last Name"
+                  {...form.getInputProps("lastName")}
                   classNames={{
                     input: styles.defaultRadius,
                   }}
@@ -144,7 +150,7 @@ function AuthComp({ type = "login" }: { type?: "login" | "register" }) {
               classNames={{
                 root: styles.defaultRadius,
               }}
-              onClick={type === "login" ? connetWallet : signUp}
+              onClick={authenticateUser}
             >
               Connect Wallet
             </Button>

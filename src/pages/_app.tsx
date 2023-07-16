@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { AppProps } from "next/app";
 // import { useCookies } from "react-cookie";
 import { Manrope } from "next/font/google";
+import { Notifications } from "@mantine/notifications";
 
 import FclContext from "@/context/MusicContext";
 
@@ -20,7 +21,7 @@ fcl.config({
   "accessNode.api": "https://access-testnet.onflow.org",
   "discovery.wallet": "https://fcl-discovery.onflow.org/testnet/authn",
   "app.detail.title": "MeloMint",
-  "0xMeloMint": "0xd4701e0b1a6cb1e2"
+  "0xMeloMint": "0xee6ad931dcde1708",
 });
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -67,10 +68,10 @@ export default function App({ Component, pageProps }: AppProps) {
           colorScheme: "light",
           colors: {
             primary: [
-              "#E1E7EC",
+              "#ebf6ff",
               "#9BB0C3",
               "#6487A4",
-              "#496780",
+              "#283b4bb3",
               "#364E62",
               "#283B4B",
               "#1C2832",
@@ -137,6 +138,7 @@ export default function App({ Component, pageProps }: AppProps) {
           },
         }}
       >
+        <Notifications />
         <FclContext>
           <RouterTransition />
           <Component {...pageProps} />
