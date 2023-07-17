@@ -26,7 +26,13 @@ interface IMusicContext {
   setSeekTime: React.Dispatch<React.SetStateAction<number>>;
   seekTime: number;
   audioURL: string;
-  setAudioUrl: React.Dispatch<React.SetStateAction<string>>
+  setAudioUrl: React.Dispatch<React.SetStateAction<string>>;
+  artistName: string;
+  setArtistName: React.Dispatch<React.SetStateAction<string>>;
+  musicName: string;
+  setMusicName: React.Dispatch<React.SetStateAction<string>>;
+  coverPhotoSrc: string;
+  setCoverPhotoSrc: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export const MusicContext = createContext<IMusicContext>({} as IMusicContext);
@@ -54,6 +60,9 @@ export default function MusicContextProvider({
   const [volumeValue, setVolume] = useState(100);
   const [seekTime, setSeekTime] = useState(0);
   const [audioURL, setAudioUrl] = useState("");
+  const [artistName, setArtistName] = useState("");
+  const [musicName, setMusicName] = useState("");
+  const [coverPhotoSrc, setCoverPhotoSrc] = useState("");
 
   useEffect(() => {
     const handleTimeUpdate = () => {
@@ -130,9 +139,9 @@ export default function MusicContextProvider({
 
   const providerProps = useMemo(
     () => ({
-      audioURL, setAudioUrl, audio, setAudio, currentTime , setCurrentTime, isLoaded, setIsLoaded, duration, setDuration, isPlaying, setIsPlaying, volumeValue, setVolume, seekTime, setSeekTime,
+      coverPhotoSrc, setCoverPhotoSrc, musicName, setMusicName, artistName, setArtistName, audioURL, setAudioUrl, audio, setAudio, currentTime , setCurrentTime, isLoaded, setIsLoaded, duration, setDuration, isPlaying, setIsPlaying, volumeValue, setVolume, seekTime, setSeekTime,
     }),
-    [audioURL, setAudioUrl, audio, setAudio, currentTime , setCurrentTime, isLoaded, setIsLoaded, duration, setDuration, isPlaying, setIsPlaying, volumeValue, setVolume, seekTime, setSeekTime]
+    [coverPhotoSrc, setCoverPhotoSrc, musicName, setMusicName, artistName, setArtistName, audioURL, setAudioUrl, audio, setAudio, currentTime , setCurrentTime, isLoaded, setIsLoaded, duration, setDuration, isPlaying, setIsPlaying, volumeValue, setVolume, seekTime, setSeekTime]
   );
 
   return (

@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useContext } from "react";
 import Image from "next/image";
 import { Text, Slider } from "@mantine/core";
 import {
@@ -28,7 +28,7 @@ const BottomBar = () => {
     [key: string]: number;
   }
 
-  const { audio, currentTime, duration, isPlaying, setIsPlaying, volumeValue, setVolume, setSeekTime } = useContext(MusicContext);
+  const { musicName, artistName, audio, currentTime, duration, isPlaying, setIsPlaying, volumeValue, setVolume, setSeekTime } = useContext(MusicContext);
 
   const forward = () => {
       setSeekTime(audio!.currentTime + 10);
@@ -65,10 +65,10 @@ const BottomBar = () => {
           weight={700}
           className={styles.musicFont}
         >
-          Living My Best Life
+          {musicName}
         </Text>
         <Text size="sm" color="primary.2" weight={400}>
-          Ben Hector
+          {artistName}
         </Text>
       </div>
       <div className={styles.playBar}>

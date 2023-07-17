@@ -1,3 +1,4 @@
+import { use, useContext } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,6 +12,7 @@ import { shortenAddress } from "@/utils/shortenAddress";
 import { useUser, upadtePriceFetcher } from "@/hooks/person.swr";
 import SWR_CONSTANTS from "@/utils/swrConstants";
 import useSWRMutation from "swr/mutation";
+import { MusicContext } from "@/context/MusicContext";
 
 const artistPhotoStyle = {
   borderRadius: "0.75rem",
@@ -18,7 +20,6 @@ const artistPhotoStyle = {
 
 const ArtistInfo = () => {
   const { userData, isUserDataLoading, errorFetchingUserData } = useUser();
-
   return (
     <div className={styles.artistInfo}>
       <Image
@@ -67,6 +68,7 @@ function Sidebar() {
   };
 
   const forArtist = router.pathname.startsWith("/artist");
+  const { coverPhotoSrc } = useContext(MusicContext);
 
   return (
     <div className={styles.container}>
@@ -170,9 +172,9 @@ function Sidebar() {
       {forArtist ? (
         <ArtistInfo />
       ) : (
-        <div className={styles.albumCover}>
+        coverPhotoSrc !== "" && <div className={styles.albumCover}>
           <Image
-            src="https://picsum.photos/200/200"
+            src={coverPhotoSrc}
             alt=""
             fill
             className={styles.photo}

@@ -1,6 +1,8 @@
+import {useContext} from "react";
 import styles from "./MusicComponent.module.css";
 import Image from "next/image";
 import { Text } from "@mantine/core";
+import { MusicContext } from "@/context/MusicContext";
 
 const MusicComponent = ({
   song,
@@ -15,8 +17,23 @@ const MusicComponent = ({
   };
   showFull?: boolean;
 }) => {
+  interface HashObject {
+    [key: string]: string;
+  }
+  const { audioURL, setAudioUrl, setArtistName, setCoverPhotoSrc, setMusicName } = useContext(MusicContext);
+  const changeSong = (ipfsHash:HashObject) => {
+    const cURL = "https://melomint-infra.centralindia.cloudapp.azure.com/api/get-file/";
+    const { hash } = ipfsHash;
+    console.log(hash);
+    if(audioURL !== (cURL+hash)){
+      setAudioUrl(cURL+hash);
+      setMusicName(song.name);
+      setArtistName(song.artist);
+      setCoverPhotoSrc(song.image);
+    }
+  } 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} onClick={()=>changeSong({hash: "QmdztfvDRgVaUUs5SoHM4HNnsy8t9A1xmtN1k8Ky9XYC8r"})}>
       <Image
         src={song.image}
         height={56}
