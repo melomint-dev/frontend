@@ -55,7 +55,7 @@ function ArtistProfile() {
                 }}
               />
             ) : (
-              <Skeleton height={445} />
+              <Skeleton height={445} radius={0} />
             )}
             <div className={styles.songs}>
               <Title order={5}>Songs</Title>
