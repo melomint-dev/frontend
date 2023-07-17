@@ -113,6 +113,20 @@ class PersonService {
       return false;
     }
   };
+
+  getListOfPeopleByIds = async ([url, personIds]: [string, string[]]) => {
+    try {
+      if (!personIds.length) return [];
+      const data = await userScript({
+        code: getPersonByAddressScript,
+        args: [fcl.arg(personIds, fcl.t.Array(fcl.t.String))],
+      });
+      return data;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  };
 }
 
 const personService = new PersonService();

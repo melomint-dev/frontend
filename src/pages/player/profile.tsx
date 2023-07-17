@@ -4,10 +4,21 @@ import TopSection from "@/components/profile/TopSection";
 import ManageSubscription from "@/components/profile/ManageSubscription";
 import BuySubscription from "@/components/profile/BuySubscription";
 import DisplayArtist from "@/components/player/DisplayArtist";
-import { useUser } from "@/hooks/person.swr";
+import { usePeopleList, useUser } from "@/hooks/person.swr";
 
 const Profile = () => {
   const { userData, isUserDataLoading, errorFetchingUserData } = useUser();
+  const {
+    peopleListData,
+    isPeopleListDataLoading,
+    errorFetchingPeopleListData,
+  } = usePeopleList(
+    userData
+      ? Object.keys(userData.subscribedTo).filter(
+          (id) => userData.subscribedTo[id]
+        )
+      : []
+  );
 
   return (
     <Layout
@@ -29,8 +40,13 @@ const Profile = () => {
           <DisplayArtist
             title="Artists NFT"
             subtitle="These are the NFT of the artists you have joined membership of. Get access to their exclusive content earlier"
-            artists={[]}
-            isLoading={false}
+            artists={peopleListData}
+            isLoading={
+              isUserDataLoading ||
+              errorFetchingUserData ||
+              isPeopleListDataLoading ||
+              errorFetchingPeopleListData
+            }
           />
         </div>
       }

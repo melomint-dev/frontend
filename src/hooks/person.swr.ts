@@ -120,3 +120,16 @@ export async function buyNFTFetcher(
     throw err;
   }
 }
+
+export function usePeopleList(list: string[]) {
+  const { data, error, isLoading } = useSWR(
+    [SWR_CONSTANTS.GET_USER, list],
+    personService.getListOfPeopleByIds
+  );
+
+  return {
+    peopleListData: data as IUser[],
+    isPeopleListDataLoading: isLoading as boolean,
+    errorFetchingPeopleListData: error,
+  };
+}

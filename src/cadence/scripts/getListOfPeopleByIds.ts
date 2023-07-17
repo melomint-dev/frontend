@@ -1,4 +1,4 @@
-export const getListOfSongDetailsViaSongIdsScript = `
+export const getListOfPeopleByIdsScript = `
 import MeloMint from 0xMeloMint
 
 pub fun main(personIds: [Address]): [MeloMint.Person] {
