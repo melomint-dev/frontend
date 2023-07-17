@@ -23,13 +23,17 @@ const ArtistInfo = () => {
   const { userData, isUserDataLoading, errorFetchingUserData } = useUser();
   return (
     <div className={styles.artistInfo}>
-      <Image
-        src={userData?.img ? API_CONSTANTS.IPFS_BASE_URL + userData?.img : ""}
-        alt=""
-        width={40}
-        height={40}
-        style={artistPhotoStyle}
-      />
+      {!isUserDataLoading && !errorFetchingUserData ? (
+        <Image
+          src={userData?.img ? API_CONSTANTS.IPFS_BASE_URL + userData?.img : ""}
+          alt=""
+          width={40}
+          height={40}
+          style={artistPhotoStyle}
+        />
+      ) : (
+        <Skeleton width={40} height={40} style={artistPhotoStyle} />
+      )}
       <div className={styles.artistInfoText}>
         {!isUserDataLoading && !errorFetchingUserData ? (
           <Title order={4} weight={800} color="primary">
@@ -53,7 +57,7 @@ const ArtistInfo = () => {
               {shortenAddress(userData.id)}
             </Text>
           ) : (
-            <Skeleton width={200} height={20} />
+            <Skeleton width={80} height={20} />
           )}
         </div>
       </div>

@@ -12,7 +12,7 @@ export interface ISong {
     [key: string]: string;
   };
   similarTo: {
-    [key: string]: string;
+    [key: string]: string[];
   };
   likes: string;
   plays: {
