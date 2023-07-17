@@ -22,7 +22,11 @@ import DefaultCoverImage from "@/assets/artist/DefaultCoverImage.svg";
 import transactionService from "@/services/transaction.service";
 import { shortenAddress } from "@/utils/shortenAddress";
 
-import { useUser, upadtePriceFetcher } from "@/hooks/person.swr";
+import {
+  useUser,
+  upadtePriceFetcher,
+  updateImageFetcher,
+} from "@/hooks/person.swr";
 import SWR_CONSTANTS from "@/utils/swrConstants";
 import useSWRMutation from "swr/mutation";
 import {
@@ -30,12 +34,7 @@ import {
   showSuccessNotification,
 } from "@/utils/notifications.helper";
 
-const ARTIST_DATA = {
-  name: "Jigardan Gadhvi",
-  image: "https://picsum.photos/300/300?random=1",
-  loginMethod: "flow",
-  address: "0x12345678",
-};
+import API_CONSTANTS from "@/utils/apiConstants";
 
 const MembershipSection = ({
   price,
@@ -162,7 +161,9 @@ const TopSection = ({
   coverImage: string;
 }) => {
   const [file, setFile] = useState<File | null>(null);
-  const [coverImageSrc, setCoverImageSrc] = useState<string>(coverImage);
+  const [coverImageSrc, setCoverImageSrc] = useState<string>(
+    coverImage ? API_CONSTANTS.IPFS_BASE_URL + coverImage : ""
+  );
   const resetRef = useRef<() => void>(null);
 
   const clearFile = () => {
@@ -171,7 +172,9 @@ const TopSection = ({
   };
 
   useEffect(() => {
-    setCoverImageSrc(coverImage);
+    setCoverImageSrc(
+      coverImage ? API_CONSTANTS.IPFS_BASE_URL + coverImage : ""
+    );
   }, [coverImage]);
 
   useEffect(() => {
@@ -182,9 +185,30 @@ const TopSection = ({
       };
       reader.readAsDataURL(file as File);
     } else {
-      setCoverImageSrc(coverImage);
+      setCoverImageSrc(
+        coverImage ? API_CONSTANTS.IPFS_BASE_URL + coverImage : ""
+      );
     }
   }, [file]);
+
+  const { trigger: updateImage, isMutating } = useSWRMutation(
+    SWR_CONSTANTS.AUTHENTICATE_USER,
+    updateImageFetcher
+  );
+
+  const uploadImage = async () => {
+    try {
+      await updateImage({
+        file: file as File,
+      });
+      clearFile();
+      console.log("UPDATE-IMAGE -- SUCCESS");
+      showSuccessNotification("Image updated successfully");
+    } catch (error) {
+      console.log("UPDATE-IMAGE -- FAILED", error);
+      showErrorNotification("Image update failed", "Please try again!");
+    }
+  };
 
   return (
     <div className={styles.artist}>
@@ -194,17 +218,22 @@ const TopSection = ({
           onChange={setFile}
           accept="image/png,image/jpeg"
         >
-          {(props) => (
-            <Image
-              src={coverImageSrc ? coverImageSrc : DefaultCoverImage}
-              alt=""
-              height={150}
-              width={400}
-              className={styles.imgSelector}
-              priority
-              {...props}
-            />
-          )}
+          {(props) =>
+            isUserDataLoading ? (
+              <Skeleton height={150} width={400} />
+            ) : (
+              <Image
+                src={coverImageSrc ? coverImageSrc : DefaultCoverImage}
+                alt=""
+                height={150}
+                width={400}
+                className={styles.imgSelector}
+                priority
+                placeholder="empty"
+                {...props}
+              />
+            )
+          }
         </FileButton>
         <div className={styles.saveButtons}>
           <Button
@@ -212,8 +241,10 @@ const TopSection = ({
             variant="filled"
             size="md"
             // radius={"xl"}
-            disabled={isUserDataLoading || !file}
+            disabled={isUserDataLoading || !file || isMutating}
+            loading={isMutating}
             fullWidth
+            onClick={uploadImage}
           >
             Save Cover
           </Button>
@@ -222,7 +253,7 @@ const TopSection = ({
             size="md"
             // radius={"xl"}
             color="primary"
-            disabled={isUserDataLoading || !file}
+            disabled={isUserDataLoading || !file || isMutating}
             onClick={clearFile}
             fullWidth
           >
@@ -284,7 +315,7 @@ const Artist = () => {
             <MembershipSection
               price={userData?.NFTprice}
               isLoading={isUserDataLoading}
-              nftImage={userData?.img}
+              nftImage={userData?.NFTimage}
             />
             <SongResult openUploadModal={open} />
           </div>

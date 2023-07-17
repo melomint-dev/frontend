@@ -3,7 +3,7 @@ import { singleUserTransaction } from "@/utils/transcation";
 import { userScript } from "@/utils/scripts";
 
 import { getCreatoryByAddressScript } from "@/cadence/scripts";
-import { updatePersonNFTPriceTransaction } from "@/cadence/transactions";
+import { updatePersonNFTPriceTransaction, updatePersonImgTransaction, updatePersonLikedSongTransaction } from "@/cadence/transactions";
 
 class PersonService {
   getPersonByAddress = async (address: string) => {
@@ -42,6 +42,20 @@ class PersonService {
     }
   };
 
+  updatePersonImage = async ({ url }: { url: string }) => {
+    try {
+      await singleUserTransaction({
+        code: updatePersonImgTransaction,
+        args: [fcl.arg(url, fcl.t.String)],
+      });
+      return true;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  };
+
+
   updateNFTPrice = async ({ price }: { price: number }) => {
     try {
       await singleUserTransaction({
@@ -54,6 +68,19 @@ class PersonService {
       return false;
     }
   };
+
+  updatePersonLinkedSong = async ({ song }: { song: string }) => {
+    try {
+      await singleUserTransaction({
+        code: updatePersonLikedSongTransaction,
+        args: [fcl.arg(song, fcl.t.String)],
+      });
+      return true;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  }
 }
 
 const personService = new PersonService();

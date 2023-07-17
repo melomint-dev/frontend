@@ -5,12 +5,16 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "i.scdn.co",
+        hostname: "i.scdn.co"
       },
       {
         protocol: "https",
         hostname: "picsum.photos",
       },
+      {
+        protocol: "https",
+        hostname: "gateway.pinata.cloud",
+      }
     ],
   },
 };
