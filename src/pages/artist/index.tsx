@@ -237,7 +237,7 @@ const TopSection = ({
             {name}
           </Title>
         ) : (
-          <Skeleton width={200} height={50} />
+          <Skeleton width={200} height={62} />
         )}
         <div className={styles.info}>
           <Text color="primary.3" weight={500}>
