@@ -3,7 +3,7 @@ import styles from "./Header.module.css";
 import { TextInput, Text, Skeleton } from "@mantine/core";
 import { flowicon, user, search } from "@/assets/player";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useUser } from "@/hooks/person.swr";
 
 function Header() {
@@ -21,7 +21,13 @@ function Header() {
 
   const { userData, isUserDataLoading, errorFetchingUserData } = useUser();
 
-  // return <></>;
+  useEffect(() => {
+    if (router.query.search) {
+      setSearchValue(router.query.search as string);
+    } else {
+      setSearchValue("");
+    }
+  }, [router.query.search]);
 
   return (
     <header className={styles.container}>
@@ -32,6 +38,7 @@ function Header() {
           placeholder="Search"
           size="md"
           icon={<Image src={search} alt="" height={20} width={20} />}
+          value={searchValue}
           onChange={(event) => setSearchValue(event.currentTarget.value)}
         />
       </form>
