@@ -5,6 +5,7 @@ import { flowicon, user, search } from "@/assets/player";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useUser } from "@/hooks/person.swr";
+import API_CONSTANTS from "@/utils/apiConstants";
 import Link from "next/link";
 
 function Header() {
@@ -20,6 +21,14 @@ function Header() {
   };
 
   const { userData, isUserDataLoading, errorFetchingUserData } = useUser();
+
+  const imageURL =
+    API_CONSTANTS.IPFS_BASE_URL +
+    (userData?.img
+      ? userData?.img
+      : "QmeH9LwG8ToFrxvETRpYK6YTDpVNj8K6VdnqD1Kvhu2frV");
+
+      console.log(imageURL);
 
   useEffect(() => {
     if (router.query.search) {
