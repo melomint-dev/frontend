@@ -36,13 +36,6 @@ import {
 
 import API_CONSTANTS from "@/utils/apiConstants";
 
-const ARTIST_DATA = {
-  name: "Jigardan Gadhvi",
-  image: "https://picsum.photos/300/300?random=1",
-  loginMethod: "flow",
-  address: "0x12345678",
-};
-
 const MembershipSection = ({
   price,
   isLoading,
@@ -168,7 +161,9 @@ const TopSection = ({
   coverImage: string;
 }) => {
   const [file, setFile] = useState<File | null>(null);
-  const [coverImageSrc, setCoverImageSrc] = useState<string>(coverImage ? API_CONSTANTS.IPFS_BASE_URL+coverImage : "");
+  const [coverImageSrc, setCoverImageSrc] = useState<string>(
+    coverImage ? API_CONSTANTS.IPFS_BASE_URL + coverImage : ""
+  );
   const resetRef = useRef<() => void>(null);
   const [ipfsHash, setIpfsHash] = useState<string | null>("");
 
@@ -178,14 +173,14 @@ const TopSection = ({
   };
 
   useEffect(() => {
-    setCoverImageSrc(coverImage ? API_CONSTANTS.IPFS_BASE_URL+coverImage : "");
+    setCoverImageSrc(
+      coverImage ? API_CONSTANTS.IPFS_BASE_URL + coverImage : ""
+    );
   }, [coverImage]);
-
 
   useEffect(() => {
     console.log(coverImageSrc);
   }, [coverImageSrc]);
-
 
   useEffect(() => {
     if (file) {
@@ -195,7 +190,9 @@ const TopSection = ({
       };
       reader.readAsDataURL(file as File);
     } else {
-      setCoverImageSrc(coverImage ? API_CONSTANTS.IPFS_BASE_URL+coverImage : "");
+      setCoverImageSrc(
+        coverImage ? API_CONSTANTS.IPFS_BASE_URL + coverImage : ""
+      );
     }
   }, [file]);
 
@@ -318,7 +315,7 @@ const Artist = () => {
             <MembershipSection
               price={userData?.NFTprice}
               isLoading={isUserDataLoading}
-              nftImage={userData?.img}
+              nftImage={userData?.NFTimage}
             />
             <SongResult openUploadModal={open} />
           </div>

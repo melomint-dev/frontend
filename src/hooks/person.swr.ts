@@ -4,6 +4,7 @@ import personService from "@/services/person.service";
 import API_CONSTANTS from "@/utils/apiConstants";
 
 interface IUser {
+  NFTimage: string;
   NFTprice: number;
   firstName: string;
   id: string;
