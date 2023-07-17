@@ -1,21 +1,18 @@
 import React from "react";
 import Image from "next/image";
-import { Title, Button, Text } from "@mantine/core";
+import { Title, Button, Text, Skeleton } from "@mantine/core";
 import MusicComponent from "@/components/player/MusicComponent";
 import Shuffle from "@/assets/player/favourites/Shuffle.svg";
 
 import styles from "./FavouritesMainSec.module.css";
+import { ISong } from "@/interfaces/ISong";
 
 function FavouritesTopSec({
   songs,
+  isLoading,
 }: {
-  songs: {
-    _id: string;
-    name: string;
-    artist: string;
-    image: string;
-    duration: number;
-  }[];
+  songs: ISong[];
+  isLoading: boolean;
 }) {
   return (
     <div className={styles.container}>
@@ -33,15 +30,19 @@ function FavouritesTopSec({
           >
             Shuffle All
           </Button>
-          <Text>{12} Songs</Text>
+          <Text>{songs?.length} Songs</Text>
         </div>
       </div>
       <div className={styles.songs}>
         <Title order={5}>Songs</Title>
         <div className={styles.songsList}>
-          {songs.map((song) => (
-            <MusicComponent song={song} key={song._id} showFull />
-          ))}
+          {isLoading ? (
+            <Skeleton height={20} />
+          ) : (
+            songs.map((song) => (
+              <MusicComponent song={song} key={song.id} showFull />
+            ))
+          )}
         </div>
       </div>
     </div>

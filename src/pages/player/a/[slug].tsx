@@ -32,8 +32,6 @@ function ArtistProfile() {
         : []
     );
 
-  console.log(songListData, isSongListDataLoading, errorFetchingSongListData);
-
   return (
     <div className={styles.container}>
       <Layout
