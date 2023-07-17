@@ -165,7 +165,6 @@ const TopSection = ({
     coverImage ? API_CONSTANTS.IPFS_BASE_URL + coverImage : ""
   );
   const resetRef = useRef<() => void>(null);
-  const [ipfsHash, setIpfsHash] = useState<string | null>("");
 
   const clearFile = () => {
     setFile(null);
@@ -177,10 +176,6 @@ const TopSection = ({
       coverImage ? API_CONSTANTS.IPFS_BASE_URL + coverImage : ""
     );
   }, [coverImage]);
-
-  useEffect(() => {
-    console.log(coverImageSrc);
-  }, [coverImageSrc]);
 
   useEffect(() => {
     if (file) {
@@ -203,18 +198,17 @@ const TopSection = ({
 
   const uploadImage = async () => {
     try {
-      const data = await updateImage({
+      await updateImage({
         file: file as File,
       });
-      console.log("UPDATE-IMAGE -- SUCCESS", data);
+      clearFile();
+      console.log("UPDATE-IMAGE -- SUCCESS");
       showSuccessNotification("Image updated successfully");
     } catch (error) {
       console.log("UPDATE-IMAGE -- FAILED", error);
       showErrorNotification("Image update failed", "Please try again!");
     }
   };
-
-  console.log("COVER-IMAGE-SRC", coverImageSrc);
 
   return (
     <div className={styles.artist}>
@@ -224,17 +218,22 @@ const TopSection = ({
           onChange={setFile}
           accept="image/png,image/jpeg"
         >
-          {(props) => (
-            <Image
-              src={coverImageSrc ? coverImageSrc : DefaultCoverImage}
-              alt=""
-              height={150}
-              width={400}
-              className={styles.imgSelector}
-              priority
-              {...props}
-            />
-          )}
+          {(props) =>
+            isUserDataLoading ? (
+              <Skeleton height={150} width={400} />
+            ) : (
+              <Image
+                src={coverImageSrc ? coverImageSrc : DefaultCoverImage}
+                alt=""
+                height={150}
+                width={400}
+                className={styles.imgSelector}
+                priority
+                placeholder="empty"
+                {...props}
+              />
+            )
+          }
         </FileButton>
         <div className={styles.saveButtons}>
           <Button
@@ -242,7 +241,8 @@ const TopSection = ({
             variant="filled"
             size="md"
             // radius={"xl"}
-            disabled={isUserDataLoading || !file}
+            disabled={isUserDataLoading || !file || isMutating}
+            loading={isMutating}
             fullWidth
             onClick={uploadImage}
           >
@@ -253,7 +253,7 @@ const TopSection = ({
             size="md"
             // radius={"xl"}
             color="primary"
-            disabled={isUserDataLoading || !file}
+            disabled={isUserDataLoading || !file || isMutating}
             onClick={clearFile}
             fullWidth
           >

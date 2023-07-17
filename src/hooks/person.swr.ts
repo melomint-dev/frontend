@@ -1,4 +1,4 @@
-import useSWR from "swr";
+import useSWR, { mutate } from "swr";
 import SWR_CONSTANTS from "@/utils/swrConstants";
 import personService from "@/services/person.service";
 import API_CONSTANTS from "@/utils/apiConstants";
@@ -70,7 +70,9 @@ export async function updateImageFetcher(
     const data = await res.json();
     console.log("data", data);
 
-    return await personService.updatePersonImage({ url: data.imageHash });
+    await personService.updatePersonImage({ url: data.imageHash });
+    await mutate(SWR_CONSTANTS.GET_USER);
+    return res;
   } catch (err) {
     console.log("err", err);
     throw err;
