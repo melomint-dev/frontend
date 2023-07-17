@@ -28,8 +28,6 @@ function Header() {
       ? userData?.img
       : "QmeH9LwG8ToFrxvETRpYK6YTDpVNj8K6VdnqD1Kvhu2frV");
 
-      console.log(imageURL);
-
   useEffect(() => {
     if (router.query.search) {
       setSearchValue(router.query.search as string);

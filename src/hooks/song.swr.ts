@@ -1,6 +1,7 @@
 import useSWR from "swr";
 import SWR_CONSTANTS from "@/utils/swrConstants";
 import songService from "@/services/song.service";
+import API_CONSTANTS from "@/utils/apiConstants";
 
 interface ISong {
   id: string;
@@ -38,20 +39,33 @@ export async function addSongFetcher(
     arg,
   }: {
     arg: {
-      id: string;
+      // id: string;
       name: string;
-      freeUrl: string;
-      img: string;
+      // freeUrl: string;
+      img: File;
     };
   }
 ) {
   try {
-    return await songService.addSong({
-      id: arg.id,
-      name: arg.name,
-      freeUrl: arg.freeUrl,
-      img: arg.img,
-    });
+
+    // const formData = new FormData();
+    // formData.append("image", arg.img as File);
+
+    // const res = await fetch(API_CONSTANTS.UPLOAD_IMAGE, {
+    //   method: "POST",
+    //   body: formData,
+    // });
+
+    // const data = await res.json();
+    // console.log("data", data);
+
+
+    // return await songService.addSong({
+    //   id: arg.id,
+    //   name: arg.name,
+    //   freeUrl: arg.freeUrl,
+    //   img: arg.img,
+    // });
   } catch (err) {
     console.log("err", err);
     throw err;

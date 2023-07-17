@@ -120,14 +120,23 @@ export async function buyNFTFetcher(
   }
 ) {
   try {
+
     const userAcc = await fcl.currentUser().snapshot();
-    const formData = new FormData();
-    formData.append("userId", userAcc);
-    formData.append("artistId", arg.artistID);
+    console.log("userAcc", userAcc);
+
+    const formData = {
+      "userId": userAcc.addr,
+      "artistId": arg.artistID,
+    };
+
+    console.log("formData", formData);
 
     const res = await fetch(API_CONSTANTS.BUY_NFT, {
       method: "POST",
-      body: formData,
+      body: JSON.stringify(formData),
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
 
     const data = await res.json();

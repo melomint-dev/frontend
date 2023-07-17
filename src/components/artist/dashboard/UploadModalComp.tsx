@@ -43,20 +43,20 @@ function UploadModalComp() {
 
   const { trigger: songUpload, isMutating } = useSWRMutation(
     SWR_CONSTANTS.ADD_SONG,
-    addSongFetcher,
+    addSongFetcher
   );
 
-  const uploadSong = async () => {
-    // try{
-    //   const data = await songUpload(
-    //     {
-    //       id: router.query.id as string,
-    //       name: form.values.name,
-    //       song: form.values.song.toString(),
-    //     }
-    //   );
-    // }
-  };
+  // const uploadSong = async () => {
+  //   try{
+  //     // const data = await songUpload(
+  //     //   {
+  //     //     id: router.query.id as string,
+  //     //     name: form.values.name,
+  //     //     song: form.values.song.toString(),
+  //     //   }
+  //     // );
+  //   }
+  // };
 
   return (
     <div className={styles.container}>
@@ -137,7 +137,7 @@ function UploadModalComp() {
               classNames={{
                 root: styles.defaultRadius,
               }}
-              onClick={uploadSong}
+              // onClick={uploadSong}
             >
               Publish
             </Button>
