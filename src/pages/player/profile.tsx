@@ -23,7 +23,7 @@ const Profile = () => {
   // console.log(userData.subscriptionTill);
 
   // chnage this to subscriptionTill to get the date
-  const date = new Date().getDate()+2; 
+  const date = new Date().getDate() + 2;
   console.log(date);
 
   return (
@@ -37,6 +37,8 @@ const Profile = () => {
               loginMethod: "flow",
               address: userData?.id,
             }}
+            isUserDataLoading={isUserDataLoading || errorFetchingUserData}
+            profileImage={userData?.img}
           />
           {new Date(userData?.subscriptionTill).getTime() > Date.now() ? (
             <ManageSubscription
