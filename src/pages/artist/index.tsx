@@ -22,13 +22,19 @@ import DefaultCoverImage from "@/assets/artist/DefaultCoverImage.svg";
 import transactionService from "@/services/transaction.service";
 import { shortenAddress } from "@/utils/shortenAddress";
 
-import { useUser, upadtePriceFetcher } from "@/hooks/person.swr";
+import {
+  useUser,
+  upadtePriceFetcher,
+  updateImageFetcher,
+} from "@/hooks/person.swr";
 import SWR_CONSTANTS from "@/utils/swrConstants";
 import useSWRMutation from "swr/mutation";
 import {
   showErrorNotification,
   showSuccessNotification,
 } from "@/utils/notifications.helper";
+
+import API_CONSTANTS from "@/utils/apiConstants";
 
 const ARTIST_DATA = {
   name: "Jigardan Gadhvi",
@@ -162,8 +168,9 @@ const TopSection = ({
   coverImage: string;
 }) => {
   const [file, setFile] = useState<File | null>(null);
-  const [coverImageSrc, setCoverImageSrc] = useState<string>(coverImage);
+  const [coverImageSrc, setCoverImageSrc] = useState<string>(coverImage ? API_CONSTANTS.IPFS_BASE_URL+coverImage : "");
   const resetRef = useRef<() => void>(null);
+  const [ipfsHash, setIpfsHash] = useState<string | null>("");
 
   const clearFile = () => {
     setFile(null);
@@ -171,8 +178,14 @@ const TopSection = ({
   };
 
   useEffect(() => {
-    setCoverImageSrc(coverImage);
+    setCoverImageSrc(coverImage ? API_CONSTANTS.IPFS_BASE_URL+coverImage : "");
   }, [coverImage]);
+
+
+  useEffect(() => {
+    console.log(coverImageSrc);
+  }, [coverImageSrc]);
+
 
   useEffect(() => {
     if (file) {
@@ -182,9 +195,29 @@ const TopSection = ({
       };
       reader.readAsDataURL(file as File);
     } else {
-      setCoverImageSrc(coverImage);
+      setCoverImageSrc(coverImage ? API_CONSTANTS.IPFS_BASE_URL+coverImage : "");
     }
   }, [file]);
+
+  const { trigger: updateImage, isMutating } = useSWRMutation(
+    SWR_CONSTANTS.AUTHENTICATE_USER,
+    updateImageFetcher
+  );
+
+  const uploadImage = async () => {
+    try {
+      const data = await updateImage({
+        file: file as File,
+      });
+      console.log("UPDATE-IMAGE -- SUCCESS", data);
+      showSuccessNotification("Image updated successfully");
+    } catch (error) {
+      console.log("UPDATE-IMAGE -- FAILED", error);
+      showErrorNotification("Image update failed", "Please try again!");
+    }
+  };
+
+  console.log("COVER-IMAGE-SRC", coverImageSrc);
 
   return (
     <div className={styles.artist}>
@@ -214,6 +247,7 @@ const TopSection = ({
             // radius={"xl"}
             disabled={isUserDataLoading || !file}
             fullWidth
+            onClick={uploadImage}
           >
             Save Cover
           </Button>

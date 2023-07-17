@@ -1,6 +1,7 @@
 import useSWR from "swr";
 import SWR_CONSTANTS from "@/utils/swrConstants";
 import personService from "@/services/person.service";
+import API_CONSTANTS from "@/utils/apiConstants";
 
 interface IUser {
   NFTprice: number;
@@ -50,6 +51,29 @@ export function useArtist(id: string) {
     isArtistDataLoading: isLoading as boolean,
     errorFetchingArtistData: error,
   };
+}
+
+export async function updateImageFetcher(
+  url: string,
+  { arg }: { arg: { file: File } }
+) {
+  try {
+    const formData = new FormData();
+    formData.append("image", arg.file as File);
+
+    const res = await fetch(API_CONSTANTS.UPLOAD_IMAGE, {
+      method: "POST",
+      body: formData,
+    });
+
+    const data = await res.json();
+    console.log("data", data);
+
+    return await personService.updatePersonImage({ url: data.imageHash });
+  } catch (err) {
+    console.log("err", err);
+    throw err;
+  }
 }
 
 export async function upadtePriceFetcher(

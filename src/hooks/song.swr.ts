@@ -33,11 +33,3 @@ export function useSong(id: string) {
   };
 }
 
-export async function addSongFetcher() {
-  try {
-    return await songService.addSong();
-  } catch (error) {
-    console.log(error);
-    throw error;
-  }
-}
