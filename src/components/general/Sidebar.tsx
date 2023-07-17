@@ -45,7 +45,7 @@ const ArtistInfo = () => {
         </div>
         <div className={styles.info}>
           <Text color="primary.3" weight={500}>
-            Wallet Address:
+            {"Wallet Address:"}
           </Text>
           {!isUserDataLoading && !errorFetchingUserData ? (
             <Text color="primary" weight={700}>
