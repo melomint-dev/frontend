@@ -2,6 +2,7 @@ import useSWR from "swr";
 import SWR_CONSTANTS from "@/utils/swrConstants";
 import songService from "@/services/song.service";
 
+
 interface ISong {
   id: string;
   name: string;
@@ -30,4 +31,13 @@ export function useSong(id: string) {
     isSongDataLoading: isLoading as boolean,
     errorFetchingSongData: error,
   };
+}
+
+export async function addSongFetcher() {
+  try {
+    return await songService.addSong();
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
 }

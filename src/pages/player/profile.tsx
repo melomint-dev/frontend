@@ -20,7 +20,7 @@ const ARTIST_DATA = {
 const Profile = () => {
   const { userData, isUserDataLoading, errorFetchingUserData } = useUser();
 
-  console.log(userData.subscriptionTill);
+  // console.log(userData.subscriptionTill);
 
   // chnage this to subscriptionTill to get the date
   const date = new Date().getDate()+2; 
@@ -38,7 +38,7 @@ const Profile = () => {
               address: userData?.id,
             }}
           />
-          {new Date(userData.subscriptionTill).getTime() > Date.now() ? (
+          {new Date(userData?.subscriptionTill).getTime() > Date.now() ? (
             <ManageSubscription
               subscription={{ amount: 50, expDate: "1 Jul 2024" }}
             />
