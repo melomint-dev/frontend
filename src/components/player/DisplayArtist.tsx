@@ -1,7 +1,8 @@
 import styles from "./DisplayArtist.module.css";
-import { Title, Text } from "@mantine/core";
+import { Title, Text, Skeleton } from "@mantine/core";
 import ArtistComponent from "./ArtistComponent";
 import { user } from "@/assets/player";
+import { useArtistsOnRise } from "@/hooks/abstractions.flow.swr";
 
 const TEMP_ARTIST_DATA = new Array(6).fill({}).map((_, i) => ({
   _id: "0x482c030acfdcb4cc",
@@ -16,6 +17,12 @@ const TopArtist = ({
   title?: string;
   subtitle?: string;
 }) => {
+  const {
+    artistsOnRiseData,
+    isArtistsOnRiseDataLoading,
+    errorFetchingArtistsOnRiseData,
+  } = useArtistsOnRise();
+
   return (
     <div className={styles.container}>
       <div className={styles.titles}>
@@ -27,9 +34,13 @@ const TopArtist = ({
         </Text>
       </div>
       <div className={styles.artists}>
-        {TEMP_ARTIST_DATA.map((artist) => (
-          <ArtistComponent key={artist._id} artist={artist} />
-        ))}
+        {isArtistsOnRiseDataLoading || errorFetchingArtistsOnRiseData ? (
+          <Skeleton height={133} width={400} />
+        ) : (
+          artistsOnRiseData.map((artist) => (
+            <ArtistComponent key={artist.id} artist={artist} />
+          ))
+        )}
       </div>
     </div>
   );

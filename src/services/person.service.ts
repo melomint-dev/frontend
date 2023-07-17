@@ -9,7 +9,7 @@ class PersonService {
   getPersonByAddress = async (address: string) => {
     try {
       const data = await userScript({
-        code: getCreatoryByAddressScript,
+      code: getCreatoryByAddressScript,
         args: [fcl.arg(address, fcl.t.Address)],
       });
       console.log("udata", data);

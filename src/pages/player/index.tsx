@@ -11,15 +11,12 @@ function Player() {
   const router = useRouter();
   const { search } = router.query;
 
-
   return (
     <Layout
       childern={
         <div className={styles.container}>
           <TopMusic />
-          <TopArtist 
-            title="Artists on Rise"
-          />
+          <TopArtist title="Artists on Rise" />
           <NewReleases />
         </div>
       }

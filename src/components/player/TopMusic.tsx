@@ -1,18 +1,16 @@
-import { Text, Title } from "@mantine/core";
+import { Skeleton, Text, Title } from "@mantine/core";
 import { user } from "@/assets/player";
 import MusicComponent from "./MusicComponent";
 import styles from "./TopMusic.module.css";
-
-const TEMP_SONGS_DATA = new Array(6).fill({}).map((_, i) => ({
-  _id: i.toString(),
-  name: "Song Name",
-  artist: "Jigardan Gadhvi",
-  image: "https://picsum.photos/300/300?random=" + i,
-  duration: 150,
-}));
+import { useTrendingSongs } from "@/hooks/abstractions.flow.swr";
 
 const TopMusic = () => {
-  const songs = TEMP_SONGS_DATA;
+  const {
+    trendingSongsData,
+    isTrendingSongsDataLoading,
+    errorFetchingTrendingSongsData,
+  } = useTrendingSongs();
+
   return (
     <div className={styles.container}>
       <div>
@@ -24,9 +22,13 @@ const TopMusic = () => {
         </Text>
       </div>
       <div className={styles.songs}>
-        {songs.map((song) => (
-          <MusicComponent song={song} key={song._id} />
-        ))}
+        {isTrendingSongsDataLoading || errorFetchingTrendingSongsData ? (
+          <Skeleton height={200} width={500} />
+        ) : (
+          trendingSongsData.map((song) => (
+            <MusicComponent song={song} key={song.id} />
+          ))
+        )}
       </div>
     </div>
   );

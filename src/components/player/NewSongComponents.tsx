@@ -1,38 +1,49 @@
-import {useContext} from "react";
+import { useContext } from "react";
 import styles from "./NewSongComponents.module.css";
 
 import Image, { StaticImageData } from "next/image";
 import { Text } from "@mantine/core";
 import { MusicContext } from "@/context/MusicContext";
+import { ISong } from "@/hooks/abstractions.flow.swr";
+import API_CONSTANTS from "@/utils/apiConstants";
 
-const NewSongComponents = ({
-  song,
-}: {
-  song: {
-    _id: string;
-    name: string;
-    image: string;
-    artist: string;
-  };
-}) => {
+const NewSongComponents = ({ song }: { song: ISong }) => {
   interface HashObject {
     [key: string]: string;
   }
-  const { audioURL, setAudioUrl, setArtistName, setCoverPhotoSrc, setMusicName } = useContext(MusicContext);
-  const changeSong = (ipfsHash:HashObject) => {
-    const cURL = "https://melomint-infra.centralindia.cloudapp.azure.com/api/get-file/";
+  const {
+    audioURL,
+    setAudioUrl,
+    setArtistName,
+    setCoverPhotoSrc,
+    setMusicName,
+  } = useContext(MusicContext);
+  const changeSong = (ipfsHash: HashObject) => {
+    const cURL =
+      "https://melomint-infra.centralindia.cloudapp.azure.com/api/get-file/";
     const { hash } = ipfsHash;
     console.log(hash);
-    if(audioURL !== (cURL+hash)){
-      setAudioUrl(cURL+hash);
+    if (audioURL !== cURL + hash) {
+      setAudioUrl(cURL + hash);
       setMusicName(song.name);
-      setArtistName(song.artist);
-      setCoverPhotoSrc(song.image);
+      setArtistName(song.artist.firstName + " " + song.artist.lastName);
+      setCoverPhotoSrc(API_CONSTANTS.IPFS_BASE_URL + song.img);
     }
-  } 
+  };
   return (
-    <div className={styles.container} onClick={() => changeSong({hash: "QmdztfvDRgVaUUs5SoHM4HNnsy8t9A1xmtN1k8Ky9XYC8r"})}>
-      <Image src={song.image} alt="" className={styles.songImage} width={300} height={300}/>
+    <div
+      className={styles.container}
+      onClick={() =>
+        changeSong({ hash: "QmdztfvDRgVaUUs5SoHM4HNnsy8t9A1xmtN1k8Ky9XYC8r" })
+      }
+    >
+      <Image
+        src={API_CONSTANTS.IPFS_BASE_URL + song.img}
+        alt=""
+        className={styles.songImage}
+        width={300}
+        height={300}
+      />
       <Text
         weight={700}
         color="primary"
@@ -42,7 +53,7 @@ const NewSongComponents = ({
         {song.name}
       </Text>
       <Text weight={700} color="primary.3" className={styles.songArtistName}>
-        {song.artist}
+        {song.artist.firstName + " " + song.artist.lastName}
       </Text>
     </div>
   );
