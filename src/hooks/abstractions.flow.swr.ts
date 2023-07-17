@@ -85,3 +85,19 @@ export function useArtistsOnRise() {
     errorFetchingArtistsOnRiseData: error,
   };
 }
+
+export function useSearchQuery(query: string) {
+  const { data, error, isLoading } = useSWR(
+    [API_CONSTANTS.SEARCH_QUERY, query],
+    flowAbstractionService.searchQuery
+  );
+
+  return {
+    searchQueryData: data as {
+      songs: ISong[];
+      artists: IUser[];
+    },
+    isSearchQueryDataLoading: isLoading,
+    errorFetchingSearchQueryData: error,
+  };
+}

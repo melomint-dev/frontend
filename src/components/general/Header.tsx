@@ -3,9 +3,9 @@ import styles from "./Header.module.css";
 import { TextInput, Text, Skeleton } from "@mantine/core";
 import { flowicon, user, search } from "@/assets/player";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useUser } from "@/hooks/person.swr";
-import API_CONSTANTS from "@/utils/apiConstants";
+import Link from "next/link";
 
 function Header() {
   const router = useRouter();
@@ -21,11 +21,13 @@ function Header() {
 
   const { userData, isUserDataLoading, errorFetchingUserData } = useUser();
 
-  const imageURL =
-    API_CONSTANTS.IPFS_BASE_URL +
-    (userData
-      ? userData?.img
-      : "QmeH9LwG8ToFrxvETRpYK6YTDpVNj8K6VdnqD1Kvhu2frV");
+  useEffect(() => {
+    if (router.query.search) {
+      setSearchValue(router.query.search as string);
+    } else {
+      setSearchValue("");
+    }
+  }, [router.query.search]);
 
   return (
     <header className={styles.container}>
@@ -36,11 +38,15 @@ function Header() {
           placeholder="Search"
           size="md"
           icon={<Image src={search} alt="" height={20} width={20} />}
+          value={searchValue}
           onChange={(event) => setSearchValue(event.currentTarget.value)}
         />
       </form>
       {!isUserDataLoading && !errorFetchingUserData && userData ? (
-        <div className={styles.user}>
+        <Link
+          className={styles.user}
+          href={userData.type == "1" ? "/artist" : "/player/profile"}
+        >
           <Text size="lg" weight="700">
             {userData.firstName + " " + userData.lastName}
           </Text>
@@ -62,7 +68,7 @@ function Header() {
               className={styles.userImage}
             />
           </div>
-        </div>
+        </Link>
       ) : (
         <Skeleton height={42} width={180} />
       )}
