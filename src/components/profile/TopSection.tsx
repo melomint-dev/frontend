@@ -1,21 +1,19 @@
 import styles from "./TopSection.module.css";
 import Image from "next/image";
-import { Title, Text, Button, FileButton } from "@mantine/core";
+import { Title, Text, Button, FileButton, Skeleton } from "@mantine/core";
 import { flowicon } from "@/assets/player";
 import { useEffect, useRef, useState } from "react";
 import DefaultProfileImage from "@/assets/player/profile/DefaultProfileImage.svg";
+import { shortenAddress } from "@/utils/shortenAddress";
 
 const TopSection = ({
-  artist,
+  name,
+  address,
   isUserDataLoading,
   profileImage,
 }: {
-  artist: {
-    name: string;
-    image: string;
-    loginMethod: string;
-    address: string;
-  };
+  name: string;
+  address: string;
   isUserDataLoading: boolean;
   profileImage: string;
 }) => {
@@ -45,10 +43,6 @@ const TopSection = ({
   }, [file]);
   return (
     <div className={styles.container}>
-      {/* <Image
-        src={artist.image}
-        alt=""
-      /> */}
       <div className={styles.profileImage}>
         <FileButton
           resetRef={resetRef}
@@ -92,9 +86,13 @@ const TopSection = ({
         </div>
       </div>
       <div className={styles.userInfo}>
-        <Title color="primary" order={1} weight={800}>
-          {artist.name}
-        </Title>
+        {!isUserDataLoading ? (
+          <Title color="primary" order={1} weight={800}>
+            {name}
+          </Title>
+        ) : (
+          <Skeleton width={200} height={62} />
+        )}
         <div className={styles.info}>
           <Text color="primary.3" weight={500}>
             Login Method
@@ -105,9 +103,13 @@ const TopSection = ({
           <Text color="primary.3" weight={500}>
             Wallet Address:
           </Text>
-          <Text color="primary" weight={700}>
-            {artist.address}
-          </Text>
+          {!isUserDataLoading ? (
+            <Text color="primary" weight={700}>
+              {shortenAddress(address)}
+            </Text>
+          ) : (
+            <Skeleton width={200} height={20} />
+          )}
         </div>
       </div>
     </div>

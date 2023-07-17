@@ -31,14 +31,10 @@ const Profile = () => {
       childern={
         <div className={styles.container}>
           <TopSection
-            artist={{
-              name: userData?.firstName + " " + userData?.lastName,
-              image: userData?.img,
-              loginMethod: "flow",
-              address: userData?.id,
-            }}
             isUserDataLoading={isUserDataLoading || errorFetchingUserData}
             profileImage={userData?.img}
+            name={userData?.firstName + " " + userData?.lastName}
+            address={userData?.id}
           />
           {new Date(userData?.subscriptionTill).getTime() > Date.now() ? (
             <ManageSubscription
