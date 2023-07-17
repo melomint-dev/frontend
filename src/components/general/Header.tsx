@@ -5,6 +5,7 @@ import { flowicon, user, search } from "@/assets/player";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useUser } from "@/hooks/person.swr";
+import Link from "next/link";
 
 function Header() {
   const router = useRouter();
@@ -43,7 +44,10 @@ function Header() {
         />
       </form>
       {!isUserDataLoading && !errorFetchingUserData && userData ? (
-        <div className={styles.user}>
+        <Link
+          className={styles.user}
+          href={userData.type == "1" ? "/artist" : "/player/profile"}
+        >
           <Text size="lg" weight="700">
             {userData.firstName + " " + userData.lastName}
           </Text>
@@ -65,7 +69,7 @@ function Header() {
               className={styles.userImage}
             />
           </div>
-        </div>
+        </Link>
       ) : (
         <Skeleton height={42} width={180} />
       )}
