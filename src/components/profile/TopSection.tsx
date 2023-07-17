@@ -5,6 +5,8 @@ import { flowicon } from "@/assets/player";
 import { useEffect, useRef, useState } from "react";
 import DefaultProfileImage from "@/assets/player/profile/DefaultProfileImage.svg";
 import { shortenAddress } from "@/utils/shortenAddress";
+import API_CONSTANTS from "@/utils/apiConstants";
+
 
 const TopSection = ({
   name,
@@ -18,7 +20,7 @@ const TopSection = ({
   profileImage: string;
 }) => {
   const [file, setFile] = useState<File | null>(null);
-  const [profileImageSrc, setProfileImageSrc] = useState<string>(profileImage);
+  const [profileImageSrc, setProfileImageSrc] = useState<string>(profileImage ? API_CONSTANTS.IPFS_BASE_URL + profileImage : "");
   const resetRef = useRef<() => void>(null);
 
   const clearFile = () => {
@@ -27,7 +29,7 @@ const TopSection = ({
   };
 
   useEffect(() => {
-    setProfileImageSrc(profileImage);
+    setProfileImageSrc(profileImage ? API_CONSTANTS.IPFS_BASE_URL + profileImage : "");
   }, [profileImage]);
 
   useEffect(() => {
@@ -38,7 +40,7 @@ const TopSection = ({
       };
       reader.readAsDataURL(file as File);
     } else {
-      setProfileImageSrc(profileImage);
+      setProfileImageSrc(profileImage ? API_CONSTANTS.IPFS_BASE_URL + profileImage : "");
     }
   }, [file]);
   return (

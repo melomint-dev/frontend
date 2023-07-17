@@ -9,10 +9,11 @@ import styles from "./Sidebar.module.css";
 import * as fcl from "@onflow/fcl";
 import { shortenAddress } from "@/utils/shortenAddress";
 
-import { useUser, upadtePriceFetcher } from "@/hooks/person.swr";
+import { useUser } from "@/hooks/person.swr";
 import SWR_CONSTANTS from "@/utils/swrConstants";
 import useSWRMutation from "swr/mutation";
 import { MusicContext } from "@/context/MusicContext";
+import API_CONSTANTS from "@/utils/apiConstants";
 
 const artistPhotoStyle = {
   borderRadius: "0.75rem",
@@ -23,7 +24,7 @@ const ArtistInfo = () => {
   return (
     <div className={styles.artistInfo}>
       <Image
-        src="https://picsum.photos/200/200"
+        src={userData?.img ? API_CONSTANTS.IPFS_BASE_URL + userData?.img : ""}
         alt=""
         width={40}
         height={40}
