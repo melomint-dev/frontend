@@ -1,5 +1,4 @@
-export const updatePersonImgTransaction = `
-import MeloMint from 0xMeloMint
+export const updatePersonImgTransaction = `import MeloMint from 0xMeloMint
 
 transaction(img: String) {
     prepare(signer: AuthAccount) {

@@ -22,7 +22,7 @@ function Layout({ childern }: { childern: React.ReactNode }) {
           {childern}
         </div>
       </div>
-      {/* <BottomBar /> */}
+      <BottomBar />
     </div>
   );
 }

@@ -6,7 +6,7 @@ import {
   useMemo,
   useEffect,
 } from "react";
-import React from 'react';
+import React from "react";
 
 import type { ReactNode } from "react";
 
@@ -26,7 +26,7 @@ interface IMusicContext {
   setSeekTime: React.Dispatch<React.SetStateAction<number>>;
   seekTime: number;
   audioURL: string;
-  setAudioUrl: React.Dispatch<React.SetStateAction<string>>
+  setAudioUrl: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export const MusicContext = createContext<IMusicContext>({} as IMusicContext);
@@ -34,7 +34,9 @@ export const MusicContext = createContext<IMusicContext>({} as IMusicContext);
 export const useMusicContext = () => {
   const context = useContext(MusicContext);
   if (context === undefined) {
-    throw new Error("useMusicContext must be used within a MusicContextProvider");
+    throw new Error(
+      "useMusicContext must be used within a MusicContextProvider"
+    );
   }
   return context;
 };
@@ -45,7 +47,6 @@ export default function MusicContextProvider({
   children: ReactNode;
   network?: string;
 }) {
-
   const [audio, setAudio] = useState<HTMLAudioElement>();
   const [currentTime, setCurrentTime] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -57,14 +58,14 @@ export default function MusicContextProvider({
 
   useEffect(() => {
     const handleTimeUpdate = () => {
-      if(audio){
+      if (audio) {
         setCurrentTime(audio.currentTime);
       }
     };
 
     const handleLoadedData = () => {
       setIsLoaded(true);
-      if(audio){
+      if (audio) {
         setDuration(audio.duration);
       }
     };
@@ -96,12 +97,19 @@ export default function MusicContextProvider({
 
   useEffect(() => {
     setIsLoaded(false);
+    if (!audioURL) {
+      return;
+    }
     const fetchAudio = async () => {
-      const response = await fetch(audioURL);
-      const audioBlob = await response.blob();
-      const audioObjectURL = URL.createObjectURL(audioBlob);
-      setAudio(new Audio(audioObjectURL));
-      setIsLoaded(true);
+      try {
+        const response = await fetch(audioURL);
+        const audioBlob = await response.blob();
+        const audioObjectURL = URL.createObjectURL(audioBlob);
+        setAudio(new Audio(audioObjectURL));
+        setIsLoaded(true);
+      } catch (error) {
+        console.log(error);
+      }
     };
 
     fetchAudio();
@@ -116,32 +124,62 @@ export default function MusicContextProvider({
   }, [audioURL]);
 
   useEffect(() => {
-    if(audio){
+    if (audio) {
       audio.currentTime = seekTime;
       setCurrentTime(seekTime);
     }
   }, [seekTime]);
 
   useEffect(() => {
-    if(audio){
+    if (audio) {
       audio!.volume = volumeValue / 100;
     }
   }, [volumeValue]);
 
   const providerProps = useMemo(
     () => ({
-      audioURL, setAudioUrl, audio, setAudio, currentTime , setCurrentTime, isLoaded, setIsLoaded, duration, setDuration, isPlaying, setIsPlaying, volumeValue, setVolume, seekTime, setSeekTime,
+      audioURL,
+      setAudioUrl,
+      audio,
+      setAudio,
+      currentTime,
+      setCurrentTime,
+      isLoaded,
+      setIsLoaded,
+      duration,
+      setDuration,
+      isPlaying,
+      setIsPlaying,
+      volumeValue,
+      setVolume,
+      seekTime,
+      setSeekTime,
     }),
-    [audioURL, setAudioUrl, audio, setAudio, currentTime , setCurrentTime, isLoaded, setIsLoaded, duration, setDuration, isPlaying, setIsPlaying, volumeValue, setVolume, seekTime, setSeekTime]
+    [
+      audioURL,
+      setAudioUrl,
+      audio,
+      setAudio,
+      currentTime,
+      setCurrentTime,
+      isLoaded,
+      setIsLoaded,
+      duration,
+      setDuration,
+      isPlaying,
+      setIsPlaying,
+      volumeValue,
+      setVolume,
+      seekTime,
+      setSeekTime,
+    ]
   );
 
   return (
     <MusicContext.Provider
-      value={
-        {
-          ...providerProps,
-        }
-      }
+      value={{
+        ...providerProps,
+      }}
     >
       {children}
     </MusicContext.Provider>

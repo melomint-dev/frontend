@@ -20,26 +20,4 @@ export const singleUserTransaction = async (transaction: Transaction) => {
     return transactionStatus;
 }
 
-    
-// ) => {
-//     const transactionId = await fcl.mutate({
-//         cadence: `
-//           transaction {
-//             prepare(acct: AuthAccount) {
-//               log("Hello from prepare")
-//             }
-//             execute {
-//               log("Hello from execute")
-//             }
-//           }
-//         `,
-//         // proposer: fcl.currentUser,
-//         payer: fcl.currentUser,
-//         authorizations: [fcl.currentUser],
-//         limit: 50
-//       })
-      
-//       const transaction = await fcl.tx(transactionId).onceSealed()
-//       console.log(transaction) // The transactions status and events after being sealed
-// }
 
