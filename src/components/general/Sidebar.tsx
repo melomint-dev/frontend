@@ -45,12 +45,13 @@ const ArtistInfo = () => {
         </div>
         <div className={styles.info}>
           <Text color="primary.3" weight={500}>
-            Wallet Address:
+            {"Wallet Address:"}
           </Text>
           {!isUserDataLoading && !errorFetchingUserData ? (
-          <Text color="primary" weight={700}>
-            {shortenAddress(userData.id)}
-          </Text> ) : (
+            <Text color="primary" weight={700}>
+              {shortenAddress(userData.id)}
+            </Text>
+          ) : (
             <Skeleton width={200} height={20} />
           )}
         </div>
@@ -124,7 +125,10 @@ function Sidebar() {
                 className={
                   styles.navLink +
                   " " +
-                  (router.pathname === "/player" ? styles.navLinkActive : "")
+                  (router.pathname === "/player" ||
+                  router.pathname === "/player/a/[slug]"
+                    ? styles.navLinkActive
+                    : "")
                 }
                 href="/player"
               >
@@ -172,14 +176,11 @@ function Sidebar() {
       {forArtist ? (
         <ArtistInfo />
       ) : (
-        coverPhotoSrc !== "" && <div className={styles.albumCover}>
-          <Image
-            src={coverPhotoSrc}
-            alt=""
-            fill
-            className={styles.photo}
-          />
-        </div>
+        coverPhotoSrc !== "" && (
+          <div className={styles.albumCover}>
+            <Image src={coverPhotoSrc} alt="" fill className={styles.photo} />
+          </div>
+        )
       )}
     </div>
   );
