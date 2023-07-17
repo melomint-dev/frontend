@@ -2,6 +2,7 @@ import useSWR, { mutate } from "swr";
 import SWR_CONSTANTS from "@/utils/swrConstants";
 import personService from "@/services/person.service";
 import API_CONSTANTS from "@/utils/apiConstants";
+import * as fcl from "@onflow/fcl";
 
 export interface IUser {
   NFTimage: string;
@@ -98,6 +99,43 @@ export async function upadteNFTFetcher(
     await personService.updateNFT({
       newPrice: arg.newPrice,
       newUrl: data.imageHash,
+    });
+    await mutate(SWR_CONSTANTS.GET_USER);
+    return true;
+  } catch (err) {
+    console.log("err", err);
+    throw err;
+  }
+}
+
+export async function buyNFTFetcher(
+  url: string,
+  {
+    arg,
+  }: {
+    arg: {
+      amount: number;
+      artistID: string;
+    };
+  }
+) {
+  try {
+    const userAcc = await fcl.currentUser().snapshot();
+    const formData = new FormData();
+    formData.append("userId", userAcc);
+    formData.append("artistId", arg.artistID);
+
+    const res = await fetch(API_CONSTANTS.BUY_NFT, {
+      method: "POST",
+      body: formData,
+    });
+
+    const data = await res.json();
+    console.log("data", data);
+
+    await personService.buyNFT({
+      amount: arg.amount,
+      artistID: arg.artistID,
     });
     await mutate(SWR_CONSTANTS.GET_USER);
     return true;

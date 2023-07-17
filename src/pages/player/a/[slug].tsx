@@ -6,7 +6,7 @@ import { Title, Skeleton } from "@mantine/core";
 import MusicComponent from "@/components/player/MusicComponent";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/router";
-import { useUser, useArtist } from "@/hooks/person.swr";
+import { useArtist, buyNFTFetcher } from "@/hooks/person.swr";
 import SWR_CONSTANTS from "@/utils/swrConstants";
 import useSWRMutation from "swr/mutation";
 
@@ -22,8 +22,6 @@ const TEMP_SONGS_DATA = new Array(10).fill({}).map((_, i) => ({
 
 function ArtistProfile() {
   const router = useRouter();
-  console.log(router.query.slug);
-
   const [artistId, setArtistId] = useState(router.query.slug as string);
 
   useEffect(() => {

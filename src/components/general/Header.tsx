@@ -27,8 +27,6 @@ function Header() {
       ? userData?.img
       : "QmeH9LwG8ToFrxvETRpYK6YTDpVNj8K6VdnqD1Kvhu2frV");
 
-  console.log(userData);
-
   return (
     <header className={styles.container}>
       <form onSubmit={handleSearch}>

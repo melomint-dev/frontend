@@ -7,6 +7,7 @@ import {
   updatePersonNFTTransaction,
   updatePersonImgTransaction,
   updatePersonLikedSongTransaction,
+  buyNFTTransaction,
 } from "@/cadence/transactions";
 
 class PersonService {
@@ -86,6 +87,25 @@ class PersonService {
       await singleUserTransaction({
         code: updatePersonLikedSongTransaction,
         args: [fcl.arg(song, fcl.t.String)],
+      });
+      return true;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  };
+
+  buyNFT = async ({
+    amount,
+    artistID,
+  }: {
+    amount: number;
+    artistID: string;
+  }) => {
+    try {
+      await singleUserTransaction({
+        code: buyNFTTransaction,
+        args: [fcl.arg(amount, fcl.t.UInt64), fcl.arg(artistID, fcl.t.Address)],
       });
       return true;
     } catch (error) {
