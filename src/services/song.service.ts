@@ -20,7 +20,12 @@ class SongService {
     }
   };
 
-  addSong = async (song: any) => {
+  addSong = async (song: {
+    id: string;
+    name: string;
+    freeUrl: string;
+    img: string;
+  }) => {
     try {
       const data = await singleUserTransaction({
         code: addSongTransaction,

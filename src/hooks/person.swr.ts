@@ -3,6 +3,7 @@ import SWR_CONSTANTS from "@/utils/swrConstants";
 import personService from "@/services/person.service";
 import API_CONSTANTS from "@/utils/apiConstants";
 import { IUser } from "@/interfaces/IUser";
+import * as fcl from "@onflow/fcl";
 
 export function useUser() {
   const { data, error, isLoading } = useSWR(
@@ -55,23 +56,65 @@ export async function updateImageFetcher(
   }
 }
 
-export async function upadtePriceFetcher(
+export async function upadteNFTFetcher(
   url: string,
-  { arg }: { arg: { price: number } }
+  { arg }: { arg: { newPrice: number; file: File } }
 ) {
   try {
-    return await personService.updateNFTPrice({ price: arg.price });
+    const formData = new FormData();
+    formData.append("image", arg.file as File);
+
+    const res = await fetch(API_CONSTANTS.UPLOAD_IMAGE, {
+      method: "POST",
+      body: formData,
+    });
+
+    const data = await res.json();
+    console.log("data", data);
+
+    await personService.updateNFT({
+      newPrice: arg.newPrice,
+      newUrl: data.imageHash,
+    });
+    await mutate(SWR_CONSTANTS.GET_USER);
+    return true;
   } catch (err) {
     console.log("err", err);
     throw err;
   }
 }
-export async function updateLikedSongFetcher(
+
+export async function buyNFTFetcher(
   url: string,
-  { arg }: { arg: { song: string } }
+  {
+    arg,
+  }: {
+    arg: {
+      amount: number;
+      artistID: string;
+    };
+  }
 ) {
   try {
-    return await personService.updatePersonLinkedSong({ song: arg.song });
+    const userAcc = await fcl.currentUser().snapshot();
+    const formData = new FormData();
+    formData.append("userId", userAcc);
+    formData.append("artistId", arg.artistID);
+
+    const res = await fetch(API_CONSTANTS.BUY_NFT, {
+      method: "POST",
+      body: formData,
+    });
+
+    const data = await res.json();
+    console.log("data", data);
+
+    await personService.buyNFT({
+      amount: arg.amount,
+      artistID: arg.artistID,
+    });
+    await mutate(SWR_CONSTANTS.GET_USER);
+    return true;
   } catch (err) {
     console.log("err", err);
     throw err;

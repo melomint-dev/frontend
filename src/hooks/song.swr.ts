@@ -3,23 +3,6 @@ import SWR_CONSTANTS from "@/utils/swrConstants";
 import songService from "@/services/song.service";
 import { ISong } from "@/interfaces/ISong";
 
-// interface ISong {
-//   id: string;
-//   name: string;
-//   artist: string;
-//   freeUrl: string;
-//   img: string;
-//   bannerImg: string;
-//   uploadedAt: string; // time
-
-//   similarSongs: { string: [string] }; // original
-//   similarTo: { string: [string] }; // copied
-
-//   likes: number;
-//   plays: { string: number };
-//   playTime: { string: number };
-// }
-
 export function useSong(id: string) {
   const { data, error, isLoading } = useSWR(
     [SWR_CONSTANTS.GET_USER, id],
@@ -44,4 +27,30 @@ export function useSongList(list: string[]) {
     isSongListDataLoading: isLoading as boolean,
     errorFetchingSongListData: error,
   };
+}
+
+export async function addSongFetcher(
+  url: string,
+  {
+    arg,
+  }: {
+    arg: {
+      id: string;
+      name: string;
+      freeUrl: string;
+      img: string;
+    };
+  }
+) {
+  try {
+    return await songService.addSong({
+      id: arg.id,
+      name: arg.name,
+      freeUrl: arg.freeUrl,
+      img: arg.img,
+    });
+  } catch (err) {
+    console.log("err", err);
+    throw err;
+  }
 }

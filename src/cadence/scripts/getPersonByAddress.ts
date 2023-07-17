@@ -1,4 +1,4 @@
-export const getCreatoryByAddressScript = `
+export const getPersonByAddressScript = `
 import MeloMint from 0xMeloMint
 
 pub fun main(addr: Address): MeloMint.Person {

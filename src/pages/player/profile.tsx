@@ -4,27 +4,10 @@ import TopSection from "@/components/profile/TopSection";
 import ManageSubscription from "@/components/profile/ManageSubscription";
 import BuySubscription from "@/components/profile/BuySubscription";
 import DisplayArtist from "@/components/player/DisplayArtist";
-
-import { useUser, upadtePriceFetcher } from "@/hooks/person.swr";
-import SWR_CONSTANTS from "@/utils/swrConstants";
-import useSWRMutation from "swr/mutation";
-import { user } from "@/assets/general";
-
-const ARTIST_DATA = {
-  name: "Jigardan Gadhvi",
-  image: "https://picsum.photos/300/300?random=1",
-  loginMethod: "flow",
-  address: "0x12345678",
-};
+import { useUser } from "@/hooks/person.swr";
 
 const Profile = () => {
   const { userData, isUserDataLoading, errorFetchingUserData } = useUser();
-
-  // console.log(userData.subscriptionTill);
-
-  // chnage this to subscriptionTill to get the date
-  const date = new Date().getDate() + 2;
-  console.log(date);
 
   return (
     <Layout
