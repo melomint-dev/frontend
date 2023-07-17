@@ -90,3 +90,14 @@ export async function upadtePriceFetcher(
     throw err;
   }
 }
+export async function updateLikedSongFetcher(
+  url: string,
+  { arg }: { arg: { song: string } }
+) {
+  try {
+    return await personService.updatePersonLinkedSong({ song: arg.song });
+  } catch (err) {
+    console.log("err", err);
+    throw err;
+  }
+}
