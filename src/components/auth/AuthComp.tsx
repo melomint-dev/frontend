@@ -65,7 +65,7 @@ function AuthComp({ type = "login" }: { type?: "login" | "register" }) {
       router.push(userData.type === "1" ? "/artist" : "/player");
       showSuccessNotification(
         "Login Success",
-        "You Have logged in Successfully, Continue to explote MeloMint"
+        "You Have logged in Successfully, Continue to explore MeloMint"
       );
     } catch (error: any) {
       console.log("AUTHENTICATE -- ERROR", error);

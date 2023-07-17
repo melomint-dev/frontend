@@ -181,28 +181,56 @@ const TopSection = ({
         setCoverImageSrc(reader.result as string);
       };
       reader.readAsDataURL(file as File);
+    } else {
+      setCoverImageSrc(coverImage);
     }
   }, [file]);
 
   return (
     <div className={styles.artist}>
-      <FileButton
-        resetRef={resetRef}
-        onChange={setFile}
-        accept="image/png,image/jpeg"
-      >
-        {(props) => (
-          <Image
-            src={coverImageSrc ? coverImageSrc : DefaultCoverImage}
-            alt=""
-            height={150}
-            width={400}
-            className={styles.imgSelector}
-            priority
-            {...props}
-          />
-        )}
-      </FileButton>
+      <div className={styles.artistCover}>
+        <FileButton
+          resetRef={resetRef}
+          onChange={setFile}
+          accept="image/png,image/jpeg"
+        >
+          {(props) => (
+            <Image
+              src={coverImageSrc ? coverImageSrc : DefaultCoverImage}
+              alt=""
+              height={150}
+              width={400}
+              className={styles.imgSelector}
+              priority
+              {...props}
+            />
+          )}
+        </FileButton>
+        <div className={styles.saveButtons}>
+          <Button
+            color="secondary"
+            variant="filled"
+            size="md"
+            // radius={"xl"}
+            disabled={isUserDataLoading || !file}
+            fullWidth
+          >
+            Save Cover
+          </Button>
+          <Button
+            variant="outlined"
+            size="md"
+            // radius={"xl"}
+            color="primary"
+            disabled={isUserDataLoading || !file}
+            onClick={clearFile}
+            fullWidth
+          >
+            Clear
+          </Button>
+        </div>
+      </div>
+
       <div className={styles.artistInfo}>
         {!isUserDataLoading ? (
           <Title color="primary" order={1} weight={800}>
