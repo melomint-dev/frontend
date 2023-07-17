@@ -3,7 +3,7 @@ import SWR_CONSTANTS from "@/utils/swrConstants";
 import personService from "@/services/person.service";
 import API_CONSTANTS from "@/utils/apiConstants";
 
-interface IUser {
+export interface IUser {
   NFTimage: string;
   NFTprice: number;
   firstName: string;
