@@ -4,6 +4,7 @@ import { userScript } from "@/utils/scripts";
 
 import { getSongByIdScript } from "@/cadence/scripts";
 import { addSongTransaction } from "@/cadence/transactions";
+import { getListOfSongDetailsViaSongIdsScript } from "@/cadence/scripts/getListOfSongDetailsViaSongIds";
 
 class SongService {
   getSong = async ([url, id]: [string, string]) => {
@@ -36,6 +37,26 @@ class SongService {
         ],
       });
       return data;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  };
+
+  getListOfSongDetailsViaSongIds = async ([url, songIds]: [
+    string,
+    string[]
+  ]) => {
+    try {
+      if (!songIds.length) return [];
+      const data = await userScript({
+        code: getListOfSongDetailsViaSongIdsScript,
+        args: [fcl.arg(songIds, fcl.t.Array(fcl.t.String))],
+      });
+      return data.map((song: any) => ({
+        ...song.song,
+        artist: song.artist,
+      }));
     } catch (error) {
       console.log(error);
       throw error;

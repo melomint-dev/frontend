@@ -2,32 +2,8 @@ import useSWR, { mutate } from "swr";
 import SWR_CONSTANTS from "@/utils/swrConstants";
 import personService from "@/services/person.service";
 import API_CONSTANTS from "@/utils/apiConstants";
+import { IUser } from "@/interfaces/IUser";
 import * as fcl from "@onflow/fcl";
-
-export interface IUser {
-  NFTimage: string;
-  NFTprice: number;
-  firstName: string;
-  id: string;
-  img: string;
-  lastName: string;
-  likedSongs: {
-    [key: string]: boolean;
-  };
-  recentlyHeard: string[];
-  revenue: string;
-  songsPublished: {
-    [key: string]: boolean;
-  };
-  subscribedTo: {
-    [key: string]: boolean;
-  };
-  subscribers: {
-    [key: string]: boolean;
-  };
-  subscriptionTill: string;
-  type: string;
-}
 
 export function useUser() {
   const { data, error, isLoading } = useSWR(

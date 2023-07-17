@@ -4,8 +4,8 @@ import styles from "./NewSongComponents.module.css";
 import Image, { StaticImageData } from "next/image";
 import { Text } from "@mantine/core";
 import { MusicContext } from "@/context/MusicContext";
-import { ISong } from "@/hooks/abstractions.flow.swr";
 import API_CONSTANTS from "@/utils/apiConstants";
+import { ISong } from "@/interfaces/ISong";
 
 const NewSongComponents = ({ song }: { song: ISong }) => {
   interface HashObject {

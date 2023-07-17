@@ -35,6 +35,7 @@ import {
 } from "@/utils/notifications.helper";
 
 import API_CONSTANTS from "@/utils/apiConstants";
+import { useSongList } from "@/hooks/song.swr";
 
 const MembershipSection = ({
   price,
@@ -49,7 +50,9 @@ const MembershipSection = ({
     parseFloat((price ?? 0).toString())
   );
   const [file, setFile] = useState<File | null>(null);
-  const [nftImageSrc, setNftImageSrc] = useState<string>(nftImage ? API_CONSTANTS.IPFS_BASE_URL + nftImage : "");
+  const [nftImageSrc, setNftImageSrc] = useState<string>(
+    nftImage ? API_CONSTANTS.IPFS_BASE_URL + nftImage : ""
+  );
   const resetRef = useRef<() => void>(null);
 
   const clearFile = () => {
@@ -298,6 +301,8 @@ const Artist = () => {
   const [opened, { open, close }] = useDisclosure(false);
 
   const { userData, isUserDataLoading, errorFetchingUserData } = useUser();
+  const { songListData, isSongListDataLoading, errorFetchingSongListData } =
+    useSongList(userData ? Object.keys(userData.songsPublished) : []);
 
   return (
     <>
@@ -318,7 +323,16 @@ const Artist = () => {
               isLoading={isUserDataLoading}
               nftImage={userData?.NFTimage}
             />
-            <SongResult openUploadModal={open} />
+            <SongResult
+              openUploadModal={open}
+              songs={songListData}
+              isLoading={
+                isSongListDataLoading ||
+                errorFetchingSongListData ||
+                isUserDataLoading ||
+                errorFetchingUserData
+              }
+            />
           </div>
         }
       />

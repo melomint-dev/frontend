@@ -9,16 +9,8 @@ import { useRouter } from "next/router";
 import { useArtist, buyNFTFetcher } from "@/hooks/person.swr";
 import SWR_CONSTANTS from "@/utils/swrConstants";
 import useSWRMutation from "swr/mutation";
-
+import { useSongList } from "@/hooks/song.swr";
 import API_CONSTANTS from "@/utils/apiConstants";
-
-const TEMP_SONGS_DATA = new Array(10).fill({}).map((_, i) => ({
-  _id: i.toString(),
-  name: "Song Name",
-  artist: "Jigardan Gadhvi",
-  image: "https://picsum.photos/300/300?random=" + i,
-  duration: 150,
-}));
 
 function ArtistProfile() {
   const router = useRouter();
@@ -28,9 +20,17 @@ function ArtistProfile() {
     setArtistId(router.query.slug as string);
   }, [router.query.slug]);
 
-  const songs = TEMP_SONGS_DATA;
+  // const songs = TEMP_SONGS_DATA;
   const { artistData, isArtistDataLoading, errorFetchingArtistData } =
     useArtist(artistId);
+  const { songListData, isSongListDataLoading, errorFetchingSongListData } =
+    useSongList(
+      artistData
+        ? Object.keys(artistData?.songsPublished).filter(
+            (x) => artistData?.songsPublished[x]
+          )
+        : []
+    );
 
   return (
     <div className={styles.container}>
@@ -58,11 +58,18 @@ function ArtistProfile() {
             )}
             <div className={styles.songs}>
               <Title order={5}>Songs</Title>
-              <div className={styles.songsList}>
-                {songs.map((song) => (
-                  <MusicComponent song={song} key={song._id} showFull />
-                ))}
-              </div>
+              {isArtistDataLoading ||
+              errorFetchingArtistData ||
+              isSongListDataLoading ||
+              errorFetchingSongListData ? (
+                <Skeleton height={150} />
+              ) : (
+                <div className={styles.songsList}>
+                  {songListData?.map((song) => (
+                    <MusicComponent song={song} key={song.id} showFull />
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         }
