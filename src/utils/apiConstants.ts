@@ -10,6 +10,7 @@ class APIConstants {
   static UPLOAD_IMAGE = this.BASE_URL + "uploadImage";
   static UPLOAD_AUDIO = this.BASE_URL + "uploadAudio";
   static BUY_NFT = this.FLOW_URL + "/addSubscribers";
+  static ADD_SONG = this.BASE_URL + "/upload";
 
   static GET_TRENDING_SONGS = this.FLOW_ABSTRACTIONS_URL + "/songs/trending";
   static GET_LATEST_SONGS = this.FLOW_ABSTRACTIONS_URL + "/songs/latest";

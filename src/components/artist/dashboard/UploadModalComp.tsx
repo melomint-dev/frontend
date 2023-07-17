@@ -46,17 +46,19 @@ function UploadModalComp() {
     addSongFetcher
   );
 
-  // const uploadSong = async () => {
-  //   try{
-  //     // const data = await songUpload(
-  //     //   {
-  //     //     id: router.query.id as string,
-  //     //     name: form.values.name,
-  //     //     song: form.values.song.toString(),
-  //     //   }
-  //     // );
-  //   }
-  // };
+  const uploadSong = async () => {
+    try {
+      if (form.values.song !== null && form.values.cover !== null) {
+        const data = await songUpload({
+          name: form.values.name,
+          song: form.values.song,
+          img: form.values.cover,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className={styles.container}>
@@ -137,7 +139,7 @@ function UploadModalComp() {
               classNames={{
                 root: styles.defaultRadius,
               }}
-              // onClick={uploadSong}
+              onClick={uploadSong}
             >
               Publish
             </Button>
