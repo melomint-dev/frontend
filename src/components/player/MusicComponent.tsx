@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Text } from "@mantine/core";
 import { MusicContext } from "@/context/MusicContext";
 import API_CONSTANTS from "@/utils/apiConstants";
-import { ISong } from "@/hooks/abstractions.flow.swr";
+import { ISong } from "@/interfaces/ISong";
 
 const MusicComponent = ({
   song,
@@ -59,7 +59,7 @@ const MusicComponent = ({
       </div>
       {showFull && (
         <Text size="sm" weight={400} color="primary.3">
-          {new Date(song.duration * 1000).toISOString().substr(14, 5)}
+          {new Date((song.duration ?? 0) * 1000).toISOString().substr(14, 5)}
         </Text>
       )}
     </div>

@@ -2,8 +2,9 @@ import { Skeleton, Text, Title } from "@mantine/core";
 import { user } from "@/assets/player";
 import MusicComponent from "./MusicComponent";
 import styles from "./TopMusic.module.css";
-import { ISong, useTrendingSongs } from "@/hooks/abstractions.flow.swr";
+import { useTrendingSongs } from "@/hooks/abstractions.flow.swr";
 import { useUser } from "@/hooks/person.swr";
+import { ISong } from "@/interfaces/ISong";
 
 const TopMusic = ({
   songs,
