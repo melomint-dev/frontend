@@ -17,7 +17,6 @@ class PersonService {
         code: getPersonByAddressScript,
         args: [fcl.arg(address, fcl.t.Address)],
       });
-      console.log("udata", data);
       return data;
     } catch (error) {
       console.log(error);

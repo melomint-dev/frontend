@@ -1,13 +1,14 @@
 class APIConstants {
   static IPFS_BASE_URL = "https://gateway.pinata.cloud/ipfs/";
-  // static BASE_URL =
-  //   "https://melomint-infra.centralindia.cloudapp.azure.com/api/";
-  static BASE_URL = "http://localhost:8000/";
+  static BASE_URL =
+    "https://melomint-infra.centralindia.cloudapp.azure.com/api/";
+  // static BASE_URL = "http://localhost:8000/";
 
   static FLOW_URL = this.BASE_URL + "flow";
   static FLOW_ABSTRACTIONS_URL = this.FLOW_URL + "/abstractions";
 
   static UPLOAD_IMAGE = this.BASE_URL + "uploadImage";
+  static UPLOAD_AUDIO = this.BASE_URL + "uploadAudio";
   static BUY_NFT = this.FLOW_URL + "/addSubscribers";
 
   static GET_TRENDING_SONGS = this.FLOW_ABSTRACTIONS_URL + "/songs/trending";
