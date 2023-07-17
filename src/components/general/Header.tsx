@@ -1,6 +1,6 @@
 import Image from "next/image";
 import styles from "./Header.module.css";
-import { TextInput, Text, Skeleton } from "@mantine/core";
+import { TextInput, Text, Skeleton, Avatar } from "@mantine/core";
 import { flowicon, user, search } from "@/assets/player";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -28,7 +28,7 @@ function Header() {
       ? userData?.img
       : "QmeH9LwG8ToFrxvETRpYK6YTDpVNj8K6VdnqD1Kvhu2frV");
 
-      console.log(imageURL);
+  console.log(imageURL);
 
   useEffect(() => {
     if (router.query.search) {
@@ -69,12 +69,11 @@ function Header() {
                 // style={flowiconStyle}
               />
             </div>
-            <Image
+            <Avatar
               src={imageURL}
               alt="User Image"
-              height={42}
-              width={42}
               className={styles.userImage}
+              size={42}
             />
           </div>
         </Link>
