@@ -2,14 +2,18 @@ import * as fcl from "@onflow/fcl";
 import { singleUserTransaction } from "@/utils/transcation";
 import { userScript } from "@/utils/scripts";
 
-import { getCreatoryByAddressScript } from "@/cadence/scripts";
-import { updatePersonNFTPriceTransaction, updatePersonImgTransaction, updatePersonLikedSongTransaction } from "@/cadence/transactions";
+import { getPersonByAddressScript } from "@/cadence/scripts";
+import {
+  updatePersonNFTTransaction,
+  updatePersonImgTransaction,
+  updatePersonLikedSongTransaction,
+} from "@/cadence/transactions";
 
 class PersonService {
   getPersonByAddress = async (address: string) => {
     try {
       const data = await userScript({
-        code: getCreatoryByAddressScript,
+        code: getPersonByAddressScript,
         args: [fcl.arg(address, fcl.t.Address)],
       });
       console.log("udata", data);
@@ -55,12 +59,20 @@ class PersonService {
     }
   };
 
-
-  updateNFTPrice = async ({ price }: { price: number }) => {
+  updateNFT = async ({
+    newPrice,
+    newUrl,
+  }: {
+    newPrice: number;
+    newUrl: string;
+  }) => {
     try {
       await singleUserTransaction({
-        code: updatePersonNFTPriceTransaction,
-        args: [fcl.arg(parseInt(price.toString()), fcl.t.Int)],
+        code: updatePersonNFTTransaction,
+        args: [
+          fcl.arg(parseInt(newPrice.toString()), fcl.t.Int),
+          fcl.arg(newUrl, fcl.t.String),
+        ],
       });
       return true;
     } catch (error) {
@@ -80,7 +92,7 @@ class PersonService {
       console.log(error);
       return false;
     }
-  }
+  };
 }
 
 const personService = new PersonService();

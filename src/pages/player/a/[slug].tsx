@@ -10,6 +10,8 @@ import { useUser, useArtist } from "@/hooks/person.swr";
 import SWR_CONSTANTS from "@/utils/swrConstants";
 import useSWRMutation from "swr/mutation";
 
+import API_CONSTANTS from "@/utils/apiConstants";
+
 const TEMP_SONGS_DATA = new Array(10).fill({}).map((_, i) => ({
   _id: i.toString(),
   name: "Song Name",
@@ -41,8 +43,7 @@ function ArtistProfile() {
               <AuthorProfile
                 artist={{
                   name: artistData?.firstName + " " + artistData?.lastName,
-                  image:
-                    "https://i.scdn.co/image/ab6761860000101648db44742bf21308f4ece612",
+                  image: API_CONSTANTS.IPFS_BASE_URL + artistData?.img,
                   nft: {
                     src: "https://static.toiimg.com/photo/msid-75250578/75250578.jpg",
                     price: artistData?.NFTprice,

@@ -24,7 +24,7 @@ import { shortenAddress } from "@/utils/shortenAddress";
 
 import {
   useUser,
-  upadtePriceFetcher,
+  upadteNFTFetcher,
   updateImageFetcher,
 } from "@/hooks/person.swr";
 import SWR_CONSTANTS from "@/utils/swrConstants";
@@ -49,7 +49,7 @@ const MembershipSection = ({
     parseFloat((price ?? 0).toString())
   );
   const [file, setFile] = useState<File | null>(null);
-  const [nftImageSrc, setNftImageSrc] = useState<string>(nftImage);
+  const [nftImageSrc, setNftImageSrc] = useState<string>(nftImage ? API_CONSTANTS.IPFS_BASE_URL + nftImage : "");
   const resetRef = useRef<() => void>(null);
 
   const clearFile = () => {
@@ -62,7 +62,7 @@ const MembershipSection = ({
   }, [price]);
 
   useEffect(() => {
-    setNftImageSrc(nftImage);
+    setNftImageSrc(nftImage ? API_CONSTANTS.IPFS_BASE_URL + nftImage : "");
   }, [nftImage]);
 
   useEffect(() => {
@@ -77,13 +77,14 @@ const MembershipSection = ({
 
   const { trigger: priceUpdate, isMutating } = useSWRMutation(
     SWR_CONSTANTS.AUTHENTICATE_USER,
-    upadtePriceFetcher
+    upadteNFTFetcher
   );
 
   const updatePrice = async () => {
     try {
       const data = await priceUpdate({
-        price: nftPrice,
+        newPrice: nftPrice,
+        file: file as File,
       });
       console.log("UPDATE-PRICE -- SUCCESS", data);
       showSuccessNotification("Price updated successfully");

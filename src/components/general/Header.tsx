@@ -5,10 +5,10 @@ import { flowicon, user, search } from "@/assets/player";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useUser } from "@/hooks/person.swr";
+import API_CONSTANTS from "@/utils/apiConstants";
 
 function Header() {
   const router = useRouter();
-
   const [searchValue, setSearchValue] = useState("");
 
   const handleSearch = (e: any) => {
@@ -21,7 +21,13 @@ function Header() {
 
   const { userData, isUserDataLoading, errorFetchingUserData } = useUser();
 
-  // return <></>;
+  const imageURL =
+    API_CONSTANTS.IPFS_BASE_URL +
+    (userData
+      ? userData?.img
+      : "QmeH9LwG8ToFrxvETRpYK6YTDpVNj8K6VdnqD1Kvhu2frV");
+
+  console.log(userData);
 
   return (
     <header className={styles.container}>
@@ -51,8 +57,8 @@ function Header() {
               />
             </div>
             <Image
-              src={user}
-              alt=""
+              src={imageURL}
+              alt="User Image"
               height={42}
               width={42}
               className={styles.userImage}

@@ -2,7 +2,6 @@ import useSWR from "swr";
 import SWR_CONSTANTS from "@/utils/swrConstants";
 import songService from "@/services/song.service";
 
-
 interface ISong {
   id: string;
   name: string;
@@ -33,3 +32,28 @@ export function useSong(id: string) {
   };
 }
 
+export async function addSongFetcher(
+  url: string,
+  {
+    arg,
+  }: {
+    arg: {
+      id: string;
+      name: string;
+      freeUrl: string;
+      img: string;
+    };
+  }
+) {
+  try {
+    return await songService.addSong({
+      id: arg.id,
+      name: arg.name,
+      freeUrl: arg.freeUrl,
+      img: arg.img,
+    });
+  } catch (err) {
+    console.log("err", err);
+    throw err;
+  }
+}

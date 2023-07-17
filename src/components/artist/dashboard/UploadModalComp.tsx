@@ -17,7 +17,9 @@ import UploadFileIcon from "@/assets/artist/UploadFileIcon.svg";
 import styles from "./UploadModalComp.module.css";
 import Image from "next/image";
 
-import transactionService from "@/services/transaction.service";
+import { addSongFetcher } from "@/hooks/song.swr";
+import SWR_CONSTANTS from "@/utils/swrConstants";
+import useSWRMutation from "swr/mutation";
 
 function UploadModalComp() {
   const router = useRouter();
@@ -39,30 +41,21 @@ function UploadModalComp() {
     },
   });
 
+  const { trigger: songUpload, isMutating } = useSWRMutation(
+    SWR_CONSTANTS.ADD_SONG,
+    addSongFetcher,
+  );
+
   const uploadSong = async () => {
-    const { name, song, cover } = form.values;
-
-    const uploadSong = {
-      name: name,
-      song: song,
-      cover: cover,
-    };
-
-    const songName = name;
-    const songCoverUrl = "0x11";
-    const songUrl = "0x22";
-
-    try {
-      await transactionService.uploadSong({
-        songName,
-        songCoverUrl,
-        songUrl,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-
-    console.log("Song Uploaded");
+    // try{
+    //   const data = await songUpload(
+    //     {
+    //       id: router.query.id as string,
+    //       name: form.values.name,
+    //       song: form.values.song.toString(),
+    //     }
+    //   );
+    // }
   };
 
   return (

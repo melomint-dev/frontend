@@ -79,23 +79,28 @@ export async function updateImageFetcher(
   }
 }
 
-export async function upadtePriceFetcher(
+export async function upadteNFTFetcher(
   url: string,
-  { arg }: { arg: { price: number } }
+  { arg }: { arg: { newPrice: number; file: File } }
 ) {
   try {
-    return await personService.updateNFTPrice({ price: arg.price });
-  } catch (err) {
-    console.log("err", err);
-    throw err;
-  }
-}
-export async function updateLikedSongFetcher(
-  url: string,
-  { arg }: { arg: { song: string } }
-) {
-  try {
-    return await personService.updatePersonLinkedSong({ song: arg.song });
+    const formData = new FormData();
+    formData.append("image", arg.file as File);
+
+    const res = await fetch(API_CONSTANTS.UPLOAD_IMAGE, {
+      method: "POST",
+      body: formData,
+    });
+
+    const data = await res.json();
+    console.log("data", data);
+
+    await personService.updateNFT({
+      newPrice: arg.newPrice,
+      newUrl: data.imageHash,
+    });
+    await mutate(SWR_CONSTANTS.GET_USER);
+    return true;
   } catch (err) {
     console.log("err", err);
     throw err;

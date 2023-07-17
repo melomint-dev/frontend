@@ -5,6 +5,7 @@ class SWRConstants {
   static UPDATE_LIKED_SONGS = "UPDATE_LIKED_SONGS";
   static GET_ARTIST = "GET_ARTIST";
   static GET_SONG = "GET_SONG";
+  static ADD_SONG = "ADD_SONG";
 }
 
 const SWR_CONSTANTS = {
