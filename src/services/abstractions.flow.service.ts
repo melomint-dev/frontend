@@ -30,6 +30,16 @@ class FlowAbstractionService {
       throw error;
     }
   };
+
+  searchQuery = async ([url, query]: [string, string]) => {
+    try {
+      const res = await fetch(API_CONSTANTS.SEARCH_QUERY + "?q=" + query);
+      return await res.json();
+    } catch (error) {
+      console.log("ERROR -- SEARCH QUERY", error);
+      throw error;
+    }
+  };
 }
 
 const flowAbstractionService = new FlowAbstractionService();
