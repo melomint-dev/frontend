@@ -29,6 +29,8 @@ const Profile = () => {
           <DisplayArtist
             title="Artists NFT"
             subtitle="These are the NFT of the artists you have joined membership of. Get access to their exclusive content earlier"
+            artists={[]}
+            isLoading={false}
           />
         </div>
       }
