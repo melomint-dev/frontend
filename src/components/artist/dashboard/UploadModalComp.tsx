@@ -1,7 +1,15 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import { DateInput } from "@mantine/dates";
 
-import { Title, Text, TextInput, Button, FileInput } from "@mantine/core";
+import {
+  Title,
+  Text,
+  TextInput,
+  Button,
+  FileInput,
+  Checkbox,
+} from "@mantine/core";
 import { useForm } from "@mantine/form";
 
 import UploadFileIcon from "@/assets/artist/UploadFileIcon.svg";
@@ -19,12 +27,15 @@ function UploadModalComp() {
       name: "",
       song: null,
       cover: null,
+      isExclusive: false,
+      exclusiveUntil: new Date(),
     },
 
     validate: {
       name: (value) => value.trim().length >= 3,
       song: (value: File | null) => value !== null,
       cover: (value: File | null) => value !== null,
+      exclusiveUntil: (value) => value !== null,
     },
   });
 
@@ -68,8 +79,8 @@ function UploadModalComp() {
         <div className={styles.methodSelections}>
           <div className={styles.methodContainer}>
             <Text color="primary.3" weight={"500"}>
-              Connect your existing Ethereum wallet to access all features and
-              securely manage your assets{" "}
+              Add all the Information required for the song to be published on
+              the platform and click on Publish to Get Started.
             </Text>
             <div className={styles.inputs}>
               <TextInput
@@ -114,6 +125,18 @@ function UploadModalComp() {
                 }
                 {...form.getInputProps("cover")}
               />
+              <Checkbox
+                label="Mark as Exclusive"
+                size={"md"}
+                {...form.getInputProps("isExclusive", { type: "checkbox" })}
+              />
+              {form.values.isExclusive && (
+                <DateInput
+                  placeholder="Exclusive Until"
+                  size="md"
+                  {...form.getInputProps("exclusiveUntil")}
+                />
+              )}
             </div>
             <Button
               fullWidth
