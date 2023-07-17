@@ -6,10 +6,11 @@
   width: 8rem;
   cursor: pointer;
   transition: ease-in-out 0.2s;
+  padding: 0.2rem;
 }
 
 .container:hover {
-  background-color: var(--color-primary, #eeeeee);
+  background-color: #ecf6ff88;
   color: var(--color-secondary, #ffffff);
   border-radius: 0.75rem;
 }

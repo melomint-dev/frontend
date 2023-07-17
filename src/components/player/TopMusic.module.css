@@ -7,7 +7,7 @@
 .songs {
   display: grid;
   max-width: 51.5rem;
-  gap: 1.5rem;
+  gap: 1.2rem;
   grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
 }
 

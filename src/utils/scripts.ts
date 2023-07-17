@@ -6,7 +6,6 @@ interface Script {
 }
 
 export const userScript = async (script: Script) => {
-  // console.log(script);
   const response = await fcl.send([
     fcl.script(script.code),
     fcl.args(script.args),

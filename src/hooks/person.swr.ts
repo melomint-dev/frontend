@@ -39,6 +39,19 @@ export function useUser() {
   };
 }
 
+export function useArtist(id: string) {
+  const { data, error, isLoading } = useSWR(
+    [SWR_CONSTANTS.GET_ARTIST, id],
+    personService.getArtist
+  );
+
+  return {
+    artistData: data as IUser,
+    isArtistDataLoading: isLoading as boolean,
+    errorFetchingArtistData: error,
+  };
+}
+
 export async function upadtePriceFetcher(
   url: string,
   { arg }: { arg: { price: number } }

@@ -15,13 +15,13 @@ import { MusicContext } from "@/context/MusicContext";
 
 import styles from "./Bottombar.module.css";
 
-function MusicControllor({ image, func }: { image: string; func:()=> void }) {
+function MusicControllor({ image, func }: { image: string; func: () => void }) {
   return (
     <button className={styles.button} onClick={func}>
       <Image src={image} alt="" />
     </button>
   );
-};
+}
 
 const BottomBar = () => {
   interface TimeObject {
@@ -31,18 +31,18 @@ const BottomBar = () => {
   const { musicName, artistName, audio, currentTime, duration, isPlaying, setIsPlaying, volumeValue, setVolume, setSeekTime } = useContext(MusicContext);
 
   const forward = () => {
-      setSeekTime(audio!.currentTime + 10);
-  }
+    setSeekTime(audio!.currentTime + 10);
+  };
 
   const backward = () => {
-      setSeekTime(audio!.currentTime - 10);
-  }
+    setSeekTime(audio!.currentTime - 10);
+  };
 
   const handlePlayPause = () => {
     if (isPlaying && audio) {
       setIsPlaying(false);
       audio.pause();
-    } else if(audio) {
+    } else if (audio) {
       setIsPlaying(true);
       audio.play();
     }
@@ -73,20 +73,43 @@ const BottomBar = () => {
       </div>
       <div className={styles.playBar}>
         <div className={styles.timeLine}>
-          <Text color="primary.1" weight={500} fz="xs" className={styles.timeText}>
-            {formatTime({timeInSeconds: currentTime})}
+          <Text
+            color="primary.1"
+            weight={500}
+            fz="xs"
+            className={styles.timeText}
+          >
+            {formatTime({ timeInSeconds: currentTime })}
           </Text>
-          <Slider color="primary" size="sm" value={currentTime} step={0.01} onChange={setSeekTime} min={0} max={duration} label={null}/>
-          <Text color="primary.1" weight={500} fz="xs" className={styles.timeText}>
-            {formatTime({timeInSeconds: duration})}
+          <Slider
+            color="primary"
+            size="sm"
+            value={currentTime}
+            step={0.01}
+            onChange={setSeekTime}
+            min={0}
+            max={duration}
+            label={null}
+          />
+          <Text
+            color="primary.1"
+            weight={500}
+            fz="xs"
+            className={styles.timeText}
+          >
+            {formatTime({ timeInSeconds: duration })}
           </Text>
         </div>
         <div className={styles.bar}>
-          <MusicControllor image={backbutton} func={handlePlayPause}/>
-          <MusicControllor image={prevbutton} func={backward}/>
-          {isPlaying ? <MusicControllor image={pausebutton} func={handlePlayPause}/> : <MusicControllor image={playbutton} func={handlePlayPause}/>}
-          <MusicControllor image={nextbutton} func={forward}/>
-          <MusicControllor image={fastforardbutton} func={handlePlayPause}/>
+          <MusicControllor image={backbutton} func={handlePlayPause} />
+          <MusicControllor image={prevbutton} func={backward} />
+          {isPlaying ? (
+            <MusicControllor image={pausebutton} func={handlePlayPause} />
+          ) : (
+            <MusicControllor image={playbutton} func={handlePlayPause} />
+          )}
+          <MusicControllor image={nextbutton} func={forward} />
+          <MusicControllor image={fastforardbutton} func={handlePlayPause} />
         </div>
       </div>
 
@@ -94,7 +117,14 @@ const BottomBar = () => {
         <Image src={heart} alt="" className="" />
         <div className={styles.volumeBar}>
           <Image src={volume} alt="" className="" />
-          <Slider color="primary" size="sm" value={volumeValue} min={0} max={100} onChange={setVolume}/>
+          <Slider
+            color="primary"
+            size="sm"
+            value={volumeValue}
+            min={0}
+            max={100}
+            onChange={setVolume}
+          />
         </div>
       </div>
     </div>

@@ -33,6 +33,15 @@ class PersonService {
     }
   };
 
+  getArtist = async ([url, id]: [string, string]) => {
+    try {
+      return await this.getPersonByAddress(id);
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  };
+
   updateNFTPrice = async ({ price }: { price: number }) => {
     try {
       await singleUserTransaction({

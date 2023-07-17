@@ -4,7 +4,7 @@ import ArtistComponent from "./ArtistComponent";
 import { user } from "@/assets/player";
 
 const TEMP_ARTIST_DATA = new Array(6).fill({}).map((_, i) => ({
-  _id: i.toString(),
+  _id: "0xbee7d6ffa5507d25",
   name: "Artist Name",
   image: "https://picsum.photos/300/300?random=" + i,
 }));

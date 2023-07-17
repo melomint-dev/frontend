@@ -12,6 +12,7 @@ const NewReleases = () => {
       <div className={styles.songs}>
         <NewSongComponents 
           song={{
+            _id: "1",
             name: "Song Name",
             image: user,
             artist: "Artist Name",
@@ -19,6 +20,7 @@ const NewReleases = () => {
         />
         <NewSongComponents 
           song={{
+            _id: "2",
             name: "Song Name",
             image: user,
             artist: "Artist Name",
@@ -26,6 +28,7 @@ const NewReleases = () => {
         />
         <NewSongComponents 
           song={{
+            _id: "3",
             name: "Song Name",
             image: user,
             artist: "Artist Name",
