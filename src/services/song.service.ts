@@ -25,6 +25,7 @@ class SongService {
     name: string;
     freeUrl: string;
     img: string;
+    duration: number;
   }) => {
     try {
       const data = await singleUserTransaction({
@@ -34,6 +35,7 @@ class SongService {
           fcl.arg(song.name, fcl.t.String),
           fcl.arg(song.freeUrl, fcl.t.String),
           fcl.arg(song.img, fcl.t.String),
+          fcl.arg(song.duration, fcl.t.UInt64),
         ],
       });
       return data;

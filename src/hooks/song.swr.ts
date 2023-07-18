@@ -43,29 +43,41 @@ export async function addSongFetcher(
   }
 ) {
   try {
-    const formData = {
-      audioFile: arg.song,
-      imageFile: arg.img,
-    };
+    const duration = await new Promise<number>((resolve, reject) => {
+      const audio = new Audio();
+      audio.src = URL.createObjectURL(arg.song);
+
+      audio.addEventListener("loadedmetadata", () => {
+        const duration = audio.duration;
+        resolve(duration);
+      });
+
+      audio.addEventListener("error", (error) => {
+        reject(error);
+      });
+    });
+
+    console.log("duration", duration);
+
+    const formData = new FormData();
+    formData.append("audio", arg.song as File);
+    formData.append("image", arg.img as File);
 
     const res = await fetch(API_CONSTANTS.ADD_SONG, {
       method: "POST",
-      body: JSON.stringify(formData),
-      headers: {
-        "Content-Type": "multipart/form-data",
-        "boundary": "blob",
-      },
+      body: formData,
     });
 
     const data = await res.json();
     console.log("data", data);
 
-    // return await songService.addSong({
-    //   id: arg.id,
-    //   name: arg.name,
-    //   freeUrl: arg.freeUrl,
-    //   img: arg.img,
-    // });
+    return await songService.addSong({
+      id: data.coverImageHash,
+      name: arg.name,
+      freeUrl: data.LowQualityIpfsHash,
+      img: data.coverImageHash,
+      duration: parseInt(duration.toString()),
+    });
   } catch (err) {
     console.log("err", err);
     throw err;

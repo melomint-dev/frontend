@@ -9,6 +9,7 @@ import {
   Button,
   FileInput,
   Checkbox,
+  LoadingOverlay
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 
@@ -62,6 +63,13 @@ function UploadModalComp() {
 
   return (
     <div className={styles.container}>
+      <LoadingOverlay
+        loaderProps={{
+          variant: "bars",
+        }}
+        visible={isMutating}
+        overlayBlur={2}
+      />
       <Title order={4} weight={"700"}>
         Upload Song
       </Title>
