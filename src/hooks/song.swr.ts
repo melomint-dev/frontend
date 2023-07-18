@@ -93,7 +93,7 @@ export async function likeSongFetcher(
   { arg }: { arg: { id: string; isLiked: boolean } }
 ) {
   try {
-    await songService.likeSong(arg.id);
+    await songService.likeSong(arg.id, arg.isLiked);
     await mutate(SWR_CONSTANTS.GET_USER);
   } catch (err) {
     console.log("err", err);

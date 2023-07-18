@@ -19,7 +19,10 @@ import API_CONSTANTS from "@/utils/apiConstants";
 import { likeSongFetcher } from "@/hooks/song.swr";
 import { useUser } from "@/hooks/person.swr";
 import useSWRMutation from "swr/mutation";
-import { showSuccessNotification } from "@/utils/notifications.helper";
+import {
+  showErrorNotification,
+  showSuccessNotification,
+} from "@/utils/notifications.helper";
 
 function MusicControllor({ image, func }: { image: string; func: () => void }) {
   return (
@@ -87,9 +90,12 @@ const BottomBar = () => {
         id: songId,
         isLiked: isLiked,
       });
-      showSuccessNotification("Song Liked Successfully");
+      showSuccessNotification(
+        isLiked ? "Removed from Liked Songs" : "Added to Liked Songs"
+      );
     } catch (err) {
       console.log(err);
+      showErrorNotification("Something went wrong");
     }
   };
 
@@ -154,9 +160,13 @@ const BottomBar = () => {
         {/* <Image src={heart} alt="" className="" /> */}
 
         {isMutating || isUserDataLoading || errorFetchingUserData ? (
-          <Skeleton height={22} width={22} />
+          <Skeleton height={25} width={25} />
         ) : (
-          <ActionIcon color="red" variant="subtle" onClick={handleLikeToggle}>
+          <ActionIcon
+            color={isLiked ? "red" : "primary"}
+            variant="subtle"
+            onClick={handleLikeToggle}
+          >
             {isLiked ? <IconHeartFilled size={22} /> : <IconHeart size={22} />}
           </ActionIcon>
         )}

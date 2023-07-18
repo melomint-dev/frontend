@@ -9,6 +9,7 @@ import {
 } from "@/cadence/transactions";
 import { getListOfSongDetailsViaSongIdsScript } from "@/cadence/scripts/getListOfSongDetailsViaSongIds";
 import API_CONSTANTS from "@/utils/apiConstants";
+import { removePersonLikedSongTransaction } from "@/cadence/transactions/removePersonLikedSong";
 
 class SongService {
   getSong = async ([url, id]: [string, string]) => {
@@ -79,18 +80,25 @@ class SongService {
     }
   };
 
-  async likeSong(songId: string) {
+  async likeSong(songId: string, isLiked: boolean) {
     try {
-      await singleUserTransaction({
-        code: updatePersonLikedSongTransaction,
-        args: [fcl.arg(songId, fcl.t.String)],
-      });
+      if (isLiked) {
+        await singleUserTransaction({
+          code: removePersonLikedSongTransaction,
+          args: [fcl.arg(songId, fcl.t.String)],
+        });
+      } else {
+        await singleUserTransaction({
+          code: updatePersonLikedSongTransaction,
+          args: [fcl.arg(songId, fcl.t.String)],
+        });
+      }
 
       await fetch(API_CONSTANTS.ADD_LIKES_TO_SONG, {
         method: "POST",
         body: JSON.stringify({
           songId,
-          like: 1,
+          like: isLiked ? -1 : 1,
         }),
         headers: {
           "Content-Type": "application/json",
@@ -99,7 +107,7 @@ class SongService {
       return true;
     } catch (error) {
       console.log(error);
-      return false;
+      throw error;
     }
   }
 }
