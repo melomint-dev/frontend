@@ -1,13 +1,17 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import styles from "./NewSongComponents.module.css";
 
 import Image, { StaticImageData } from "next/image";
-import { Text } from "@mantine/core";
+import { LoadingOverlay, Text } from "@mantine/core";
 import { MusicContext } from "@/context/MusicContext";
 import API_CONSTANTS from "@/utils/apiConstants";
 import { ISong } from "@/interfaces/ISong";
+import { useUser } from "@/hooks/person.swr";
 
 const NewSongComponents = ({ song }: { song: ISong }) => {
+  const { userData } = useUser();
+  const [isLoadingSong, setIsLoadingSong] = useState(false);
+
   interface HashObject {
     [key: string]: string;
   }
@@ -19,16 +23,22 @@ const NewSongComponents = ({ song }: { song: ISong }) => {
     setMusicName,
   } = useContext(MusicContext);
   const changeSong = (ipfsHash: HashObject) => {
-    const cURL =
-      "https://melomint-infra.centralindia.cloudapp.azure.com/api/get-file/";
+    setIsLoadingSong(true);
+
     const { hash } = ipfsHash;
     console.log(hash);
-    if (audioURL !== cURL + hash) {
-      setAudioUrl(cURL + hash);
+    const audioURLMeta = {
+      songId: song.id,
+      artistId: song.artist.id,
+      userId: userData.id,
+    };
+    if (audioURL !== JSON.stringify(audioURLMeta)) {
+      setAudioUrl(JSON.stringify(audioURLMeta));
       setMusicName(song.name);
       setArtistName(song.artist.firstName + " " + song.artist.lastName);
       setCoverPhotoSrc(API_CONSTANTS.IPFS_BASE_URL + song.img);
     }
+    setIsLoadingSong(false);
   };
   return (
     <div
@@ -37,6 +47,13 @@ const NewSongComponents = ({ song }: { song: ISong }) => {
         changeSong({ hash: "QmdztfvDRgVaUUs5SoHM4HNnsy8t9A1xmtN1k8Ky9XYC8r" })
       }
     >
+      <LoadingOverlay
+        loaderProps={{
+          variant: "bars",
+        }}
+        visible={isLoadingSong}
+        overlayBlur={2}
+      />
       <Image
         src={API_CONSTANTS.IPFS_BASE_URL + song.img}
         alt=""

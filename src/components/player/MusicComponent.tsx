@@ -14,7 +14,7 @@ const MusicComponent = ({
   song: ISong;
   showFull?: boolean;
 }) => {
-  const { userData, isUserDataLoading, errorFetchingUserData } = useUser();
+  const { userData } = useUser();
 
   interface HashObject {
     [key: string]: string;
