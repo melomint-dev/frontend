@@ -85,6 +85,7 @@ const BottomBar = () => {
     try {
       await toggleLike({
         id: songId,
+        isLiked: isLiked,
       });
       showSuccessNotification("Song Liked Successfully");
     } catch (err) {
