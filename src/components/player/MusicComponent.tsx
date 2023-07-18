@@ -26,16 +26,14 @@ const MusicComponent = ({
     setCoverPhotoSrc,
     setMusicName,
   } = useContext(MusicContext);
-  const changeSong = (ipfsHash: HashObject) => {
-    const cURL =
-      "https://melomint-infra.centralindia.cloudapp.azure.com/api/get-file/";
-    const { hash } = ipfsHash;
-    console.log(hash);
+  const changeSong = () => {
     const audioURLMeta = {
       songId: song.id,
       artistId: song.artist.id,
       userId: userData.id,
     };
+    console.log("audioURLMeta", audioURLMeta);
+    console.log("audioURL", audioURL);
     if (audioURL !== JSON.stringify(audioURLMeta)) {
       setAudioUrl(JSON.stringify(audioURLMeta));
       setMusicName(song.name);
@@ -44,12 +42,7 @@ const MusicComponent = ({
     }
   };
   return (
-    <div
-      className={styles.container}
-      onClick={() =>
-        changeSong({ hash: "QmdztfvDRgVaUUs5SoHM4HNnsy8t9A1xmtN1k8Ky9XYC8r" })
-      }
-    >
+    <div className={styles.container} onClick={changeSong}>
       <Image
         src={API_CONSTANTS.IPFS_BASE_URL + song.img}
         height={56}
