@@ -11,6 +11,5 @@ export const userScript = async (script: Script) => {
     fcl.args(script.args),
   ]);
   const data = await fcl.decode(response);
-  console.log(data);
   return data;
 };

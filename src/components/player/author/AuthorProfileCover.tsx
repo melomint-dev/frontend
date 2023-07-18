@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Title, Button, Text } from "@mantine/core";
 import { useRouter } from "next/router";

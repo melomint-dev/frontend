@@ -5,6 +5,7 @@ import { Text } from "@mantine/core";
 import { MusicContext } from "@/context/MusicContext";
 import API_CONSTANTS from "@/utils/apiConstants";
 import { ISong } from "@/interfaces/ISong";
+import { useUser } from "@/hooks/person.swr";
 
 const MusicComponent = ({
   song,
@@ -13,6 +14,8 @@ const MusicComponent = ({
   song: ISong;
   showFull?: boolean;
 }) => {
+  const { userData, isUserDataLoading, errorFetchingUserData } = useUser();
+
   interface HashObject {
     [key: string]: string;
   }
@@ -28,8 +31,13 @@ const MusicComponent = ({
       "https://melomint-infra.centralindia.cloudapp.azure.com/api/get-file/";
     const { hash } = ipfsHash;
     console.log(hash);
-    if (audioURL !== cURL + hash) {
-      setAudioUrl(cURL + hash);
+    const audioURLMeta = {
+      songId: song.id,
+      artistId: song.artist.id,
+      userId: userData.id,
+    };
+    if (audioURL !== JSON.stringify(audioURLMeta)) {
+      setAudioUrl(JSON.stringify(audioURLMeta));
       setMusicName(song.name);
       setArtistName(song.artist.firstName + " " + song.artist.lastName);
       setCoverPhotoSrc(song.img);

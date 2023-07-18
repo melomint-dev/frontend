@@ -9,7 +9,7 @@ import {
   Button,
   FileInput,
   Checkbox,
-  LoadingOverlay
+  LoadingOverlay,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 
@@ -21,8 +21,12 @@ import Image from "next/image";
 import { addSongFetcher } from "@/hooks/song.swr";
 import SWR_CONSTANTS from "@/utils/swrConstants";
 import useSWRMutation from "swr/mutation";
+import {
+  showErrorNotification,
+  showSuccessNotification,
+} from "@/utils/notifications.helper";
 
-function UploadModalComp() {
+function UploadModalComp({ close }: { close: () => void }) {
   const router = useRouter();
 
   const form = useForm({
@@ -50,13 +54,19 @@ function UploadModalComp() {
   const uploadSong = async () => {
     try {
       if (form.values.song !== null && form.values.cover !== null) {
-        const data = await songUpload({
+        await songUpload({
           name: form.values.name,
           song: form.values.song,
           img: form.values.cover,
+          preRelease: form.values.isExclusive
+            ? form.values.exclusiveUntil.getTime()
+            : Date.now(),
         });
       }
+      showSuccessNotification("Song Uploaded Successfully");
+      close();
     } catch (error) {
+      showErrorNotification("Error Uploading Song");
       console.log(error);
     }
   };

@@ -183,7 +183,12 @@ function Sidebar() {
       ) : (
         coverPhotoSrc !== "" && (
           <div className={styles.albumCover}>
-            <Image src={coverPhotoSrc} alt="" fill className={styles.photo} />
+            <Image
+              src={API_CONSTANTS.IPFS_BASE_URL + coverPhotoSrc}
+              alt=""
+              fill
+              className={styles.photo}
+            />
           </div>
         )
       )}

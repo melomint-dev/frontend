@@ -12,6 +12,7 @@ class APIConstants {
   static BUY_NFT = this.FLOW_URL + "/addSubscribers";
   static BUY_SUBSCRIPTION = this.FLOW_URL + "/updateSubscriptionTime";
   static ADD_SONG = this.BASE_URL + "/upload";
+  static GET_FILE = this.BASE_URL + "get-file";
 
   static GET_TRENDING_SONGS = this.FLOW_ABSTRACTIONS_URL + "/songs/trending";
   static GET_LATEST_SONGS = this.FLOW_ABSTRACTIONS_URL + "/songs/latest";

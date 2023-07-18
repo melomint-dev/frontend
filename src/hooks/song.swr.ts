@@ -1,8 +1,9 @@
-import useSWR from "swr";
+import useSWR, { mutate } from "swr";
 import SWR_CONSTANTS from "@/utils/swrConstants";
 import songService from "@/services/song.service";
 import { ISong } from "@/interfaces/ISong";
 import API_CONSTANTS from "@/utils/apiConstants";
+import { NumericLiteral } from "typescript";
 
 export function useSong(id: string) {
   const { data, error, isLoading } = useSWR(
@@ -39,6 +40,7 @@ export async function addSongFetcher(
       name: string;
       song: File;
       img: File;
+      preRelease: number;
     };
   }
 ) {
@@ -71,13 +73,15 @@ export async function addSongFetcher(
     const data = await res.json();
     console.log("data", data);
 
-    return await songService.addSong({
+    await songService.addSong({
       id: data.coverImageHash,
       name: arg.name,
       freeUrl: data.LowQualityIpfsHash,
       img: data.coverImageHash,
       duration: parseInt(duration.toString()),
+      preRelease: parseInt((arg.preRelease / 1000).toString()),
     });
+    await mutate(SWR_CONSTANTS.GET_USER);
   } catch (err) {
     console.log("err", err);
     throw err;
