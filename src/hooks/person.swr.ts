@@ -142,3 +142,51 @@ export function usePeopleList(list: string[]) {
     errorFetchingPeopleListData: error,
   };
 }
+
+export async function buySubscriptionFetcher(
+  url: string,
+  {
+    arg,
+  }: {
+    arg: {
+      amount: number;
+      artistID: string;
+    };
+  }
+) {
+  try {
+
+    const userAcc = await fcl.currentUser().snapshot();
+    console.log("userAcc", userAcc);
+
+    const formData = {
+      "userId": userAcc.addr,
+      "additionalTime": parseFloat((60*60*24*15).toString()).toString(),
+    };
+
+    console.log("formData", formData);
+
+    const res = await fetch(API_CONSTANTS.BUY_SUBSCRIPTION, {
+      method: "POST",
+      body: JSON.stringify(formData),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const data = await res.json();
+    console.log("data", data);
+
+    await personService.buyNFT({
+      amount: arg.amount,
+      artistID: arg.artistID,
+    });
+    await mutate(SWR_CONSTANTS.GET_USER);
+    return true;
+  } catch (err) {
+    console.log("err", err);
+    throw err;
+  }
+}
+
+

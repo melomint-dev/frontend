@@ -6,7 +6,7 @@ import { Title, Skeleton } from "@mantine/core";
 import MusicComponent from "@/components/player/MusicComponent";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/router";
-import { useArtist, buyNFTFetcher } from "@/hooks/person.swr";
+import { useArtist } from "@/hooks/person.swr";
 import SWR_CONSTANTS from "@/utils/swrConstants";
 import useSWRMutation from "swr/mutation";
 import { useSongList } from "@/hooks/song.swr";

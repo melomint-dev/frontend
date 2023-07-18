@@ -43,10 +43,10 @@ function AuthorProfile({
         artistID: artistId,
       });
       console.log("UPDATE-IMAGE -- SUCCESS");
-      showSuccessNotification("Image updated successfully");
+      showSuccessNotification("NFT buy successfully");
     } catch (err) {
       console.log(err);
-      showErrorNotification("Error updating image");
+      showErrorNotification("Error in NFT buy");
     }
   };
 
