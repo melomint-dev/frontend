@@ -52,7 +52,7 @@
 
 .rightBar {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 1.25rem;
   width: 100%;
   max-width: 10rem;
@@ -68,6 +68,6 @@
   gap: 0.6875rem;
 }
 
-.timeText{
+.timeText {
   width: 1.4rem;
 }

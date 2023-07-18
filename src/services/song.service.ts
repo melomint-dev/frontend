@@ -3,8 +3,12 @@ import { singleUserTransaction } from "@/utils/transcation";
 import { userScript } from "@/utils/scripts";
 
 import { getSongByIdScript } from "@/cadence/scripts";
-import { addSongTransaction } from "@/cadence/transactions";
+import {
+  addSongTransaction,
+  updatePersonLikedSongTransaction,
+} from "@/cadence/transactions";
 import { getListOfSongDetailsViaSongIdsScript } from "@/cadence/scripts/getListOfSongDetailsViaSongIds";
+import API_CONSTANTS from "@/utils/apiConstants";
 
 class SongService {
   getSong = async ([url, id]: [string, string]) => {
@@ -74,6 +78,30 @@ class SongService {
       throw error;
     }
   };
+
+  async likeSong(songId: string) {
+    try {
+      await singleUserTransaction({
+        code: updatePersonLikedSongTransaction,
+        args: [fcl.arg(songId, fcl.t.String)],
+      });
+
+      await fetch(API_CONSTANTS.ADD_LIKES_TO_SONG, {
+        method: "POST",
+        body: JSON.stringify({
+          songId,
+          like: 1,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      return true;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  }
 }
 
 const songService = new SongService();

@@ -87,3 +87,16 @@ export async function addSongFetcher(
     throw err;
   }
 }
+
+export async function likeSongFetcher(
+  url: string,
+  { arg }: { arg: { id: string; isLiked: boolean } }
+) {
+  try {
+    await songService.likeSong(arg.id);
+    await mutate(SWR_CONSTANTS.GET_USER);
+  } catch (err) {
+    console.log("err", err);
+    throw err;
+  }
+}

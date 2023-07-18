@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import Image from "next/image";
-import { Text, Slider } from "@mantine/core";
+import { Text, Slider, Skeleton, ActionIcon } from "@mantine/core";
+import { IconHeart, IconHeartFilled } from "@tabler/icons-react";
 import {
   backbutton,
   fastforardbutton,
@@ -14,6 +15,11 @@ import {
 import { MusicContext } from "@/context/MusicContext";
 
 import styles from "./Bottombar.module.css";
+import API_CONSTANTS from "@/utils/apiConstants";
+import { likeSongFetcher } from "@/hooks/song.swr";
+import { useUser } from "@/hooks/person.swr";
+import useSWRMutation from "swr/mutation";
+import { showSuccessNotification } from "@/utils/notifications.helper";
 
 function MusicControllor({ image, func }: { image: string; func: () => void }) {
   return (
@@ -28,7 +34,24 @@ const BottomBar = () => {
     [key: string]: number;
   }
 
-  const { musicName, artistName, audio, currentTime, duration, isPlaying, setIsPlaying, volumeValue, setVolume, setSeekTime } = useContext(MusicContext);
+  const {
+    musicName,
+    artistName,
+    audio,
+    currentTime,
+    duration,
+    isPlaying,
+    setIsPlaying,
+    volumeValue,
+    setVolume,
+    setSeekTime,
+    audioURL,
+  } = useContext(MusicContext);
+  const { trigger: toggleLike, isMutating } = useSWRMutation(
+    API_CONSTANTS.ADD_LIKES_TO_SONG,
+    likeSongFetcher
+  );
+  const { userData, isUserDataLoading, errorFetchingUserData } = useUser();
 
   const forward = () => {
     setSeekTime(audio!.currentTime + 10);
@@ -54,6 +77,19 @@ const BottomBar = () => {
     const seconds = Math.floor(timeInSeconds % 60);
     const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds;
     return `${minutes}:${formattedSeconds}`;
+  };
+
+  const songId = audioURL ? JSON.parse(audioURL).songId : null;
+  const isLiked = userData?.likedSongs[songId];
+  const handleLikeToggle = async () => {
+    try {
+      await toggleLike({
+        id: songId,
+      });
+      showSuccessNotification("Song Liked Successfully");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -114,7 +150,15 @@ const BottomBar = () => {
       </div>
 
       <div className={styles.rightBar}>
-        <Image src={heart} alt="" className="" />
+        {/* <Image src={heart} alt="" className="" /> */}
+
+        {isMutating || isUserDataLoading || errorFetchingUserData ? (
+          <Skeleton height={22} width={22} />
+        ) : (
+          <ActionIcon color="red" variant="subtle" onClick={handleLikeToggle}>
+            {isLiked ? <IconHeartFilled size={22} /> : <IconHeart size={22} />}
+          </ActionIcon>
+        )}
         <div className={styles.volumeBar}>
           <Image src={volume} alt="" className="" />
           <Slider

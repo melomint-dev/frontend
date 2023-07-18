@@ -13,6 +13,7 @@ class APIConstants {
   static ADD_SONG = this.BASE_URL + "/upload";
   static GET_FILE = this.BASE_URL + "get-file";
 
+  static ADD_LIKES_TO_SONG = this.FLOW_URL + "/addSongLikes";
   static GET_TRENDING_SONGS = this.FLOW_ABSTRACTIONS_URL + "/songs/trending";
   static GET_LATEST_SONGS = this.FLOW_ABSTRACTIONS_URL + "/songs/latest";
   static GET_ARTISTS_ON_RISE = this.FLOW_ABSTRACTIONS_URL + "/artists/rising";
