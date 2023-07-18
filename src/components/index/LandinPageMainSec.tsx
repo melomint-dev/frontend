@@ -13,7 +13,7 @@ import Instagram from "@/assets/home/footer/icons/Instagram.svg";
 import LinkedinH from "@/assets/home/footer/icons/LinkedinH.svg";
 import FacebookH from "@/assets/home/footer/icons/FacebookH.svg";
 import InstagramH from "@/assets/home/footer/icons/InstagramH.svg";
-import arrorwImg from "@/assets/home/footer/arrow.svg";
+import arrorwImg from "@/assets/home/footer/Arrow.svg";
 
 import styles from "./LandinPageMainSec.module.css";
 import Image from "next/image";
