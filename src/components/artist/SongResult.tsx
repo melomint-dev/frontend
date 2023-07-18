@@ -4,6 +4,7 @@ import Image from "next/image";
 import { user } from "@/assets/player";
 import { ISong } from "@/interfaces/ISong";
 import { useSongList } from "@/hooks/song.swr";
+import API_CONSTANTS from "@/utils/apiConstants";
 
 const songStyle = {
   borderRadius: "0.75rem",
@@ -53,7 +54,13 @@ const SimilarSong = ({
   return (
     <div className={styles.similarSongList}>
       <div className={styles.similarSong}>
-        <Image src={user} alt="" height={28} width={28} style={songStyle} />
+        <Image
+          src={API_CONSTANTS.IPFS_BASE_URL + song.img}
+          alt=""
+          height={28}
+          width={28}
+          style={songStyle}
+        />
         <Text weight={700} color="primary">
           {song.name}
         </Text>
@@ -73,7 +80,13 @@ const SimilarSongs = ({ song }: { song: ISong }) => {
   return (
     <>
       <div className={styles.song}>
-        <Image src={user} alt="" height={56} width={56} style={songStyle} />
+        <Image
+          src={API_CONSTANTS.IPFS_BASE_URL + song.img}
+          alt=""
+          height={56}
+          width={56}
+          style={songStyle}
+        />
         <div>
           <Text weight={700} color="primary">
             {song.name}
@@ -93,24 +106,26 @@ const SimilarSongs = ({ song }: { song: ISong }) => {
             Published
           </Text>
         </div>
-        <div className={styles.similarSongs}>
-          <Text weight={800} color="primary">
-            Similarities Found:
-          </Text>
-          {isSongListDataLoading || errorFetchingSongListData ? (
-            <Skeleton height={30} />
-          ) : (
-            songListData.map((song, index) => (
-              <SimilarSong
-                song={song}
-                key={index}
-                similarityIndices={song.similarTo[song.id]
-                  .filter((_, index) => index % 2 === 0)
-                  .map((index) => parseInt(index))}
-              />
-            ))
-          )}
-        </div>
+        {songListData?.length > 0 && (
+          <div className={styles.similarSongs}>
+            <Text weight={800} color="primary">
+              Similarities Found:
+            </Text>
+            {isSongListDataLoading || errorFetchingSongListData ? (
+              <Skeleton height={30} />
+            ) : (
+              songListData.map((song, index) => (
+                <SimilarSong
+                  song={song}
+                  key={index}
+                  similarityIndices={song.similarTo[song.id]
+                    .filter((_, index) => index % 2 === 0)
+                    .map((index) => parseInt(index))}
+                />
+              ))
+            )}
+          </div>
+        )}
       </>
       {/* ) : (
         <div className={styles.processing}>

@@ -346,7 +346,7 @@ const Artist = () => {
           },
         }}
       >
-        <UploadModalComp />
+        <UploadModalComp close={close} />
       </Modal>
     </>
   );

@@ -9,6 +9,7 @@ import {
   updatePersonLikedSongTransaction,
   buyNFTTransaction,
 } from "@/cadence/transactions";
+import { getListOfPeopleByIdsScript } from "@/cadence/scripts/getListOfPeopleByIds";
 
 class PersonService {
   getPersonByAddress = async (address: string) => {
@@ -115,10 +116,11 @@ class PersonService {
 
   getListOfPeopleByIds = async ([url, personIds]: [string, string[]]) => {
     try {
+      console.log("personIds", personIds);
       if (!personIds.length) return [];
       const data = await userScript({
-        code: getPersonByAddressScript,
-        args: [fcl.arg(personIds, fcl.t.Array(fcl.t.String))],
+        code: getListOfPeopleByIdsScript,
+        args: [fcl.arg(personIds, fcl.t.Array(fcl.t.Address))],
       });
       return data;
     } catch (error) {

@@ -1,3 +1,5 @@
+import API_CONSTANTS from "@/utils/apiConstants";
+import { showErrorNotification } from "@/utils/notifications.helper";
 import {
   createContext,
   useContext,
@@ -10,6 +12,14 @@ import React from "react";
 
 import type { ReactNode } from "react";
 
+async function streamToBlob(readableStream: ReadableStream): Promise<Blob> {
+  // Create a new Response object from the Readable Stream
+  const response = new Response(readableStream);
+
+  // Convert the Response to a Blob
+  const blob = await response.blob();
+  return blob;
+}
 interface IMusicContext {
   audio: HTMLAudioElement | undefined;
   setAudio: React.Dispatch<React.SetStateAction<HTMLAudioElement | undefined>>;
@@ -111,8 +121,23 @@ export default function MusicContextProvider({
     }
     const fetchAudio = async () => {
       try {
-        const response = await fetch(audioURL);
-        const audioBlob = await response.blob();
+        const response = await fetch(API_CONSTANTS.GET_FILE, {
+          method: "POST",
+          body: audioURL,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        console.log("response", response);
+
+        if (!response.body) {
+          return showErrorNotification("Something went wrong");
+        }
+        const audioBlob = await streamToBlob(response.body);
+        // const audioBlob = await response.body?.blob();
+        // const audioBlob = await new Blob([response.body]);
+
         const audioObjectURL = URL.createObjectURL(audioBlob);
         setAudio(new Audio(audioObjectURL));
         setIsLoaded(true);
@@ -134,6 +159,13 @@ export default function MusicContextProvider({
 
   useEffect(() => {
     if (audio) {
+      audio.play();
+      setIsPlaying(true);
+    }
+  }, [audio]);
+
+  useEffect(() => {
+    if (audio) {
       audio.currentTime = seekTime;
       setCurrentTime(seekTime);
     }
@@ -147,9 +179,53 @@ export default function MusicContextProvider({
 
   const providerProps = useMemo(
     () => ({
-      coverPhotoSrc, setCoverPhotoSrc, musicName, setMusicName, artistName, setArtistName, audioURL, setAudioUrl, audio, setAudio, currentTime , setCurrentTime, isLoaded, setIsLoaded, duration, setDuration, isPlaying, setIsPlaying, volumeValue, setVolume, seekTime, setSeekTime,
+      coverPhotoSrc,
+      setCoverPhotoSrc,
+      musicName,
+      setMusicName,
+      artistName,
+      setArtistName,
+      audioURL,
+      setAudioUrl,
+      audio,
+      setAudio,
+      currentTime,
+      setCurrentTime,
+      isLoaded,
+      setIsLoaded,
+      duration,
+      setDuration,
+      isPlaying,
+      setIsPlaying,
+      volumeValue,
+      setVolume,
+      seekTime,
+      setSeekTime,
     }),
-    [coverPhotoSrc, setCoverPhotoSrc, musicName, setMusicName, artistName, setArtistName, audioURL, setAudioUrl, audio, setAudio, currentTime , setCurrentTime, isLoaded, setIsLoaded, duration, setDuration, isPlaying, setIsPlaying, volumeValue, setVolume, seekTime, setSeekTime]
+    [
+      coverPhotoSrc,
+      setCoverPhotoSrc,
+      musicName,
+      setMusicName,
+      artistName,
+      setArtistName,
+      audioURL,
+      setAudioUrl,
+      audio,
+      setAudio,
+      currentTime,
+      setCurrentTime,
+      isLoaded,
+      setIsLoaded,
+      duration,
+      setDuration,
+      isPlaying,
+      setIsPlaying,
+      volumeValue,
+      setVolume,
+      seekTime,
+      setSeekTime,
+    ]
   );
 
   return (

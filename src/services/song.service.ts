@@ -26,7 +26,13 @@ class SongService {
     freeUrl: string;
     img: string;
     duration: number;
+    preRelease: number;
   }) => {
+    console.log("Song", song);
+    console.log(
+      "parseFloat(song.preRelease.toString()).toFixed(1)",
+      parseFloat(song.preRelease.toString()).toFixed(1)
+    );
     try {
       const data = await singleUserTransaction({
         code: addSongTransaction,
@@ -36,6 +42,10 @@ class SongService {
           fcl.arg(song.freeUrl, fcl.t.String),
           fcl.arg(song.img, fcl.t.String),
           fcl.arg(song.duration, fcl.t.UInt64),
+          fcl.arg(
+            parseFloat(song.preRelease.toString()).toFixed(1).toString(),
+            fcl.t.UFix64
+          ),
         ],
       });
       return data;

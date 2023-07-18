@@ -6,7 +6,6 @@ import Head from "next/head";
 import { RouterTransition } from "@/components/RouterTransition";
 import { useEffect, useState } from "react";
 import { AppProps } from "next/app";
-// import { useCookies } from "react-cookie";
 import { Manrope } from "next/font/google";
 import { Notifications } from "@mantine/notifications";
 
@@ -15,8 +14,8 @@ import { useUser } from "@/hooks/person.swr";
 
 const manropeFont = Manrope({ subsets: ["latin"] });
 
-
 import * as fcl from "@onflow/fcl";
+import { useRouter } from "next/router";
 
 fcl.config({
   "flow.network": "testnet",
@@ -27,25 +26,17 @@ fcl.config({
 });
 
 export default function App({ Component, pageProps }: AppProps) {
-  // const [cookies, setCookies] = useCookies();
-  // const [user, setUserData] = useState(null);
-
-  // useEffect(() => {
-  //   const token = cookies.token;
-  //   if (token && !user) {
-  //     setUser(token);
-  //   }
-  // }, [cookies.token]);
-
-  // const setUser = async (token) => {
-  //   try {
-  //     const data = await getUserData(token);
-  //     setUserData(data);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
   const { userData, isUserDataLoading, errorFetchingUserData } = useUser();
+
+  const router = useRouter();
+
+  useEffect(() => {
+    console.log("router", router.pathname);
+  }, [router.pathname]);
+
+  useEffect(() => {
+    console.log(userData, isUserDataLoading, errorFetchingUserData);
+  }, [userData, isUserDataLoading, errorFetchingUserData]);
   return (
     <>
       <Head>

@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Title, Button, Text } from "@mantine/core";
 import { useRouter } from "next/router";
@@ -43,7 +43,7 @@ function AuthorProfile({
         artistID: artistId,
       });
       console.log("UPDATE-IMAGE -- SUCCESS");
-      showSuccessNotification("Image updated successfully");
+      showSuccessNotification("Artist Subscribed Successfully");
     } catch (err) {
       console.log(err);
       showErrorNotification("Error updating image");
