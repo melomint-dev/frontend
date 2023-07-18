@@ -128,6 +128,7 @@ class PersonService {
       throw error;
     }
   };
+
 }
 
 const personService = new PersonService();

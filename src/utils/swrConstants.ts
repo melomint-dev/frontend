@@ -7,6 +7,7 @@ class SWRConstants {
   static GET_SONG = "GET_SONG";
   static ADD_SONG = "ADD_SONG";
   static BUY_NFT = "BUY_NFT";
+  static BUY_SUBSCRIPTION = "BUY_SUBSCRIPTION";
 }
 
 const SWR_CONSTANTS = {
