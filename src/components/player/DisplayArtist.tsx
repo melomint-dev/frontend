@@ -3,7 +3,7 @@ import { Title, Text, Skeleton } from "@mantine/core";
 import ArtistComponent from "./ArtistComponent";
 import { user } from "@/assets/player";
 import { useArtistsOnRise } from "@/hooks/abstractions.flow.swr";
-import { IUser } from "@/hooks/person.swr";
+import { IUser } from "@/interfaces/IUser";
 
 const TEMP_ARTIST_DATA = new Array(6).fill({}).map((_, i) => ({
   _id: "0x482c030acfdcb4cc",
