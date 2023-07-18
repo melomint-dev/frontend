@@ -1,3 +1,9 @@
+# Melomint
+
+Hosted Link: https://melomint.vercel.app/
+
+Figma UI: https://www.figma.com/file/prWWyR3R618kjUelK0MBiW/MeloMint?type=design&node-id=594%3A292&mode=design&t=6ENFnNK6ooUTUwAS-1
+
 ## Installation
 
 1. Clone the repository:
@@ -27,6 +33,3 @@ pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-## Deployed on Vercel
-URL: https://melomint.vercel.app/
