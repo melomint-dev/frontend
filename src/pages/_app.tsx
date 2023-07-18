@@ -31,12 +31,24 @@ export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
 
   useEffect(() => {
-    console.log("router", router.pathname);
-  }, [router.pathname]);
-
-  useEffect(() => {
-    console.log(userData, isUserDataLoading, errorFetchingUserData);
-  }, [userData, isUserDataLoading, errorFetchingUserData]);
+    if (!isUserDataLoading) {
+      if (errorFetchingUserData) {
+        if (router.pathname !== "/") {
+          router.push("/");
+        }
+      } else {
+        if (userData.type == "1") {
+          if (!router.pathname.startsWith("/artist")) {
+            router.push("/artist");
+          }
+        } else {
+          if (!router.pathname.startsWith("/player")) {
+            router.push("/player");
+          }
+        }
+      }
+    }
+  }, [userData, isUserDataLoading, errorFetchingUserData, router.pathname]);
   return (
     <>
       <Head>

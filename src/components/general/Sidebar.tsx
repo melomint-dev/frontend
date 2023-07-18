@@ -14,6 +14,11 @@ import SWR_CONSTANTS from "@/utils/swrConstants";
 import useSWRMutation from "swr/mutation";
 import { MusicContext } from "@/context/MusicContext";
 import API_CONSTANTS from "@/utils/apiConstants";
+import { mutate } from "swr";
+import {
+  showErrorNotification,
+  showSuccessNotification,
+} from "@/utils/notifications.helper";
 
 const artistPhotoStyle = {
   borderRadius: "0.75rem",
@@ -68,9 +73,16 @@ const ArtistInfo = () => {
 function Sidebar() {
   const router = useRouter();
 
-  const logOut = () => {
-    fcl.unauthenticate();
-    router.push("/");
+  const logOut = async () => {
+    try {
+      await fcl.unauthenticate();
+      await mutate(SWR_CONSTANTS.GET_USER);
+      showSuccessNotification("Logged out successfully");
+      router.push("/");
+    } catch (e) {
+      showErrorNotification("Error logging out");
+      console.log(e);
+    }
   };
 
   const forArtist = router.pathname.startsWith("/artist");

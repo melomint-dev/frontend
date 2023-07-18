@@ -121,6 +121,15 @@ export default function MusicContextProvider({
     }
     const fetchAudio = async () => {
       try {
+        /**
+         * Stop current audio
+         */
+        if (audio) {
+          setIsPlaying(false);
+          audio.pause();
+          URL.revokeObjectURL(audio.src);
+        }
+
         const response = await fetch(API_CONSTANTS.GET_FILE, {
           method: "POST",
           body: audioURL,

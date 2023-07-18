@@ -171,6 +171,7 @@ function AuthComp({ type = "login" }: { type?: "login" | "register" }) {
               without a wallet with Walletless onboarding through Google
             </Text>
             <Button
+              disabled
               fullWidth
               rightIcon={<Image src={GoogleIcon} alt="Google Icon" />}
               size="md"
