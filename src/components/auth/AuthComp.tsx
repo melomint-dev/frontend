@@ -127,7 +127,7 @@ function AuthComp({ type = "login" }: { type?: "login" | "register" }) {
           </Title>
           <div className={styles.methodContainer}>
             <Text color="primary.3" weight={"500"}>
-              Connect your existing Ethereum wallet to access all features and
+              Connect your existing Flow wallet to access all features and
               securely manage your assets
             </Text>
             {type !== "login" && (
