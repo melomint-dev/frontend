@@ -2,7 +2,7 @@ import * as fcl from "@onflow/fcl";
 
 import {
   addSongTransaction,
-  updateNFTPriceTransaction,
+  // updateNFTPriceTransaction,
   buyNFTTransaction,
 } from "@/cadence/transactions";
 import { singleUserTransaction } from "@/utils/transcation";
@@ -77,18 +77,18 @@ class TransactionService {
     }
   };
 
-  updateNFTPrice = async ({ price }: { price: number }) => {
-    try {
-      await singleUserTransaction({
-        code: updateNFTPriceTransaction,
-        args: [fcl.arg(price.toString(), fcl.t.UInt)],
-      });
-      return true;
-    } catch (error) {
-      console.log(error);
-      return false;
-    }
-  };
+  // updateNFTPrice = async ({ price }: { price: number }) => {
+  //   try {
+  //     await singleUserTransaction({
+  //       code: updateNFTPriceTransaction,
+  //       args: [fcl.arg(price.toString(), fcl.t.UInt)],
+  //     });
+  //     return true;
+  //   } catch (error) {
+  //     console.log(error);
+  //     return false;
+  //   }
+  // };
 
   buyNFT = async ({ price }: { price: number }) => {
     try {
