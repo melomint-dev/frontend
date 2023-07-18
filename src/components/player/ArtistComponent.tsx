@@ -2,8 +2,8 @@ import styles from "./ArtistComponent.module.css";
 import Image from "next/image";
 import { Text } from "@mantine/core";
 import { useRouter } from "next/router";
-import { IUser } from "@/hooks/person.swr";
 import API_CONSTANTS from "@/utils/apiConstants";
+import { IUser } from "@/interfaces/IUser";
 
 const ArtistComponent = ({ artist }: { artist: IUser }) => {
   const router = useRouter();
