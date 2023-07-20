@@ -7,6 +7,28 @@
  <h3><a href="https://melomint.vercel.app/">Explore Melomint🔗</a></h3>
 </div>
 
+## Objective
+
+As we hear a lot about blockchain and NFT's in every field, we are implementing the blockchain concept for music lovers.
+
+## What does it do?
+
+### For Artist:
+
+- Register as an Artist: Choose between Wallet Onboarding or Walletless Onboarding to join the platform.
+- Update Profile: Personalize the profile with a Cover Image and add their Masterpiece NFT using Flow.
+- Add Song: Upload their original composition with required metadata, including the captivating cover artwork.
+- Process Song: The AI system expertly processes the song, detecting any potential reused parts from previously uploaded songs, and generates different quality - versions of the track.
+- Earning Commences: Once uploaded, the automated system takes charge, managing everything seamlessly, from revenue distribution to comprehensive analytics.
+
+### For User:
+
+- Register as a User: Opt for Wallet Onboarding or Walletless Onboarding to become part of the vibrant community.
+- Explore Platform: Dive into the vast musical realm, searching for songs and artists. Listen to songs and add favorites to the collection.
+- Get Premium: Upgrade for a premium experience, accessing high-quality, uncompressed songs for an unparalleled auditory delight.
+- Support Fav Artists: Show appreciation to beloved artists by purchasing their exclusive NFTs, granting access to unique content and fostering direct support.
+- Log Activity: Our advanced system continually logs user activities, capturing views, playback data, and more, ensuring transparent calculations and enhanced user engagement.
+
 ## Figma File
 
 <a href="https://www.figma.com/file/prWWyR3R618kjUelK0MBiW/MeloMint?type=design&node-id=773%3A826&mode=design&t=xtHZSVze7ydC25kq-1">Figma🔗</a></h3>
