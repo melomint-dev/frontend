@@ -9,7 +9,7 @@
 
 ## Objective
 
-As we hear a lot about blockchain and NFT's in every field, we are implementing the blockchain concept for music lovers.
+As we hear a lot about blockchain and NFT's in every field, we are implementing the blockchain concept for music lovers. Our aim is to revolutionize the music industry with an innovative platform. Artists experience fair compensation and protection through AI. And can connect  their followers with NFTs. While users enjoy seamless access to a vast library of high-quality songs. Transparency and support for artists drive our mission, enhancing the musical experience for all. 
 
 ## What does it do?
 
