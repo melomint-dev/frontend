@@ -76,11 +76,6 @@ As we hear a lot about blockchain and NFT's in every field, we are implementing 
 
 ![Dashboard- Artist](https://github.com/melomint-dev/frontend/assets/74830378/3cac8d35-280b-4a21-8261-08afa926e706)
 
-
-
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
 ## 🔗 Know the Project Creater
 
 Dignat Patel
