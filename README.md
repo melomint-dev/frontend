@@ -46,8 +46,7 @@ As we hear a lot about blockchain and NFT's in every field, we are implementing 
 
 ## Screenshots
 
-![landing](https://github.com/melomint-dev/frontend/assets/74830378/efdc9644-a355-4ef3-9daf-401286f89a6b)
-
+![landing](https://github.com/melomint-dev/frontend/assets/74830378/c10c0614-821c-4395-bf85-92a4d0850f60)
 
 <br>
 
