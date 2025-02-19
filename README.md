@@ -45,36 +45,32 @@ As we hear a lot about blockchain and NFT's in every field, we are implementing 
 <a href="https://www.youtube.com/watch?v=IzBVYDsGlIA">Youtube Video🔗</a></h3>
 
 ## Screenshots
-
-![landing](https://github.com/melomint-dev/frontend/assets/74830378/c10c0614-821c-4395-bf85-92a4d0850f60)
-
-<br>
-
-![dashboard](https://github.com/melomint-dev/frontend/assets/74830378/df490aa7-9339-4fa9-91dd-06ae5fe21cc8)
-
+![landing](https://github.com/user-attachments/assets/21b925aa-75b3-40d3-a0a9-c5a229e1c771)
 
 <br>
 
-![search](https://github.com/melomint-dev/frontend/assets/74830378/a800206c-e785-46a8-8d2d-2b0f5c5e1df8)
-
-
-<br>
-
-![Favorites](https://github.com/melomint-dev/frontend/assets/74830378/223b660c-3517-4b35-8188-974c7f347070)
-
+![dashboard](https://github.com/user-attachments/assets/ed9f42e9-0c78-491b-876f-a27611497aa2)
 
 <br>
 
-![artist](https://github.com/melomint-dev/frontend/assets/74830378/eeece735-939d-4055-803e-68db3ea6c726)
-
-
-<br>
-
-![Profile](https://github.com/melomint-dev/frontend/assets/74830378/e0c7e8ce-d196-41cd-a32b-f364d5ea88b7)
+![search](https://github.com/user-attachments/assets/09a4dc07-44dc-4ab8-addf-ee372eb46f1b)
 
 <br>
 
-![Dashboard- Artist](https://github.com/melomint-dev/frontend/assets/74830378/3cac8d35-280b-4a21-8261-08afa926e706)
+![Favorites](https://github.com/user-attachments/assets/451e4977-f2a5-4a18-82c9-8082e7ff51ad)
+
+<br>
+
+![artist](https://github.com/user-attachments/assets/14483f66-b598-4ba3-8989-6f26d2905e1a)
+
+<br>
+
+![Profile](https://github.com/user-attachments/assets/81959cbb-aba0-40ae-a43e-9a539ef0a87c)
+
+<br>
+
+![Dashboard- Artist](https://github.com/user-attachments/assets/fb2b29bf-9821-4a3d-b427-48134dfd18f4)
+
 
 ## 🔗 Know the Project Creater
 
